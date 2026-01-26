@@ -9,12 +9,12 @@ LIGHT_CYAN=\033[96m
 NAME = miniRT
 
 # ============== LIBFT COMMANDS =================
-LIBFT_DIR = libft
+LIBFT_DIR = lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDES = -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/dependency_includes
 
 # ============== MLX COMMANDS =================
-MLX_DIR = minilibx
+MLX_DIR = lib/minilibx
 MLX = $(MLX_DIR)/libmlx.a
 MLX_DEPENDENCIES = -lXext -lX11 -lbsd
 
