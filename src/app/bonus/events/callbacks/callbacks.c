@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_events_internal_bonus.h                   :+:      :+:    :+:   */
+/*   callbacks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 05:43:18 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/01/27 14:50:17 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/01/27 14:52:42 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_EVENTS_INTERNAL_BONUS_H
-# define WINDOW_EVENTS_INTERNAL_BONUS_H
+#include "includes/events_callbacks_internal_bonus.h"
 
-# include "window_events_bonus.h"
+t_events_callbacks	ft_new_events_callbacks(void)
+{
+	t_events_callbacks	callbacks;
 
-#endif
+	callbacks.mouse = new_mouse_callbacks();
+	callbacks.keyboard = ft_new_keyboard_callbacks();
+	callbacks.window = ft_new_window_callbacks();
+	return (callbacks);
+}

@@ -32,8 +32,9 @@ src/minilibx/minilibx.c
 
 # **** BONUS ****
 B_EV_FOLDER= src/app/bonus/events
-BONUS_EVENTS_FILES = $(B_EV_FOLDER)/events_bonus.c $(B_EV_FOLDER)/keyboard_events/keyboard_events_bonus.c \
-$(B_EV_FOLDER)/mouse_events/mouse_events_bonus.c $(B_EV_FOLDER)/window_events/window_events_bonus.c
+BONUS_EVENTS_FILES = $(B_EV_FOLDER)/events_bonus.c $(B_EV_FOLDER)/callbacks/keyboard_callbacks_bonus.c \
+$(B_EV_FOLDER)/callbacks/mouse_callbacks_bonus.c $(B_EV_FOLDER)/callbacks/window_callbacks_bonus.c \
+$(B_EV_FOLDER)/callbacks/callbacks.c $(B_EV_FOLDER)/state/state_bonus.c
 
 BONUS_FILES = $(BONUS_EVENTS_FILES)
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_events_bonus.c                               :+:      :+:    :+:   */
+/*   mouse_callbacks_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:31:11 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 10:24:19 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/27 14:49:46 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/mouse_events_internal_bonus.h"
+#include "includes/events_callbacks_internal_bonus.h"
 
 static int	ft_mouse_btn_press_callback(int key, int x, int y, void *param);
 static int	ft_mouse_btn_release_callback(int key, int x, int y, void *param);

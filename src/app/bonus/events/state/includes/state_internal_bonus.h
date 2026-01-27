@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events_bonus.h                                     :+:      :+:    :+:   */
+/*   state_internal_bonus.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:21:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 19:07:18 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/01/26 07:55:21 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef STATE_INTERNAL_BONUS_H
+# define STATE_INTERNAL_BONUS_H
 
-#ifndef EVENTS_BONUS_H
-# define EVENTS_BONUS_H
-
-# include "../callbacks/includes/events_callbacks_bonus.h"
-# include "../state/includes/state_bonus.h"
-
-typedef struct s_events	t_events;
-struct s_events
-{
-	t_events_callbacks	callbacks;
-	t_state				state;
-};
-
-t_events	ft_new_events(void);
+# include "libft.h"
+# include "state_bonus.h"
 
 #endif

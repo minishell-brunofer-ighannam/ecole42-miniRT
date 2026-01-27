@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard_events_bonus.c                            :+:      :+:    :+:   */
+/*   keyboard_callbacks_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:00:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 11:36:16 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/27 14:49:48 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/keyboard_events_internal_bonus.h"
+#include "includes/events_callbacks_internal_bonus.h"
 
 static int	ft_key_press(int key, void *param);
 static int	ft_key_release(int key, void *param);
