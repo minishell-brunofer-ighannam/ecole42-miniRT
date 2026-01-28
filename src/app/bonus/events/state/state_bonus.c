@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 19:08:06 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/28 10:05:00 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ t_state	ft_new_state(void)
 	t_state	state;
 
 	ft_bzero(&state, sizeof(t_state));
+	state.set = ft_new_set_state();
 	return (state);
 }

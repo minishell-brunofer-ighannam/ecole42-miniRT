@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 08:00:57 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/28 14:54:38 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "mlx.h"
 #include "../../minilibx/includes/minilibx.h"
 #include "events/includes/events_bonus.h"
+#include "context.h"
 
 static void	ft_track_fps(struct timeval curr_time, t_mlx *mlx)
 {
@@ -57,7 +58,7 @@ static void	ft_track_ms(struct timeval curr_time, t_mlx *mlx)
 	last_time = curr_time;
 }
 
-static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pixel)
+static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pixel, t_context *context)
 {
 	double		baskara;
 	int			pixels;
@@ -65,7 +66,7 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 	int			math_operations;
 	static int	first_call = 0;
 
-	pixels = 1920 * 1080;
+	pixels = context->events.state.window.width * context->events.state.window.height;
 	pixels_per_thread = pixels / threads_amount;
 	if (!first_call)
 	{
@@ -85,30 +86,31 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 	(void)baskara;
 }
 
-static void	ft_render_frame(struct timeval curr_time, t_mlx *mlx)
+static void	ft_render_frame(struct timeval curr_time, t_context *context)
 {
-	ft_simulate_expensive_prossessing(10, 50);
-	mlx->display_image(*mlx);
-	ft_track_fps(curr_time, mlx);
-	ft_track_ms(curr_time, mlx);
+	ft_simulate_expensive_prossessing(10, 50, context);
+	context->mlx.display_image(context->mlx);
+	ft_track_fps(curr_time, &context->mlx);
+	ft_track_ms(curr_time, &context->mlx);
 
 }
 
 static int	fake_loop_callback(void *param)
 {
-	t_mlx					*mlx;
+	t_context				*context;
 	struct timeval			curr_time;
 
-	mlx = param;
+	context = param;
 	gettimeofday(&curr_time, NULL);
-	ft_render_frame(curr_time, mlx);
+	ft_render_frame(curr_time, context);
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
-	t_mlx		mlx;
-	t_events	events;
+	t_mlx		*mlx;
+	t_events	*events;
+	t_context	context;
 	int			width;
 	int			height;
 
@@ -122,17 +124,18 @@ int	main(int argc, char **argv)
 	}
 	printf("[BONUS] --> argv: %s\n", argv[1]);
 
-	mlx = ft_new_mlx(width, height, "brunofer&ighannam:miniRT");
-	events = ft_new_events();
-	mlx.events.key_press(mlx, events.callbacks.keyboard.key_press, NULL);
-	mlx.events.key_release(mlx, events.callbacks.keyboard.key_release, NULL);
-	mlx.events.mouse_btn_press(mlx, events.callbacks.mouse.btn_press, NULL);
-	mlx.events.mouse_btn_release(mlx, events.callbacks.mouse.btn_release, NULL);
-	mlx.events.mouse_move(mlx, events.callbacks.mouse.btn_move_callback, NULL);
-	mlx.events.loop(mlx, fake_loop_callback, &mlx);
-	mlx.events.window_resize(mlx, events.callbacks.window.resize, NULL);
-	mlx.events.window_close(mlx, events.callbacks.window.close, &mlx);
-	mlx.loop(mlx);
-	mlx.destroy(mlx);
+	context = ft_new_context(width, height, "brunofer&ighannam:miniRT");
+	mlx = &context.mlx;
+	events = &context.events;
+	mlx->events.key_press(*mlx, events->callbacks.keyboard.key_press, &context);
+	mlx->events.key_release(*mlx, events->callbacks.keyboard.key_release, &context);
+	mlx->events.mouse_btn_press(*mlx, events->callbacks.mouse.btn_press, &context);
+	mlx->events.mouse_btn_release(*mlx, events->callbacks.mouse.btn_release, &context);
+	mlx->events.mouse_move(*mlx, events->callbacks.mouse.btn_move_callback, &context);
+	mlx->events.loop(*mlx, fake_loop_callback, &context);
+	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
+	mlx->events.window_close(*mlx, events->callbacks.window.close, mlx);
+	mlx->loop(*mlx);
+	mlx->destroy(*mlx);
 	return (0);
 }

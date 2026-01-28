@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gestures_internal_bonus.h                          :+:      :+:    :+:   */
+/*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 11:22:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:20:55 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/01/28 13:16:39 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GESTURES_INTERNAL_BONUS_H
-# define GESTURES_INTERNAL_BONUS_H
+#ifndef CONTEXT_H
+# define CONTEXT_H
 
-# include <stdio.h>
-# include "libft.h"
-# include "../../../../../minilibx/includes/minilibx.h"
-# include "gestures_bonus.h"
+# include "events/includes/events_bonus.h"
+# include "../../minilibx/includes/minilibx.h"
 
-void	init_wasd_gestures(t_state *state, t_gestures *gest);
-void	init_mouse_gestures(t_state *state, t_gestures *gest);
+typedef struct s_context	t_context;
+struct s_context
+{
+	t_mlx		mlx;
+	t_events	events;
+};
+
+t_context	ft_new_context(int width, int height, const char *name);
 
 #endif

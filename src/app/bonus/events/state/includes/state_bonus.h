@@ -16,7 +16,16 @@
 
 # include <stdbool.h>
 
-typedef struct s_pressed_keys	t_pressed_keys;
+typedef struct s_discrete_gesture	t_discrete_gesture;
+typedef struct s_spatial_gesture	t_spatial_gesture;
+
+typedef struct s_pressed_keys		t_pressed_keys;
+typedef struct s_camera_state		t_camera_state;
+typedef struct s_scene_state		t_scene_state;
+typedef struct s_window_state		t_window_state;
+typedef struct s_state				t_state;
+typedef struct s_set_state			t_set_state;
+
 struct s_pressed_keys
 {
 	bool	has_changes;
@@ -31,28 +40,23 @@ struct s_pressed_keys
 	bool	middle_mouse_btn;
 };
 
-typedef struct s_camera_state	t_camera_state;
 struct s_camera_state
 {
 	bool	has_changes;
-	int		translate_up;
-	int		translate_down;
-	int		translate_front;
-	int		translate_back;
-	int		translate_left;
-	int		translate_right;
+	int		translate_x;
+	int		translate_y;
+	int		translate_z;
 	int		rotate_x;
 	int		rotate_y;
+	int		rotate_z;
 };
 
-typedef struct s_scene_state	t_scene_state;
 struct s_scene_state
 {
 	bool			has_changes;
 	t_camera_state	camera;
 };
 
-typedef struct s_window_state	t_window_state;
 struct s_window_state
 {
 	bool	has_changes;
@@ -60,13 +64,40 @@ struct s_window_state
 	int		height;
 };
 
-typedef struct s_state			t_state;
+typedef struct s_set_mov_discrete	t_set_mov_discrete;
+struct s_set_mov_discrete
+{
+	void	(*up)(t_state *self);
+	void	(*down)(t_state *self);
+	void	(*front)(t_state *self);
+	void	(*back)(t_state *self);
+	void	(*left)(t_state *self);
+	void	(*right)(t_state *self);
+};
+
+typedef struct s_set_movement		t_set_movement;
+struct s_set_movement
+{
+	t_set_mov_discrete	discrete;
+	void				(*spatial)(t_state *self, t_spatial_gesture *gesture);
+};
+
+struct s_set_state
+{
+	void			(*window)(t_state *self, int width, int height);
+	void			(*keys)(t_state *self, int key, bool value);
+	t_set_movement	camera_translation;
+	t_set_movement	camera_rotation;
+};
+
 struct s_state
 {
 	bool			has_changes;
+	bool			stop_app;
 	t_pressed_keys	pressed_keys;
 	t_scene_state	scene;
 	t_window_state	window;
+	t_set_state		set;
 };
 
 t_state	ft_new_state(void);

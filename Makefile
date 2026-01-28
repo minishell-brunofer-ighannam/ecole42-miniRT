@@ -34,9 +34,12 @@ src/minilibx/minilibx.c
 B_EV_FOLDER= src/app/bonus/events
 BONUS_EVENTS_FILES = $(B_EV_FOLDER)/events_bonus.c $(B_EV_FOLDER)/callbacks/keyboard_callbacks_bonus.c \
 $(B_EV_FOLDER)/callbacks/mouse_callbacks_bonus.c $(B_EV_FOLDER)/callbacks/window_callbacks_bonus.c \
-$(B_EV_FOLDER)/callbacks/callbacks.c $(B_EV_FOLDER)/state/state_bonus.c
+$(B_EV_FOLDER)/callbacks/callbacks.c $(B_EV_FOLDER)/gestures/gestures.c $(B_EV_FOLDER)/gestures/mouse_gestures.c \
+$(B_EV_FOLDER)/gestures/wasd_gestures.c $(B_EV_FOLDER)/state/set_camera_rotation_i.c $(B_EV_FOLDER)/state/set_camera_rotation_ii.c \
+$(B_EV_FOLDER)/state/set_camera_translation_i.c $(B_EV_FOLDER)/state/set_camera_translation_ii.c \
+$(B_EV_FOLDER)/state/set_state_bonus.c $(B_EV_FOLDER)/state/state_bonus.c
 
-BONUS_FILES = $(BONUS_EVENTS_FILES)
+BONUS_FILES = $(BONUS_EVENTS_FILES) src/app/bonus/context.c
 
 SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES)
 
