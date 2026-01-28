@@ -32,8 +32,8 @@ void	set_camera_rotation_up(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::rotation->up\n");
 	self->scene.camera.rotate_x += CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->up [%d, %d, %d]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
 }
 
 void	set_camera_rotation_down(t_state *self)
@@ -41,8 +41,8 @@ void	set_camera_rotation_down(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::rotation->down\n");
 	self->scene.camera.rotate_x -= CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->down [%d, %d, %d]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
 }
 
 void	set_camera_rotation_left(t_state *self)
@@ -50,8 +50,8 @@ void	set_camera_rotation_left(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::rotation->left\n");
 	self->scene.camera.rotate_y -= CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->left [%d, %d, %d]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
 }
 
 void	set_camera_rotation_right(t_state *self)
@@ -59,6 +59,6 @@ void	set_camera_rotation_right(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::rotation->right\n");
 	self->scene.camera.rotate_y += CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->right [%d, %d, %d]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
 }

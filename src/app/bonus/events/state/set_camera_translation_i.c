@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 08:18:56 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:43:32 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/28 17:05:05 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	set_camera_translation_up(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::translation->up\n");
 	self->scene.camera.translate_y += CAMERA_TRANSLATION_INTENSITY;
+	printf("camera::translation->up [%d, %d, %d]\n", self->scene.camera.translate_x, self->scene.camera.translate_y, self->scene.camera.translate_z);
 }
 
 void	set_camera_translation_down(t_state *self)
@@ -41,8 +41,8 @@ void	set_camera_translation_down(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::translation->down\n");
 	self->scene.camera.translate_y -= CAMERA_TRANSLATION_INTENSITY;
+	printf("camera::translation->down [%d, %d, %d]\n", self->scene.camera.translate_x, self->scene.camera.translate_y, self->scene.camera.translate_z);
 }
 
 void	set_camera_translation_left(t_state *self)
@@ -50,8 +50,8 @@ void	set_camera_translation_left(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::translation->left\n");
 	self->scene.camera.translate_x -= CAMERA_TRANSLATION_INTENSITY;
+	printf("camera::translation->left [%d, %d, %d]\n", self->scene.camera.translate_x, self->scene.camera.translate_y, self->scene.camera.translate_z);
 }
 
 void	set_camera_translation_right(t_state *self)
@@ -59,6 +59,6 @@ void	set_camera_translation_right(t_state *self)
 	if (!self)
 		return ;
 	set_camera_changed_flag(self);
-	printf("camera::translation->right\n");
 	self->scene.camera.translate_x += CAMERA_TRANSLATION_INTENSITY;
+	printf("camera::translation->right [%d, %d, %d]\n", self->scene.camera.translate_x, self->scene.camera.translate_y, self->scene.camera.translate_z);
 }
