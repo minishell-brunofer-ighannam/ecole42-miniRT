@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 08:00:57 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/27 08:31:42 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 
 static void	ft_render_frame(struct timeval curr_time, t_mlx *mlx)
 {
-	ft_simulate_expensive_prossessing(10, 50);
+	ft_simulate_expensive_prossessing(10, 200);
 	mlx->display_image(*mlx);
 	ft_track_fps(curr_time, mlx);
 	ft_track_ms(curr_time, mlx);

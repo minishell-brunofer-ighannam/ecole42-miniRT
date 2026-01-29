@@ -8,7 +8,7 @@ SRC_FILES = ft_atoi.c ft_atoi_base.c ft_atol.c ft_atol_base.c ft_isalnum.c ft_is
 ft_isprint.c ft_issign.c ft_itoa.c ft_ntoa_support.c ft_ntoa.c ft_split.c ft_str_isdigit.c \
 ft_str_ishexa.c ft_str_tolower.c ft_destroy_char_matrix.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c \
 ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strcmp.c ft_strnstr.c ft_strprefix.c ft_strrchr.c ft_strtrim.c \
-ft_substr.c ft_tolower.c ft_toupper.c
+ft_substr.c ft_tolower.c ft_toupper.c ft_is_double.c ft_atod.c ft_is_int.c ft_destroy_char_tensor.c
 
 OBJ = obj
 OBJ_FILES := $(SRC_FILES:%.c=$(OBJ)/%.o)

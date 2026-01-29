@@ -19,7 +19,17 @@ MLX = $(MLX_DIR)/libmlx.a
 MLX_DEPENDENCIES = -lXext -lX11 -lbsd
 
 # ============== COMPILATION COMMANDS =================
-INCLUDES = -I includes $(LIBFT_INCLUDES) -I $(MLX_DIR)
+INCLUDES = \
+	-I includes \
+	$(LIBFT_INCLUDES) \
+	-I src/math_rt/includes \
+	-I src/data_structures \
+	-I src/core/parser/includes \
+	-I src/core/scene/includes \
+	-I src/core/scene/camera/includes \
+	-I src/core/scene/light/includes \
+	-I src/core/scene/polyhedron/includes \
+	-I $(MLX_DIR)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 
@@ -30,10 +40,30 @@ MLX_FILES = src/minilibx/events/events.c src/minilibx/events/keyboard_events.c s
 src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minilibx/window/window.c \
 src/minilibx/minilibx.c
 
+# **** MATH_RT ****
+MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/ft_sqrt.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c 
+
+
+# **** PARSER ****
+PARSER_FILES = src/core/parser/parser_utils_i.c src/core/parser/parser_form_scene_i.c src/core/parser/parser_form_scene_ii.c \
+src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/core/parser/parser_verify_ii.c src/core/parser/parser_verify_iii.c \
+src/core/parser/parser.c src/core/scene/scene.c
+
+
+# **** DATA_STRUCTURES ****
+DATA_STRUCTURES = src/data_structures/linkedlist/iteration.c src/data_structures/linkedlist/linkedlist_node.c src/data_structures/linkedlist/linkedlist.c \
+src/data_structures/linkedlist_array/linkedlist_array.c src/data_structures/hashtable/hashtable.c \
+src/data_structures/binary_tree/binary_tree_node.c src/data_structures/binary_tree/binary_tree.c
+
+
 # **** BONUS ****
 B_EV_FOLDER= src/app/bonus/events
 BONUS_EVENTS_FILES = $(B_EV_FOLDER)/events_bonus.c $(B_EV_FOLDER)/keyboard_events/keyboard_events_bonus.c \
 $(B_EV_FOLDER)/mouse_events/mouse_events_bonus.c $(B_EV_FOLDER)/window_events/window_events_bonus.c
+
+# **** TEST ****
+TEST_FILES = test/test_parser.c
 
 BONUS_FILES = $(BONUS_EVENTS_FILES)
 
@@ -113,7 +143,14 @@ $(MLX):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) SLEEP="$(SLEEP)"
 
-tests:
+test_parser: $(COMPILATION_DEPENDENCIES)
+	@$(CC) $(CFLAGS) \
+		test/test_parser.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
 
 run_valgrind: $(NAME)
 	@valgrind -q --track-origins=yes --show-leak-kinds=all --track-fds=yes --leak-check=full ./$(NAME)
