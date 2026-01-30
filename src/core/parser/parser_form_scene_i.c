@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 19:04:07 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 13:01:57 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,67 +39,66 @@ t_scene	*ft_form_scene(t_linkedlist *input_list)
 	{
 		content = (t_parser_node *)(node->content);
 		if (!ft_strcmp(content->splited_line[0], "C"))
-			ft_include_camera(&scene, content);
+			ft_include_camera(scene, content);
 		if (!ft_strcmp(content->splited_line[0], "A"))
-			ft_include_ambient(&scene, content);
+			ft_include_ambient(scene, content);
 		if (!ft_strcmp(content->splited_line[0], "L")
 			|| !ft_strcmp(content->splited_line[0], "l"))
-			ft_include_light(&scene, content);
+			ft_include_light(scene, content);
 		if (!ft_strcmp(content->splited_line[0], "sp"))
-			ft_include_sphere(&scene, content);
+			ft_include_sphere(scene, content);
 		if (!ft_strcmp(content->splited_line[0], "cy"))
-			ft_include_cylinder(&scene, content);
+			ft_include_cylinder(scene, content);
 		if (!ft_strcmp(content->splited_line[0], "pl"))
-			ft_include_plane(&scene, content);
+			ft_include_plane(scene, content);
 		node = node->next;
 	}
-	input_list->destroy(&input_list, ft_free_content_parser_node);
+	//input_list->destroy(&input_list, ft_free_content_parser_node);
 	return (scene);
 }
 
-void	ft_include_camera(t_scene **scene, t_parser_node *content)
+void	ft_include_camera(t_scene *scene, t_parser_node *content)
 {
 	t_point_3d	point;
 	t_vector_3d	vector;
 
-	(*scene)->camera.horizontal_fov = ft_atod(content->splited_args[3][0]);
-	point = ft_new_point(ft_atod(content->splited_args[1][0]),
-			ft_atod(content->splited_args[1][1]),
-			ft_atod(content->splited_args[1][2]));
-	(*scene)->camera.position = point;
-	vector = ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
-			ft_atod(content->splited_args[2][1]),
-			ft_atod(content->splited_args[2][2]));
-	(*scene)->camera.orientation = vector;
+	scene->camera.horizontal_fov = ft_atod(content->splited_args[3][0]);
+	point = ft_new_point(ft_atod(ft_strdup(content->splited_args[1][0])),
+			ft_atod(ft_strdup(content->splited_args[1][1])),
+			ft_atod(ft_strdup(content->splited_args[1][2])));
+	scene->camera.position = point;
+	vector = ft_new_vector_3d(ft_atod(ft_strdup(content->splited_args[2][0])),
+			ft_atod(ft_strdup(content->splited_args[2][1])),
+			ft_atod(ft_strdup(content->splited_args[2][2])));
+	scene->camera.orientation = vector;
 }
 
-void	ft_include_light(t_scene **scene, t_parser_node *content)
+void	ft_include_light(t_scene *scene, t_parser_node *content)
 {
-	int			i;
+	static int			i;
 	t_point_3d	position;
 	t_vector_3d	vector_color;
 
 	i = 0;
-	while ((*scene)->light[i])
-		i++;
-	(*scene)->light[i]->intensity = ft_atod(content->splited_args[2][0]);
-	position = ft_new_point(ft_atod(content->splited_args[1][0]),
-			ft_atod(content->splited_args[1][1]),
-			ft_atod(content->splited_args[1][2]));
-	(*scene)->light[i]->coord = position;
-	vector_color = ft_new_vector_3d(ft_atoi(content->splited_args[3][0]),
-			ft_atoi(content->splited_args[3][1]),
-			ft_atoi(content->splited_args[3][2]));
-	(*scene)->light[i]->color = vector_color;
+	scene->light[i].intensity = ft_atod(ft_strdup(content->splited_args[2][0]));
+	position = ft_new_point(ft_atod(ft_strdup(content->splited_args[1][0])),
+			ft_atod(ft_strdup(content->splited_args[1][1])),
+			ft_atod(ft_strdup(content->splited_args[1][2])));
+	scene->light[i].coord = position;
+	vector_color = ft_new_vector_3d(ft_atoi(ft_strdup(content->splited_args[3][0])),
+			ft_atoi(ft_strdup(content->splited_args[3][1])),
+			ft_atoi(ft_strdup(content->splited_args[3][2])));
+	scene->light[i].color = vector_color;
+	i++;
 }
 
-void	ft_include_ambient(t_scene **scene, t_parser_node *content)
+void	ft_include_ambient(t_scene *scene, t_parser_node *content)
 {
 	t_vector_3d vector_color;
 
-	(*scene)->ambient.intensity = ft_atod(content->splited_args[1][0]);
-	vector_color = ft_new_vector_3d(ft_atoi(content->splited_args[2][0]),
-			ft_atoi(content->splited_args[2][1]),
-			ft_atoi(content->splited_args[2][2]));
-	(*scene)->ambient.color = vector_color;
+	scene->ambient.intensity = ft_atod(ft_strdup(content->splited_args[1][0]));
+	vector_color = ft_new_vector_3d(ft_atoi(ft_strdup(content->splited_args[2][0])),
+			ft_atoi(ft_strdup(content->splited_args[2][1])),
+			ft_atoi(ft_strdup(content->splited_args[2][2])));
+	scene->ambient.color = vector_color;
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:55 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 17:42:49 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 10:55:58 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ struct					s_scene
 {
 	t_camera			camera;
 	t_ambient			ambient;
-	t_light				**light;
+	t_light				*light;
 	int					num_light;
-	t_polyhedron		**polyhedron;
+	t_polyhedron		*polyhedron;
 	int					num_polyhedron;
+	int					count_polyhedron;
 	void				*(*destroy)(t_scene **self);
 };
 

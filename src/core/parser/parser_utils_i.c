@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:22:44 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 18:58:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 09:19:52 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ bool	ft_verify_int_between(char *str, int ref_one, int ref_two)
 	if (ref_one != 0 || ref_two != 0)
 		return (ft_is_between_int(ref_one, ref_two, ft_atoi(str)));
 	return (true);
+}
+
+char *ft_remove_newline(char *line)
+{
+	size_t	len;
+
+	if (!line)
+		return (NULL);
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+	return (line);
 }

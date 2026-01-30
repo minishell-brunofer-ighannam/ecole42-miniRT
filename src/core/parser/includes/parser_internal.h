@@ -6,14 +6,13 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/29 18:57:07 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 10:43:01 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_INTERNAL_H
 # define PARSER_INTERNAL_H
 
-# include "parser.h"
 # include "data_structures.h"
 # include "math_rt.h"
 # include "parser.h"
@@ -45,19 +44,19 @@ bool							ft_verify_double_between(char *str,
 bool							ft_verify_int_between(char *str, int ref_one,
 									int ref_two);
 t_scene							*ft_form_scene(t_linkedlist *input_list);
-void							ft_include_camera(t_scene **scene,
+void							ft_include_camera(t_scene *scene,
 									t_parser_node *content);
-void							ft_include_light(t_scene **scene,
+void							ft_include_light(t_scene *scene,
 									t_parser_node *content);
-void							ft_include_ambient(t_scene **scene,
+void							ft_include_ambient(t_scene *scene,
 									t_parser_node *content);
-void							ft_include_sphere(t_scene **scene,
+void							ft_include_sphere(t_scene *scene,
 									t_parser_node *content);
 t_material						ft_form_material_sp(t_parser_node *content);
-void							ft_include_cylinder(t_scene **scene,
+void							ft_include_cylinder(t_scene *scene,
 									t_parser_node *content);
 t_material						ft_form_material_cy(t_parser_node *content);
-void							ft_include_plane(t_scene **scene,
+void							ft_include_plane(t_scene *scene,
 									t_parser_node *content);
 t_material						ft_form_material_pl(t_parser_node *content);
 bool							ft_verify_line(char *line,
@@ -77,5 +76,7 @@ int								ft_count_items_scene(t_linkedlist_node *node,
 bool							ft_verify_color(char **str);
 bool							ft_verify_coords(char **str);
 bool							ft_verify_normal_vector(char **str);
+char *							ft_remove_newline(char *line);
+bool	ft_verify_optional_double(char **arg, double min, double max);
 
 #endif

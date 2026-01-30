@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:30:22 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 18:58:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 10:06:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,16 @@
 
 bool	ft_verify_material_optional_sp(t_parser_node *content_node)
 {
-	if ((content_node->splited_args[4]
-			&& ft_count_size_splited(content_node->splited_args[4]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[4][0], 0, 1,
-				1e-6)) || (content_node->splited_args[5]
-			&& ft_count_size_splited(content_node->splited_args[5]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[5][0], 0, 1,
-				1e-6)) || (content_node->splited_args[6]
-			&& ft_count_size_splited(content_node->splited_args[6]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[6][0], 0, 1,
-				1e-6)) || (content_node->splited_args[7]
-			&& ft_count_size_splited(content_node->splited_args[7]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[7][0], 0, 0,
-				0)) || (content_node->splited_args[8]
-			&& ft_count_size_splited(content_node->splited_args[8]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[8][0], 0, 1,
-				1e-6)))
+	//ou tem todos os opcionais ou nenhum opcional é considerado
+	if (!content_node->splited_args[4] || !content_node->splited_args[5]
+		|| !content_node->splited_args[6] || !content_node->splited_args[7]
+		|| !content_node->splited_args[8])
+		return (true);
+	if (!ft_verify_optional_double(content_node->splited_args[4], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[5], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[6], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[7], 0, 0)
+		|| !ft_verify_optional_double(content_node->splited_args[8], 0, 1))
 		return (false);
 	return (true);
 }
@@ -52,22 +46,15 @@ bool	ft_verify_cylinder(t_parser_node *content_node)
 
 bool	ft_verify_material_optional_cy(t_parser_node *content_node)
 {
-	if ((content_node->splited_args[6]
-			&& ft_count_size_splited(content_node->splited_args[6]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[6][0], 0, 1,
-				1e-6)) || (content_node->splited_args[7]
-			&& ft_count_size_splited(content_node->splited_args[7]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[7][0], 0, 1,
-				1e-6)) || (content_node->splited_args[8]
-			&& ft_count_size_splited(content_node->splited_args[8]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[8][0], 0, 1,
-				1e-6)) || (content_node->splited_args[9]
-			&& ft_count_size_splited(content_node->splited_args[9]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[9][0], 0, 0,
-				0)) || (content_node->splited_args[10]
-			&& ft_count_size_splited(content_node->splited_args[10]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[10][0], 0,
-				1, 1e-6)))
+	if (!content_node->splited_args[6] || !content_node->splited_args[7]
+		|| !content_node->splited_args[8] || !content_node->splited_args[9]
+		|| !content_node->splited_args[10])
+		return (true);
+	if (!ft_verify_optional_double(content_node->splited_args[6], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[7], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[8], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[9], 0, 0)
+		|| !ft_verify_optional_double(content_node->splited_args[10], 0, 1))
 		return (false);
 	return (true);
 }
@@ -85,22 +72,24 @@ bool	ft_verify_plane(t_parser_node *content_node)
 
 bool	ft_verify_material_optional_pl(t_parser_node *content_node)
 {
-	if ((content_node->splited_args[4]
-			&& ft_count_size_splited(content_node->splited_args[4]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[4][0], 0, 1,
-				1e-6)) || (content_node->splited_args[5]
-			&& ft_count_size_splited(content_node->splited_args[5]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[5][0], 0, 1,
-				1e-6)) || (content_node->splited_args[6]
-			&& ft_count_size_splited(content_node->splited_args[6]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[6][0], 0, 1,
-				1e-6)) || (content_node->splited_args[7]
-			&& ft_count_size_splited(content_node->splited_args[7]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[7][0], 0, 0,
-				0)) || (content_node->splited_args[8]
-			&& ft_count_size_splited(content_node->splited_args[8]) != 1
-			&& !ft_verify_double_between(content_node->splited_args[8][0], 0, 1,
-				1e-6)))
+	if (!content_node->splited_args[4] || !content_node->splited_args[5]
+		|| !content_node->splited_args[6] || !content_node->splited_args[7]
+		|| !content_node->splited_args[8])
+		return (true);
+	if (!ft_verify_optional_double(content_node->splited_args[4], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[5], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[6], 0, 1)
+		|| !ft_verify_optional_double(content_node->splited_args[7], 0, 0)
+		|| !ft_verify_optional_double(content_node->splited_args[8], 0, 1))
 		return (false);
 	return (true);
+}
+
+bool	ft_verify_optional_double(char **arg, double min, double max)
+{
+	if (!arg)
+		return (true);
+	if (ft_count_size_splited(arg) != 1)
+		return (false);
+	return (ft_verify_double_between(arg[0], min, max, 1e-6));
 }

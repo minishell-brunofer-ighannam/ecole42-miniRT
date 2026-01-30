@@ -87,7 +87,7 @@ OBJ_MAIN_PROGRAM = $(MAIN_PROGRAM:%.c=%.o)
 OBJ_MAIN_BONUS_PROGRAM = $(MAIN_BONUS_PROGRAM:%.c=%.o)
 OBJ_TEST_PROGRAM = $(TEST_PROGRAM:%.c=%.o)
 
-TEST_PROGRAMS = null
+TEST_PROGRAMS = test_parser
 
 # ============== CUSTOM SLEEP =================
 SLEEP = 0.07
@@ -143,8 +143,13 @@ $(MLX):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) SLEEP="$(SLEEP)"
 
-test_parser: $(COMPILATION_DEPENDENCIES)
-	@$(CC) $(CFLAGS) \
+test_parser: \
+	test/test_parser.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
 		test/test_parser.c \
 		$(MATH_RT_FILES) \
 		$(DATA_STRUCTURES) \

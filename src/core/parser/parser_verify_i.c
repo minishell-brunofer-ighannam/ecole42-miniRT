@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:29:39 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 18:58:52 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 09:30:58 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	ft_verify_light(t_parser_node *content_node)
 	if ((content_node->splited_args[3]
 			&& ft_count_size_splited(content_node->splited_args[3]) != 3)
 		|| (content_node->splited_args[3]
-			&& !ft_verify_color(content_node->splited_args[2])))
+			&& !ft_verify_color(content_node->splited_args[3])))
 		return (false);
 	return (true);
 }
