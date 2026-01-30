@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:50:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 11:35:06 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 12:57:36 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ t_mlx	ft_new_mlx(int width, int height, const char *name)
 
 	mlx.events = new_mlx_events();
 	mlx.window = new_mlx_window(width, height, name);
+	mlx.frame_buffer = ft_mlx_create_pixel_mapper(mlx);
 	mlx.create_pixel_mapper = ft_mlx_create_pixel_mapper;
 	mlx.display_image = ft_mlx_display_image;
+	mlx.resize_image = ft_resize_image;
 	mlx.loop = ft_mlx_loop;
 	mlx.destroy = ft_mlx_destroy;
 	return (mlx);
@@ -74,6 +76,16 @@ static void	*ft_mlx_loop(t_mlx self)
 
 static void	*ft_mlx_destroy(t_mlx self)
 {
+	int	i;
+
+	if (self.frame_buffer)
+	{
+		i = -1;
+		while (self.frame_buffer[++i])
+			if (self.frame_buffer[i])
+				free(self.frame_buffer[i]);
+		free(self.frame_buffer);
+	}
 	self.window.destroy(self.window);
 	return (NULL);
 }

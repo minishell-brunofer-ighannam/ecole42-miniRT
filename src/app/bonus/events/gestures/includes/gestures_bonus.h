@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:32:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:02:20 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 12:16:11 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_gestures			t_gestures;
 struct s_gestures
 {
 	t_spatial_gesture	lctrl_ldrag;
+	t_spatial_gesture	lalt_ldrag;
 	t_spatial_gesture	lctrl_mouse_move;
 	t_discrete_gesture	w;
 	t_discrete_gesture	a;

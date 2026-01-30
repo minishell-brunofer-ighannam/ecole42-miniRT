@@ -28,7 +28,7 @@ CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 # **** MINILIBX ****
 MLX_FILES = src/minilibx/events/events.c src/minilibx/events/keyboard_events.c src/minilibx/events/loop_event.c \
 src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minilibx/window/window.c \
-src/minilibx/minilibx.c
+src/minilibx/minilibx.c src/minilibx/resize_image.c
 
 # **** BONUS ****
 B_EV_FOLDER= src/app/bonus/events
@@ -37,9 +37,11 @@ $(B_EV_FOLDER)/callbacks/mouse_callbacks_bonus.c $(B_EV_FOLDER)/callbacks/window
 $(B_EV_FOLDER)/callbacks/callbacks.c $(B_EV_FOLDER)/gestures/gestures.c $(B_EV_FOLDER)/gestures/mouse_gestures.c \
 $(B_EV_FOLDER)/gestures/wasd_gestures.c $(B_EV_FOLDER)/state/set_camera_rotation_i.c $(B_EV_FOLDER)/state/set_camera_rotation_ii.c \
 $(B_EV_FOLDER)/state/set_camera_translation_i.c $(B_EV_FOLDER)/state/set_camera_translation_ii.c \
-$(B_EV_FOLDER)/state/set_state_bonus.c $(B_EV_FOLDER)/state/state_bonus.c
+$(B_EV_FOLDER)/state/set_state_bonus.c $(B_EV_FOLDER)/state/state_bonus.c \
 
-BONUS_FILES = $(BONUS_EVENTS_FILES) src/app/bonus/context.c
+
+BONUS_FILES = $(BONUS_EVENTS_FILES) src/app/bonus/context.c src/app/bonus/frame/frame.c src/app/bonus/frame/draw_forms.c \
+src/app/bonus/frame/process_state.c src/app/bonus/frame/show_frame_info.c
 
 SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES)
 

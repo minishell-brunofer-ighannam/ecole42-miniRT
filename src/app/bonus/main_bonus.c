@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:54:38 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 11:48:09 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	ft_render_frame(struct timeval curr_time, t_context *context)
 
 }
 
-static int	fake_loop_callback(void *param)
+int	fake_loop_callback(void *param)
 {
 	t_context				*context;
 	struct timeval			curr_time;
@@ -124,7 +124,7 @@ int	main(int argc, char **argv)
 	}
 	printf("[BONUS] --> argv: %s\n", argv[1]);
 
-	context = ft_new_context(width, height, "brunofer&ighannam:miniRT");
+	context = ft_new_context(width, height, "brunofer&ighannam:miniRT", NULL);
 	mlx = &context.mlx;
 	events = &context.events;
 	mlx->events.key_press(*mlx, events->callbacks.keyboard.key_press, &context);
@@ -132,7 +132,7 @@ int	main(int argc, char **argv)
 	mlx->events.mouse_btn_press(*mlx, events->callbacks.mouse.btn_press, &context);
 	mlx->events.mouse_btn_release(*mlx, events->callbacks.mouse.btn_release, &context);
 	mlx->events.mouse_move(*mlx, events->callbacks.mouse.btn_move_callback, &context);
-	mlx->events.loop(*mlx, fake_loop_callback, &context);
+	mlx->events.loop(*mlx, (int (*)())context.frame.run, &context);
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
 	mlx->events.window_close(*mlx, events->callbacks.window.close, mlx);
 	mlx->loop(*mlx);
