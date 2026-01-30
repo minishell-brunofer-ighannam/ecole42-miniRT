@@ -6,22 +6,20 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 13:01:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 19:09:53 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "light.h"
 #include "parser.h"
 #include "parser_internal.h"
-#include "scene.h"
-#include "light.h"
 #include "polyhedron.h"
-
+#include "scene.h"
 
 t_scene	*ft_form_scene(t_linkedlist *input_list)
 {
 	t_scene				*scene;
 	t_linkedlist_node	*node;
-	t_parser_node		*content;
 
 	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
@@ -37,24 +35,32 @@ t_scene	*ft_form_scene(t_linkedlist *input_list)
 	node = input_list->first;
 	while (node)
 	{
-		content = (t_parser_node *)(node->content);
-		if (!ft_strcmp(content->splited_line[0], "C"))
-			ft_include_camera(scene, content);
-		if (!ft_strcmp(content->splited_line[0], "A"))
-			ft_include_ambient(scene, content);
-		if (!ft_strcmp(content->splited_line[0], "L")
-			|| !ft_strcmp(content->splited_line[0], "l"))
-			ft_include_light(scene, content);
-		if (!ft_strcmp(content->splited_line[0], "sp"))
-			ft_include_sphere(scene, content);
-		if (!ft_strcmp(content->splited_line[0], "cy"))
-			ft_include_cylinder(scene, content);
-		if (!ft_strcmp(content->splited_line[0], "pl"))
-			ft_include_plane(scene, content);
+		ft_include_items_scene(node, scene);
 		node = node->next;
 	}
-	//input_list->destroy(&input_list, ft_free_content_parser_node);
+	input_list->destroy(&(input_list), ft_free_content_parser_node);
+	scene->destroy = ft_destroy_scene;
 	return (scene);
+}
+
+void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene)
+{
+	t_parser_node	*content;
+
+	content = (t_parser_node *)(node->content);
+	if (!ft_strcmp(content->splited_line[0], "C"))
+		ft_include_camera(scene, content);
+	if (!ft_strcmp(content->splited_line[0], "A"))
+		ft_include_ambient(scene, content);
+	if (!ft_strcmp(content->splited_line[0], "L")
+		|| !ft_strcmp(content->splited_line[0], "l"))
+		ft_include_light(scene, content);
+	if (!ft_strcmp(content->splited_line[0], "sp"))
+		ft_include_sphere(scene, content);
+	if (!ft_strcmp(content->splited_line[0], "cy"))
+		ft_include_cylinder(scene, content);
+	if (!ft_strcmp(content->splited_line[0], "pl"))
+		ft_include_plane(scene, content);
 }
 
 void	ft_include_camera(t_scene *scene, t_parser_node *content)
@@ -63,42 +69,40 @@ void	ft_include_camera(t_scene *scene, t_parser_node *content)
 	t_vector_3d	vector;
 
 	scene->camera.horizontal_fov = ft_atod(content->splited_args[3][0]);
-	point = ft_new_point(ft_atod(ft_strdup(content->splited_args[1][0])),
-			ft_atod(ft_strdup(content->splited_args[1][1])),
-			ft_atod(ft_strdup(content->splited_args[1][2])));
+	point = ft_new_point(ft_atod(content->splited_args[1][0]),
+			ft_atod(content->splited_args[1][1]),
+			ft_atod(content->splited_args[1][2]));
 	scene->camera.position = point;
-	vector = ft_new_vector_3d(ft_atod(ft_strdup(content->splited_args[2][0])),
-			ft_atod(ft_strdup(content->splited_args[2][1])),
-			ft_atod(ft_strdup(content->splited_args[2][2])));
+	vector = ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
+			ft_atod(content->splited_args[2][1]),
+			ft_atod(content->splited_args[2][2]));
 	scene->camera.orientation = vector;
 }
 
 void	ft_include_light(t_scene *scene, t_parser_node *content)
 {
-	static int			i;
 	t_point_3d	position;
 	t_vector_3d	vector_color;
 
-	i = 0;
-	scene->light[i].intensity = ft_atod(ft_strdup(content->splited_args[2][0]));
-	position = ft_new_point(ft_atod(ft_strdup(content->splited_args[1][0])),
-			ft_atod(ft_strdup(content->splited_args[1][1])),
-			ft_atod(ft_strdup(content->splited_args[1][2])));
-	scene->light[i].coord = position;
-	vector_color = ft_new_vector_3d(ft_atoi(ft_strdup(content->splited_args[3][0])),
-			ft_atoi(ft_strdup(content->splited_args[3][1])),
-			ft_atoi(ft_strdup(content->splited_args[3][2])));
-	scene->light[i].color = vector_color;
-	i++;
+	scene->light[scene->count_light].intensity = ft_atod(content->splited_args[2][0]);
+	position = ft_new_point(ft_atod(content->splited_args[1][0]),
+			ft_atod(content->splited_args[1][1]),
+			ft_atod(content->splited_args[1][2]));
+	scene->light[scene->count_light].coord = position;
+	vector_color = ft_new_vector_3d(ft_atoi(content->splited_args[3][0]),
+			ft_atoi(content->splited_args[3][1]),
+			ft_atoi(content->splited_args[3][2]));
+	scene->light[scene->count_light].color = vector_color;
+	scene->count_light++;
 }
 
 void	ft_include_ambient(t_scene *scene, t_parser_node *content)
 {
-	t_vector_3d vector_color;
+	t_vector_3d	vector_color;
 
-	scene->ambient.intensity = ft_atod(ft_strdup(content->splited_args[1][0]));
-	vector_color = ft_new_vector_3d(ft_atoi(ft_strdup(content->splited_args[2][0])),
-			ft_atoi(ft_strdup(content->splited_args[2][1])),
-			ft_atoi(ft_strdup(content->splited_args[2][2])));
+	scene->ambient.intensity = ft_atod(content->splited_args[1][0]);
+	vector_color = ft_new_vector_3d(ft_atoi(content->splited_args[2][0]),
+			ft_atoi(content->splited_args[2][1]),
+			ft_atoi(content->splited_args[2][2]));
 	scene->ambient.color = vector_color;
 }

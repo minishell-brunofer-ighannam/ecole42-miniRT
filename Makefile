@@ -48,7 +48,10 @@ src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c
 # **** PARSER ****
 PARSER_FILES = src/core/parser/parser_utils_i.c src/core/parser/parser_form_scene_i.c src/core/parser/parser_form_scene_ii.c \
 src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/core/parser/parser_verify_ii.c src/core/parser/parser_verify_iii.c \
-src/core/parser/parser.c src/core/scene/scene.c
+src/core/parser/parser_verify_iv.c src/core/parser/parser.c
+
+# **** SCENE ****
+SCENE_FILES = src/core/scene/scene.c
 
 
 # **** DATA_STRUCTURES ****
@@ -148,12 +151,14 @@ test_parser: \
 	$(MATH_RT_FILES) \
 	$(DATA_STRUCTURES) \
 	$(PARSER_FILES) \
+	$(SCENE_FILES) \
 	$(COMPILATION_DEPENDENCIES)
 	$(CC) $(CFLAGS) \
 		test/test_parser.c \
 		$(MATH_RT_FILES) \
 		$(DATA_STRUCTURES) \
 		$(PARSER_FILES) \
+		$(SCENE_FILES) \
 		$(COMPILATION_DEPENDENCIES) \
 		-o $@ $(DEPENDENCIES)
 

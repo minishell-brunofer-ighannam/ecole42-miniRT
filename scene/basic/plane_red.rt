@@ -1,0 +1,17 @@
+# The Basic Shapes 02
+
+# Ambient
+#   ratio           color
+A   0.1             255,255,255
+
+# Camera
+#   position        direction       fov
+C   0,0.5,-50       0,0,1           100
+
+# Light
+#   position        intensity       color
+L   10,12,-5        1               255,0,0
+
+# Plane             normal
+#   position        direction       color
+pl  0,0,0           0,1,0           255,229,229

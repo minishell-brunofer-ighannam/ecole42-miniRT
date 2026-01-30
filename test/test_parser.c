@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:52:29 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 19:05:24 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:01:08 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ int main(int argc, char **argv)
 
     scene = ft_parser(argv[1]);
     ft_print_scene(scene);
+    if (scene)
+        scene->destroy(scene);
     return (0);
 }

@@ -1,0 +1,17 @@
+# The Basic Shapes 03
+
+# Ambient
+#   ratio           color
+A   0.1             255,255,255
+
+# Camera
+#   position        direction       fov
+C   0,1.5,-5        0,0,1           90
+
+# Light
+#   position        intensity       color
+L   10,12,-5        1               255,0,0
+
+# Cylinder
+#   position        direction       radius          altura          color
+cy  0.6,0.7,0       0,1,0           0.5             4               200,200,200

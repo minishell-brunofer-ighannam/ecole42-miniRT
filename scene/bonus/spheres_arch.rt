@@ -1,0 +1,33 @@
+#Brightness 2/2 02
+
+# Ambient
+#   ratio           color
+A   0.5             255,255,255
+
+# Camera
+#   position        direction       fov
+C  -10,5,-10        1,-0.5,1        50
+
+# Light
+#   position        intensity       color
+L   10,10,-4        0.5             255,255,255
+L   -10,10,-4       0.5             255,255,255
+
+# Plane             normal
+#   position        direction       color
+pl  0,-0.5,0        0,1,0           200,200,200
+
+# Cylinder
+#   position        direction       radius          altura          color
+cy  0,0,-4         1,0,0           1               4               200,200,200
+
+# Sphere
+#   position        radius          color
+sp  0,0,0           1               216,56,136
+sp  0,1,-1          1               0,176,240
+sp  0,2,-2          1               68,194,164
+sp  0,3,-3          1               255,204,0
+sp  0,3,-4          1               216,56,136
+sp  0,2,-5          1               123,45,67
+sp  0,1,-6          1               0,176,240
+sp  0,0,-7          1               68,194,164

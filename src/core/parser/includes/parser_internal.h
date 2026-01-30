@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 10:43:01 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:54:29 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,21 @@ bool							ft_verify_camera(t_parser_node *content_node);
 bool							ft_verify_ambient(t_parser_node *content_node);
 bool							ft_verify_light(t_parser_node *content_node);
 bool							ft_verify_sphere(t_parser_node *content_node);
-bool							ft_verify_material_optional_sp(t_parser_node *content_node);
+bool							ft_verify_mat_opt_sp(t_parser_node *content);
 bool							ft_verify_cylinder(t_parser_node *content_node);
-bool							ft_verify_material_optional_cy(t_parser_node *content_node);
+bool							ft_verify_mat_opt_cy(t_parser_node *content);
 bool							ft_verify_plane(t_parser_node *content_node);
-bool							ft_verify_material_optional_pl(t_parser_node *content_node);
+bool							ft_verify_mat_opt_pl(t_parser_node *content);
 bool							ft_verify_list_scene(t_linkedlist *input_list);
 int								ft_count_items_scene(t_linkedlist_node *node,
 									char *type);
 bool							ft_verify_color(char **str);
 bool							ft_verify_coords(char **str);
 bool							ft_verify_normal_vector(char **str);
-char *							ft_remove_newline(char *line);
-bool	ft_verify_optional_double(char **arg, double min, double max);
+char							*ft_remove_newline(char *line);
+bool							ft_verify_optional_double(char **arg,
+									double min, double max);
+void							ft_include_items_scene(t_linkedlist_node *node,
+									t_scene *scene);
 
 #endif

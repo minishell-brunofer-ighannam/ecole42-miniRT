@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:07:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 12:55:32 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:51:19 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,20 @@ t_scene	*ft_parser(char *file)
 int	ft_open_file(char *file)
 {
 	int	fd;
+	int	len;
 
+	if (!file)
+	{
+		printf("Error\nError: file name required. Check README.\n");
+		return (0);
+	}
+	len = ft_strlen(file);
+	if (len < 4 || file[len - 3] != '.' || file[len - 2] != 'r' || file[len
+			- 1] != 't')
+	{
+		printf("Error\nError: file extension incorrect. Check README.\n");
+		return (0);
+	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -60,7 +73,8 @@ t_linkedlist	*ft_read_file(int fd)
 			if (!ft_verify_line(line, &input_list))
 			{
 				printf("Error\nError in line: %s\n", line);
-				input_list->destroy(&input_list, ft_free_content_parser_node);
+				input_list->destroy(&(input_list), ft_free_content_parser_node);
+				get_next_line(-1);
 				return (NULL);
 			}
 		}
@@ -71,31 +85,31 @@ t_linkedlist	*ft_read_file(int fd)
 
 t_parser_node	*ft_generate_node(char *line)
 {
-	t_parser_node	*node_content;
+	t_parser_node	*content;
 	int				i;
 
 	if (!line)
 		return (NULL);
-	node_content = ft_calloc(1, sizeof(t_parser_node));
-	node_content->line = line;
-	node_content->splited_line = ft_split(line, ' ');
-	node_content->num_args_line = ft_count_size_splited(node_content->splited_line);
-	node_content->splited_args = ft_calloc(node_content->num_args_line + 1,
+	content = ft_calloc(1, sizeof(t_parser_node));
+	content->line = line;
+	content->splited_line = ft_split(line, ' ');
+	content->num_args_line = ft_count_size_splited(content->splited_line);
+	content->splited_args = ft_calloc(content->num_args_line + 1,
 			sizeof(char **));
 	i = 0;
-	while (i < node_content->num_args_line)
+	while (i < content->num_args_line)
 	{
-		node_content->splited_args[i] = ft_split(node_content->splited_line[i],
+		content->splited_args[i] = ft_split(content->splited_line[i],
 				',');
 		i++;
 	}
-	node_content->splited_args[i] = NULL;
-	return (node_content);
+	content->splited_args[i] = NULL;
+	return (content);
 }
 
 void	ft_free_content_parser_node(void *arg)
 {
-	t_parser_node		*node_content;
+	t_parser_node	*node_content;
 
 	if (!arg)
 		return ;

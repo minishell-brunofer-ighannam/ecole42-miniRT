@@ -6,76 +6,36 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:31:01 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 18:58:26 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:57:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "parser_internal.h"
 
-bool	ft_verify_list_scene(t_linkedlist *input_list)
+bool	ft_verify_sphere(t_parser_node *content_node)
 {
-	t_linkedlist_node	*first_node;
-
-	first_node = input_list->first;
-	if (ft_count_items_scene(first_node, "C") != 1
-		|| ft_count_items_scene(first_node, "L") > 1
-		|| ft_count_items_scene(first_node, "A") > 1)
-	{
-		printf("Error\nError: wrong number of C, L or A identified\n");
-		return (false);
-	}
-	return (true);
-}
-
-int	ft_count_items_scene(t_linkedlist_node *node, char *type)
-{
-	t_parser_node	*content;
-	int				count;
-
-	count = 0;
-	while (node)
-	{
-		content = (t_parser_node *)(node->content);
-		if (!ft_strcmp(type, content->splited_line[0]))
-			count++;
-		node = node->next;
-	}
-	return (count);
-}
-
-bool	ft_verify_color(char **str)
-{
-	if (ft_count_size_splited(str) != 3 || !ft_verify_int_between(str[0], 0,
-			255) || !ft_verify_int_between(str[1], 0, 255)
-		|| !ft_verify_int_between(str[2], 0, 255))
+	if (content_node->num_args_line < 4
+		|| !ft_verify_coords(content_node->splited_args[1])
+		|| ft_count_size_splited(content_node->splited_args[2]) != 1
+		|| !ft_verify_double_between(content_node->splited_args[2][0], 0, 0, 0)
+		|| !ft_verify_color(content_node->splited_args[3])
+		|| !ft_verify_mat_opt_sp(content_node))
 		return (false);
 	return (true);
 }
 
-bool	ft_verify_coords(char **str)
+bool	ft_verify_mat_opt_sp(t_parser_node *content)
 {
-	if (ft_count_size_splited(str) != 3 || !ft_verify_double_between(str[0], 0,
-			0, 0) || !ft_verify_double_between(str[1], 0, 0, 0)
-		|| !ft_verify_double_between(str[2], 0, 0, 0))
-		return (false);
-	return (true);
-}
-
-bool	ft_verify_normal_vector(char **str)
-{
-	double	x;
-	double	y;
-	double	z;
-
-	if (ft_count_size_splited(str) != 3 || !ft_verify_double_between(str[0], 0,
-			0, 0) || !ft_verify_double_between(str[1], 0, 0, 0)
-		|| !ft_verify_double_between(str[2], 0, 0, 0))
-		return (false);
-	x = ft_atod(str[0]);
-	y = ft_atod(str[1]);
-	z = ft_atod(str[2]);
-	if (!ft_is_normalized_3d_vector(x, y, z, 1e-6))
+	if (!content->splited_args[4] || !content->splited_args[5]
+		|| !content->splited_args[6] || !content->splited_args[7]
+		|| !content->splited_args[8])
+		return (true);
+	if (!ft_verify_optional_double(content->splited_args[4], 0, 1)
+		|| !ft_verify_optional_double(content->splited_args[5], 0, 1)
+		|| !ft_verify_optional_double(content->splited_args[6], 0, 1)
+		|| !ft_verify_optional_double(content->splited_args[7], 0, 0)
+		|| !ft_verify_optional_double(content->splited_args[8], 0, 1))
 		return (false);
 	return (true);
 }

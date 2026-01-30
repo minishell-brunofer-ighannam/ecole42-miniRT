@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:55 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 10:55:58 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 19:09:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ struct					s_scene
 	t_polyhedron		*polyhedron;
 	int					num_polyhedron;
 	int					count_polyhedron;
-	void				*(*destroy)(t_scene **self);
+	int					count_light;
+	void				(*destroy)(t_scene *self);
 };
 
 void					ft_print_scene(t_scene *scene);
+void					ft_destroy_scene(t_scene *scene);
 
 #endif

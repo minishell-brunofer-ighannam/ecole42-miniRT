@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/29 18:58:03 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:09:37 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "libft.h"
 
-typedef struct s_scene t_scene;
-typedef struct s_material t_material;
+typedef struct s_scene		t_scene;
+typedef struct s_material	t_material;
 
-t_scene *ft_parser(char *file);
+t_scene						*ft_parser(char *file);
 
 #endif

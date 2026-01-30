@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 18:40:15 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/30 17:19:44 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ struct s_polyhedron
 {
     t_polyhedron_type type;
     void *specs;
-    void *(*destroy)(t_polyhedron **self);
 };
 
 struct s_material
@@ -51,7 +50,6 @@ struct s_sphere
     t_point_3d center;
     double radius;
     t_material material;
-    void *(*destroy)(t_sphere **self);
 };
 
 struct s_cylinder
@@ -61,7 +59,6 @@ struct s_cylinder
     double radius;
     double height;
     t_material material;
-    void *(*destroy)(t_cylinder **self);
 };
 
 struct s_plane
