@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:50:40 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 18:18:05 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	set_window(t_state *self, int width, int height)
 		self->window.width = width;
 	if (self->window.height != height)
 		self->window.height = height;
+	self->window.ratio = (double)width / (double)height;
 	printf("window::resize[%d, %d]\n", width, height);
 }
 

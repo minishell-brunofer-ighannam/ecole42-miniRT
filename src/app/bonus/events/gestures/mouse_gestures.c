@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:21:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 12:27:48 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 18:21:27 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	lctrl_mouse_move_handler(
 	if (self->last_pos.y != y)
 	{
 		self->diff.y = y - self->last_pos.y;
+		self->diff.y *= state->window.ratio;
 		calibrate_diff(&self->diff.y);
 		self->last_pos.y = y;
 	}
@@ -93,6 +94,7 @@ static void	lalt_ldrag_handler(
 	if (self->last_pos.y != y)
 	{
 		self->diff.y = y - self->last_pos.y;
+		self->diff.y *= state->window.ratio;
 		calibrate_diff(&self->diff.y);
 		self->last_pos.y = y;
 	}
@@ -101,7 +103,7 @@ static void	lalt_ldrag_handler(
 
 void	calibrate_diff(int *diff)
 {
-	if (*diff > 10 || *diff < -10)
+	if (*diff > 40 || *diff < -40)
 	{
 		if (*diff > 0)
 			*diff = 1;

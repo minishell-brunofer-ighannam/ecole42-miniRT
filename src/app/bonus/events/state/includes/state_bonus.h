@@ -62,6 +62,7 @@ struct s_window_state
 	bool	has_changes;
 	int		width;
 	int		height;
+	double	ratio;
 };
 
 typedef struct s_set_mov_discrete	t_set_mov_discrete;

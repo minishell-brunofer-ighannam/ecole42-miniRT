@@ -28,7 +28,7 @@ CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 # **** MINILIBX ****
 MLX_FILES = src/minilibx/events/events.c src/minilibx/events/keyboard_events.c src/minilibx/events/loop_event.c \
 src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minilibx/window/window.c \
-src/minilibx/minilibx.c src/minilibx/resize_image.c
+src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_nearest_neighbor.c
 
 # **** BONUS ****
 B_EV_FOLDER= src/app/bonus/events

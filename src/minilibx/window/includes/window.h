@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:09:12 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 11:34:37 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 18:12:55 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ struct s_mlx_window
 	const char	*name;
 	int			width;
 	int			height;
+	double		ratio;
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;

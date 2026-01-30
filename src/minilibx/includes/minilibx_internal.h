@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:39:08 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 12:38:07 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 17:55:48 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@
 # include "minilibx.h"
 
 void	ft_resize_image(t_mlx *self, int width, int height);
+void	ft_nearest_neighbor_scale(
+				t_mlx *self, int width, int height, unsigned int ***new_addr);
 
 #endif

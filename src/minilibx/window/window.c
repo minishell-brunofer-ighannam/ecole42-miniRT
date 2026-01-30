@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:15:24 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 15:52:46 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 18:13:28 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_mlx_window	new_mlx_window(int width, int height, const char *name)
 
 	window.width = width;
 	window.height = height;
+	window.ratio = (double)width / (double)height;
 	window.name = name;
 	window.mlx_ref = mlx_init();
 	window.win_ref = mlx_new_window(window.mlx_ref, width, height, (char *)name);
