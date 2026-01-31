@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 19:09:53 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/31 10:11:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ void	ft_include_light(t_scene *scene, t_parser_node *content)
 {
 	t_point_3d	position;
 	t_vector_3d	vector_color;
+	char		*intensity;
 
-	scene->light[scene->count_light].intensity = ft_atod(content->splited_args[2][0]);
+	intensity = content->splited_args[2][0];
+	scene->light[scene->count_light].intensity = ft_atod(intensity);
 	position = ft_new_point(ft_atod(content->splited_args[1][0]),
 			ft_atod(content->splited_args[1][1]),
 			ft_atod(content->splited_args[1][2]));

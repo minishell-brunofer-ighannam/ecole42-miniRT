@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:05:15 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/29 19:01:29 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/31 10:07:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ double	ft_atod(char *str)
 		str++;
 	result = sign * (ft_str_int(str) + ft_str_dec(str));
 	exp = ft_str_exp(str);
-	result = sign * result * pow(10.0, exp);
+	result = result * pow(10.0, exp);
 	return (result);
 }
 
