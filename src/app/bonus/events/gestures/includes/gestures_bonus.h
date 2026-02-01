@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:32:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 12:16:11 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 19:32:26 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ struct s_discrete_gesture
 typedef struct s_spatial_position	t_spatial_position;
 struct s_spatial_position
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 };
 
 typedef struct s_spatial_gesture	t_spatial_gesture;

@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:25:26 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:14:08 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/31 13:03:35 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	ft_recreate_image(
 			self->window.img, &self->window.bits_per_pixel,
 			&self->window.line_length, &self->window.endian);
 	self->frame_buffer = self->create_pixel_mapper(*self);
-	printf("width: %d, height: %d\n", width, height);
 	i = -1;
 	while (++i < width)
 	{

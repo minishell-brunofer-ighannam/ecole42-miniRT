@@ -75,7 +75,7 @@ SLEEP = 0.07
 # ********************************************           ********************************************
 # ***************************************************************************************************
 
-all: $(NAME) stats
+all: $(NAME)
 
 stats:
 	@printf "$(BOLD)$(LIGHT_CYAN)src stats:$(RESET)\n"
@@ -118,8 +118,6 @@ $(LIBFT):
 $(MLX):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) SLEEP="$(SLEEP)"
-
-tests:
 
 run_valgrind: $(NAME)
 	@valgrind -q --track-origins=yes --show-leak-kinds=all --track-fds=yes --leak-check=full ./$(NAME)

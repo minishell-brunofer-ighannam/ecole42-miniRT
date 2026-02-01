@@ -52,8 +52,9 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 	if (!first_call)
 	{
 		printf("\n\n--------------- Grafical Simulation ---------------\n");
-		printf("Window size: 1920x1080 - [Total of %d pixels]\n", pixels);
+		printf("Window size: %dx%d - [Total of %d pixels]\n", context->events.state.window.width, context->events.state.window.height, pixels);
 		printf("Calculus amount per pixel: %d\n", ops_per_pixel);
+		printf("Calculus total: %d\n", ops_per_pixel * pixels);
 		printf("Numbers of Threads: %d - [Total of %d pixels per therad]\n", threads_amount, pixels_per_thread);
 		printf("\nOBS: Check the ms and fps indices on the opened window.\n\n");
 		first_call++;
@@ -69,7 +70,7 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 
 static void	ft_render_frame(t_context *context)
 {
-	ft_simulate_expensive_prossessing(10, 50, context);
+	ft_simulate_expensive_prossessing(10, 100, context);
 	context->mlx.display_image(context->mlx);
 	// TODO: destravar mutex das threads
 	// ...

@@ -43,12 +43,12 @@ struct s_pressed_keys
 struct s_camera_state
 {
 	bool	has_changes;
-	int		translate_x;
-	int		translate_y;
-	int		translate_z;
-	int		rotate_x;
-	int		rotate_y;
-	int		rotate_z;
+	double	translate_x;
+	double	translate_y;
+	double	translate_z;
+	double	rotate_x;
+	double	rotate_y;
+	double	rotate_z;
 };
 
 struct s_scene_state

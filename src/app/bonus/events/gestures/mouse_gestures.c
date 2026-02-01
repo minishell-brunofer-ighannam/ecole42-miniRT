@@ -6,12 +6,14 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:21:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:21:27 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/31 08:20:56 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/gestures_internal_bonus.h"
 
+void		ft_low_pass_filter(t_spatial_gesture *self, int x, int y);
+void		calibrate_diff_y(double *diff);
 static void	lalt_ldrag_handler(
 				t_spatial_gesture *self, t_state *state, int x, int y);
 static void	lctrl_mouse_move_handler(
@@ -45,13 +47,14 @@ static void	lctrl_mouse_move_handler(
 	{
 		self->diff.x = x - self->last_pos.x;
 		calibrate_diff(&self->diff.x);
+		// self->diff.x /= state->window.ratio;
 		self->last_pos.x = x;
 	}
 	if (self->last_pos.y != y)
 	{
 		self->diff.y = y - self->last_pos.y;
-		self->diff.y *= state->window.ratio;
-		calibrate_diff(&self->diff.y);
+		calibrate_diff_y(&self->diff.y);
+		self->diff.y /= state->window.ratio;
 		self->last_pos.y = y;
 	}
 	self->state_setter(state, self);
@@ -87,27 +90,75 @@ static void	lalt_ldrag_handler(
 		return ;
 	if (self->last_pos.x != x)
 	{
-		self->diff.x = x - self->last_pos.x;
+		self->diff.x = (double)x - self->last_pos.x;
 		calibrate_diff(&self->diff.x);
 		self->last_pos.x = x;
 	}
 	if (self->last_pos.y != y)
 	{
-		self->diff.y = y - self->last_pos.y;
-		self->diff.y *= state->window.ratio;
-		calibrate_diff(&self->diff.y);
+		self->diff.y = (double)y - self->last_pos.y;
+		calibrate_diff_y(&self->diff.y);
 		self->last_pos.y = y;
 	}
+	// ft_low_pass_filter(self, x, y);
+	// calibrate_diff(&self->diff.x);
+	// calibrate_diff_y(&self->diff.y);
 	self->state_setter(state, self);
 }
 
-void	calibrate_diff(int *diff)
+void	calibrate_diff(double *diff)
 {
-	if (*diff > 40 || *diff < -40)
+	if (*diff < 2 && *diff > -2)
+		*diff *= 0.5;
+	if (*diff > 50 || *diff < -50)
 	{
 		if (*diff > 0)
 			*diff = 1;
 		else
 			*diff = -1;
 	}
+}
+
+void	calibrate_diff_y(double *diff)
+{
+	if (*diff < 2 && *diff > -2)
+		*diff *= 0.05;
+	if (*diff > 50 || *diff < -50)
+	{
+		if (*diff > 0)
+			*diff = 1;
+		else
+			*diff = -1;
+	}
+}
+
+double	absd(double number);
+
+void	ft_low_pass_filter(t_spatial_gesture *self, int x, int y)
+{
+	double	delta_x;
+	double	delta_y;
+	double	alpha;
+
+	alpha = 0.05;
+	delta_x = self->last_pos.x - (double)x;
+	delta_y = self->last_pos.y - (double)y;
+
+	if (absd(delta_x) > absd(delta_y))
+		delta_y = 0;
+	else
+		delta_x = 0;
+
+	self->diff.x += alpha * (delta_x - self->diff.x);
+	self->diff.y += alpha * (delta_y - self->diff.y);
+
+	self->last_pos.x = x;
+	self->last_pos.y = y;
+}
+
+double	absd(double number)
+{
+	if (number < 0)
+		return (-number);
+	return (number);
 }

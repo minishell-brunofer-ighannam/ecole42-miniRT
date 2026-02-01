@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:22:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 17:26:12 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 19:32:47 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../../../../../minilibx/includes/minilibx.h"
 # include "gestures_bonus.h"
 
-void	calibrate_diff(int *diff);
+void	calibrate_diff(double *diff);
 void	init_wasd_gestures(t_state *state, t_gestures *gest);
 void	init_mouse_gestures(t_state *state, t_gestures *gest);
 
