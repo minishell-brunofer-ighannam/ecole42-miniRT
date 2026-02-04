@@ -6,11 +6,11 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:48:33 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 09:39:54 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:19:37 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/math_rt.h"
+#include "math_rt.h"
 
 bool	ft_is_between_int(int ref_one, int ref_two, int eval)
 {
