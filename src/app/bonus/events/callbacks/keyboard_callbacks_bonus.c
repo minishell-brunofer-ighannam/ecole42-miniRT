@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:00:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 11:02:46 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:34:22 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_key_press(int key, void *param)
 	if (key == KEYBOARD_ESC)
 	{
 		context->callbacks.stop_app(context);
-		context->events.callbacks.window.close(context);
+		// context->events.callbacks.window.close(context);
 	}
 	context->events.state.set.keys(&events->state, key, true);
 	ft_update_discrete_gestures(&events->gestures, &events->state, key);

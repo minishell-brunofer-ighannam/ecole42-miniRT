@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 08:37:28 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 10:50:29 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:34:18 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ static int	ft_window_resize(void *param, XEvent *event)
 static int	ft_close_window(t_context *context)
 {
 	context->callbacks.stop_app(context);
-	mlx_loop_end(context->mlx.window.mlx_ref);
+	// mlx_loop_end(context->mlx.window.mlx_ref);
 	return (1);
 }

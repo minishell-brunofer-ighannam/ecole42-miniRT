@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 11:41:47 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:34:56 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include "libft.h"
+# include "mlx.h"
 # include "threads_bonus.h"
 
 t_thread	*ft_new_thread(

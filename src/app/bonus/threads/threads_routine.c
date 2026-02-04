@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 17:28:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 17:50:56 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:55:00 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,10 @@ void	*ft_thread_routine(t_thread *thread)
 		parallel->ray_tracing(context, thread->range_start, thread->range_end);
 		context->callbacks.set_frame_parts_ready(context);
 	}
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_frame_parts_ready);
+	parallel->flow_ctrl->threads_finished++;
+	if (parallel->flow_ctrl->threads_finished == parallel->n_threads)
+		mlx_loop_end(context->mlx.window.mlx_ref);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 	return (NULL);
 }
