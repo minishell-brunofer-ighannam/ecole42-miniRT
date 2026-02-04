@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 17:46:26 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:52:57 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ struct s_flow_ctrl
 {
 	bool			is_frame_ready;
 	unsigned int	frame_parts_ready;
+	unsigned int	threads_finished;
 	pthread_cond_t	cond_frame_ready;
 	pthread_mutex_t	mutex_frame_ready;
 	pthread_mutex_t	mutex_frame_parts_ready;
