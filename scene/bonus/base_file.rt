@@ -1,0 +1,55 @@
+## AMBIENT LIGHTING
+# (intensity [0,1.0] | color in RGB [0,255])
+#   ratio           color
+A   0.5             255,255,0
+
+## CAMERA
+# (origin point | orientation [-1.0,1.0] | hor. field-of-view (fov) in degrees [0,180])
+#   position        normal          fov
+C   0,2.0,4.0       0,-0.25,-1.0    100
+
+## LIGHTING
+# (origin point | brightness [0,1.0] | color in RGB [0,255])
+#   position        ratio           color
+L   0,4.0,3.0       1               255,255,255
+
+## MATERIAL
+# name | reflectivity [0,1.0] | transparency [0,1.0] | refractive_index [0,1.0]
+#     name     | reflectivity | transparency | refractive_index |
+#   default    |     0.0      |     0.0      |       1.0        |
+#    glass     |     0.0      |     1.0      |       1.5        |
+#  transparent |     1.0      |     0.0      |       1.0        |
+#  reflective  |     1.0      |     0.0      |       1.0        |
+#   name            reflectivity    transparency    refractive_index
+m   some_material   1               1               1.5
+
+## PATTERN
+# name | type | color_a in RGB [0,255]) | color_b in RGB [0,255]) | scale (x,y,z) [0,1.0] | rotation em graus (x,y,z) | translation (x,y,z)
+# type names: stripe, checkers, ring, gradient
+#   name            type            color_a         color_b         scale           rotation        translation
+p   gradient        gradient        127,127,127     178,178,178     0.1,0.1,0.1     0,45,0          0,0,0
+p   ring            ring            127,127,127     178,178,178     0.1,0.1,0.1     0,45,0          0,0,1
+p   checkers        checkers        127,127,127     178,178,178     0.1,0.1,0.1     0,0,0           0,0,1
+p   stripe          stripe          127,127,127     178,178,178     0.1,0.1,0.1     0,0,0           0,0,1
+
+## SPHERE
+# (origin point | diameter [>0] | color in RGB [0,255])
+#   position        diam            color
+sp  0,1.1,0         2.0             216,56,136     default         checkers
+
+## PLANE
+# (origin point | orientation [-1.0,1.0] | color in RGB [0,255])
+#   position        normal          color
+pl  0,0,0           0,1.0,0         140,118,206     default         stripe
+
+## CYLINDER
+# (origin point | orientation [-1.0,1.0] | diameter [>0] | height [>0] | color in RGB [0,255])
+#   position    normal          diam            height          color
+cy  -2.2,0,1.4  0,1.0,0         0.4             1.4             255,204,0     default         gradient
+cy  0.8,0.3,2.0 1.0,0,0         0.4             1.0             255,204,0
+
+## CONE
+# (origin point | orientation [-1.0,1.0] | diameter [>0] | height [>0] | color in RGB [0,255])
+#   position    normal          diam            height        color
+cy  -2.2,0,1.4  0,1.0,0         0.4             1.4           255,204,0     default         ring
+cy  0.8,0.3,2.0 1.0,0,0         0.4             1.0           255,204,0

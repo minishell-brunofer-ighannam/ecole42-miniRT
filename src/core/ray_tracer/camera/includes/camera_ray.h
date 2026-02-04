@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   camera_ray.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 06:20:13 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/03 17:37:52 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/04 09:15:42 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
+#ifndef CAMERA_RAY_H
+#define CAMERA_RAY_H
+
+#include "ray.h"
+#include "scene.h"
+#include "colision.h"
+
+void	ft_camera_ray_loop(t_scene *scene);
 
 #endif

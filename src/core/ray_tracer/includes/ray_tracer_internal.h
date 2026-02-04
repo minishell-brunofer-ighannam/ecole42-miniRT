@@ -1,13 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   ray_tracer_internal.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 06:07:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 06:19:36 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/02 14:22:18 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/02 14:23:46 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/camera_internal.h"
+#ifndef RAY_TRACER_INTERNAL_H
+#define RAY_TRACER_INTERNAL_H
+
+#include "ray_tracer.h"
+
+#endif

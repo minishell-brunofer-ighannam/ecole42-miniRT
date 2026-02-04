@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linkedlist_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 16:42:48 by valero            #+#    #+#             */
-/*   Updated: 2026/01/25 18:03:53 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 17:13:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static	void	*ft_destroy_node(
 		return (NULL);
 	node = *self;
 	if (free_content)
-		free_content(&node->content);
+		free_content(node->content);
 	node->next = NULL;
 	node->prev = NULL;
 	free(node);

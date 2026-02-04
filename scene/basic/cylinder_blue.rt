@@ -1,0 +1,17 @@
+# Translations and rotations 02
+
+# Ambient
+#   ratio           color
+A   0.1             255,255,255
+
+# Camera
+#   position        direction       fov
+C   0,1.5,-6        0,0,1           70
+
+# Light
+#   position        intensity       color
+L   -10,10,-10      1               255,255,255
+
+# Cylinder
+#   position        direction       radius          altura          color
+cy  0.6,0.7,0       1,0,0           0.5             4               0,0,255

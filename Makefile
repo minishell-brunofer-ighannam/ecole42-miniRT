@@ -19,7 +19,20 @@ MLX = $(MLX_DIR)/libmlx.a
 MLX_DEPENDENCIES = -lXext -lX11 -lbsd
 
 # ============== COMPILATION COMMANDS =================
-INCLUDES = -I includes $(LIBFT_INCLUDES) -I $(MLX_DIR)
+INCLUDES = \
+	-I includes \
+	$(LIBFT_INCLUDES) \
+	-I src/math_rt/includes \
+	-I src/data_structures \
+	-I src/core/parser/includes \
+	-I src/core/scene/includes \
+	-I src/core/scene/camera/includes \
+	-I src/core/scene/light/includes \
+	-I src/core/scene/polyhedron/includes \
+	-I src/core/ray_tracer/includes \
+	-I src/core/ray_tracer/colision/includes \
+	-I src/core/ray_tracer/camera/includes \
+	-I lib/minilibx
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 
@@ -29,6 +42,32 @@ CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 MLX_FILES = src/minilibx/events/events.c src/minilibx/events/keyboard_events.c src/minilibx/events/loop_event.c \
 src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minilibx/window/window.c \
 src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_nearest_neighbor.c
+
+# **** MATH_RT ****
+MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/ft_sqrt.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/comparisons.c
+
+
+# **** PARSER ****
+PARSER_FILES = src/core/parser/parser_utils_i.c src/core/parser/parser_form_scene_i.c src/core/parser/parser_form_scene_ii.c \
+src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/core/parser/parser_verify_ii.c src/core/parser/parser_verify_iii.c \
+src/core/parser/parser_verify_iv.c src/core/parser/parser.c
+
+# **** SCENE ****
+SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/polyhedron/plane.c \
+src/core/scene/polyhedron/sphere.c src/core/scene/polyhedron/cylinder.c src/core/scene/camera/camera_init.c 
+
+# **** RAY_TRACER ****
+RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
+src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
+src/core/ray_tracer/camera/camera_ray.c
+
+
+# **** DATA_STRUCTURES ****
+DATA_STRUCTURES = src/data_structures/linkedlist/iteration.c src/data_structures/linkedlist/linkedlist_node.c src/data_structures/linkedlist/linkedlist.c \
+src/data_structures/linkedlist_array/linkedlist_array.c src/data_structures/hashtable/hashtable.c \
+src/data_structures/binary_tree/binary_tree_node.c src/data_structures/binary_tree/binary_tree.c
+
 
 # **** BONUS ****
 B_EV_DIR= src/app/bonus/events
@@ -69,7 +108,7 @@ OBJ_MAIN_PROGRAM = $(MAIN_PROGRAM:%.c=%.o)
 OBJ_MAIN_BONUS_PROGRAM = $(MAIN_BONUS_PROGRAM:%.c=%.o)
 OBJ_TEST_PROGRAM = $(TEST_PROGRAM:%.c=%.o)
 
-TEST_PROGRAMS = null
+TEST_PROGRAMS = test_parser test_colision test_first_hit
 
 # ============== CUSTOM SLEEP =================
 SLEEP = 0.07
@@ -124,6 +163,58 @@ $(LIBFT):
 $(MLX):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) SLEEP="$(SLEEP)"
+
+test_parser: \
+	test/test_parser.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(SCENE_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
+		test/test_parser.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(SCENE_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
+
+test_colision: \
+	test/test_colision.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(SCENE_FILES) \
+	$(RAY_TRACER_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
+		test/test_colision.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(SCENE_FILES) \
+		$(RAY_TRACER_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
+
+test_first_hit: \
+	test/test_first_hit.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(SCENE_FILES) \
+	$(RAY_TRACER_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
+		test/test_first_hit.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(SCENE_FILES) \
+		$(RAY_TRACER_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
 
 run_valgrind: $(NAME)
 	@valgrind -q --track-origins=yes --show-leak-kinds=all --track-fds=yes --leak-check=full ./$(NAME)
