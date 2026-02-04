@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_callbacks_bonus.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 05:21:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 14:56:50 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/04 11:01:43 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 # include <stdio.h>
 # include "../../../../../minilibx/includes/minilibx.h"
+
+typedef struct s_context			t_context;
 
 typedef struct s_keyboard_callbacks	t_keyboard_callbacks;
 struct s_keyboard_callbacks
@@ -35,7 +37,7 @@ struct s_mouse_callbacks
 typedef struct s_window_callbacks	t_window_callbacks;
 struct s_window_callbacks
 {
-	int	(*close)(t_mlx *mlx);
+	int	(*close)(t_context *context);
 	int	(*resize)(void *param, XEvent *event);
 };
 

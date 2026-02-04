@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_callbacks_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:00:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/28 14:35:59 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/04 11:02:46 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	ft_key_press(int key, void *param)
 	events = &context->events;
 	if (key == KEYBOARD_ESC)
 	{
-		context->events.state.stop_app = true;
-		context->events.callbacks.window.close(&context->mlx);
+		context->callbacks.stop_app(context);
+		context->events.callbacks.window.close(context);
 	}
 	context->events.state.set.keys(&events->state, key, true);
 	ft_update_discrete_gestures(&events->gestures, &events->state, key);

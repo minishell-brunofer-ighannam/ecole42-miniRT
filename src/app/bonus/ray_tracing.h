@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_internal_bonus.h                           :+:      :+:    :+:   */
+/*   ray_tracing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 11:41:47 by brunofer         ###   ########.fr       */
+/*   Created: 2026/02/03 17:29:18 by brunofer          #+#    #+#             */
+/*   Updated: 2026/02/03 17:30:37 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef THREADS_INTERNAL_BONUS_H
-# define THREADS_INTERNAL_BONUS_H
+#ifndef RAY_TRACING_H
+# define RAY_TRACING_H
 
-# include <unistd.h>
-# include "libft.h"
-# include "threads_bonus.h"
+# include "context.h"
 
-t_thread	*ft_new_thread(
-				t_context *context, t_flow_ctrl *flow_ctrl,
-				int id, int n_threads);
-t_flow_ctrl	*ft_new_flow_control(void);
-void		*ft_thread_routine(t_thread *thread);
-void		ft_recalculate_thread_chunck(t_thread *thread);
+void	*ft_ray_tracing(t_context *context, int row_start, int row_end);
 
 #endif

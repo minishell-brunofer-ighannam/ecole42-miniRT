@@ -16,7 +16,7 @@
 
 # include <stdbool.h>
 
-typedef struct s_discrete_gesture	t_discrete_gesture;
+typedef struct s_parallel			t_parallel;
 typedef struct s_spatial_gesture	t_spatial_gesture;
 
 typedef struct s_pressed_keys		t_pressed_keys;
@@ -99,6 +99,7 @@ struct s_state
 	t_scene_state	scene;
 	t_window_state	window;
 	t_set_state		set;
+	t_parallel		*parallel;
 };
 
 t_state	ft_new_state(void);

@@ -31,17 +31,23 @@ src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minil
 src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_nearest_neighbor.c
 
 # **** BONUS ****
-B_EV_FOLDER= src/app/bonus/events
-BONUS_EVENTS_FILES = $(B_EV_FOLDER)/events_bonus.c $(B_EV_FOLDER)/callbacks/keyboard_callbacks_bonus.c \
-$(B_EV_FOLDER)/callbacks/mouse_callbacks_bonus.c $(B_EV_FOLDER)/callbacks/window_callbacks_bonus.c \
-$(B_EV_FOLDER)/callbacks/callbacks.c $(B_EV_FOLDER)/gestures/gestures.c $(B_EV_FOLDER)/gestures/mouse_gestures.c \
-$(B_EV_FOLDER)/gestures/wasd_gestures.c $(B_EV_FOLDER)/state/set_camera_rotation_i.c $(B_EV_FOLDER)/state/set_camera_rotation_ii.c \
-$(B_EV_FOLDER)/state/set_camera_translation_i.c $(B_EV_FOLDER)/state/set_camera_translation_ii.c \
-$(B_EV_FOLDER)/state/set_state_bonus.c $(B_EV_FOLDER)/state/state_bonus.c \
+B_EV_DIR= src/app/bonus/events
+BONUS_EVENTS_FILES = $(B_EV_DIR)/events_bonus.c $(B_EV_DIR)/callbacks/keyboard_callbacks_bonus.c \
+$(B_EV_DIR)/callbacks/mouse_callbacks_bonus.c $(B_EV_DIR)/callbacks/window_callbacks_bonus.c \
+$(B_EV_DIR)/callbacks/callbacks.c $(B_EV_DIR)/gestures/gestures.c $(B_EV_DIR)/gestures/mouse_gestures.c \
+$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/state/set_camera_rotation_i.c $(B_EV_DIR)/state/set_camera_rotation_ii.c \
+$(B_EV_DIR)/state/set_camera_translation_i.c $(B_EV_DIR)/state/set_camera_translation_ii.c \
+$(B_EV_DIR)/state/set_state_bonus.c $(B_EV_DIR)/state/state_bonus.c
 
+B_FRAME_DIR = src/app/bonus/frame
+BONUS_FRAME_FILES = $(B_FRAME_DIR)/frame.c $(B_FRAME_DIR)/draw_forms.c \
+$(B_FRAME_DIR)/process_state.c $(B_FRAME_DIR)/show_frame_info.c
 
-BONUS_FILES = $(BONUS_EVENTS_FILES) src/app/bonus/context.c src/app/bonus/frame/frame.c src/app/bonus/frame/draw_forms.c \
-src/app/bonus/frame/process_state.c src/app/bonus/frame/show_frame_info.c
+B_THREAD_DIR = src/app/bonus/threads
+BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i.c $(B_THREAD_DIR)/context_callbacks_ii.c \
+$(B_THREAD_DIR)/flow_control.c $(B_THREAD_DIR)/parallelize.c $(B_THREAD_DIR)/threads_bonus.c $(B_THREAD_DIR)/threads_routine.c
+
+BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context.c src/app/bonus/ray_tracing.c
 
 SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES)
 

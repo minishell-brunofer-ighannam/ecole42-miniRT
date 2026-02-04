@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_internal_bonus.h                           :+:      :+:    :+:   */
+/*   context_callbacks_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 11:41:47 by brunofer         ###   ########.fr       */
+/*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/02 18:18:24 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef THREADS_INTERNAL_BONUS_H
-# define THREADS_INTERNAL_BONUS_H
+#include "includes/threads_internal_bonus.h"
 
-# include <unistd.h>
-# include "libft.h"
-# include "threads_bonus.h"
 
-t_thread	*ft_new_thread(
-				t_context *context, t_flow_ctrl *flow_ctrl,
-				int id, int n_threads);
-t_flow_ctrl	*ft_new_flow_control(void);
-void		*ft_thread_routine(t_thread *thread);
-void		ft_recalculate_thread_chunck(t_thread *thread);
+bool	ft_is_window_resized(t_context *self)
+{
+	bool		is_window_resize;
+	t_parallel	*parallel;
 
-#endif
+	parallel = self->parallel;
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+	is_window_resize = self->events.state.window.has_changes;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+	return (is_window_resize);
+}

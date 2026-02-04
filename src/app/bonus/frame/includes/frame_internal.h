@@ -15,11 +15,13 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include "../../threads/includes/threads_bonus.h"
 # include "frame.h"
 
 void	ft_draw_square(t_context *context, int width, int height);
 
 void	ft_show_frame_info(t_context *context);
 bool	ft_process_state(t_context *context);
+bool	ft_process_resize_image(t_context *context);
 
 #endif

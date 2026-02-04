@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   context_callbacks.c                                :+:      :+:    :+:   */
+/*   context_callbacks_i.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/01 17:19:30 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/03 18:24:38 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,17 @@ void	ft_set_frame_ready(t_context *self, bool status)
 	t_parallel	*parallel;
 
 	parallel = self->parallel;
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_frame_ready);
+	parallel->flow_ctrl->is_frame_ready = status;
+	if (!status)
+		pthread_cond_broadcast(&parallel->flow_ctrl->cond_frame_ready);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_ready);
 	if (!status)
 	{
 		pthread_mutex_lock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 		parallel->flow_ctrl->frame_parts_ready = 0;
 		pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 	}
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_frame_ready);
-	parallel->flow_ctrl->is_frame_ready = status;
-	if (!status)
-		pthread_cond_broadcast(&parallel->flow_ctrl->cond_frame_ready);
-	while (status)
-		pthread_cond_wait(&parallel->flow_ctrl->cond_frame_ready,
-			&parallel->flow_ctrl->mutex_frame_ready);
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_ready);
 }
 
 void	ft_set_frame_parts_ready(t_context *self)
@@ -80,4 +77,9 @@ void	ft_set_frame_parts_ready(t_context *self)
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 	if (is_ready)
 		ft_set_frame_ready(self, true);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_frame_parts_ready);
+	while (parallel->flow_ctrl->frame_parts_ready > 0)
+		pthread_cond_wait(&parallel->flow_ctrl->cond_frame_ready,
+			&parallel->flow_ctrl->mutex_frame_parts_ready);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 }

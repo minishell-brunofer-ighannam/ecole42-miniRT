@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:28:33 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/01 16:49:48 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/03 17:50:14 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_thread	*ft_new_thread(t_context *context, t_flow_ctrl *flow_ctrl, int id, int 
 	else
 		thread->range_end = thread->range_start + chunck - 1;
 	thread->destroy = ft_thread_destroy;
-	thread->error = pthread_create(&thread->thread, NULL, ft_thread_routine, thread);
+	thread->error = pthread_create(&thread->thread, NULL, (void *(*)())ft_thread_routine, thread);
 	if (thread->error)
 		return (thread->destroy(&thread));
 	return (thread);
@@ -46,25 +46,15 @@ void	ft_recalculate_thread_chunck(t_thread *thread)
 
 	context = thread->context;
 	parallel = context->parallel;
-	if (context->mlx.window.height <= parallel->n_threads)
+	if (context->mlx.window.height <= (int)parallel->n_threads)
 		thread->chunck = 1;
 	else
 		thread->chunck = context->mlx.window.height / parallel->n_threads;
 	thread->range_start = thread->id * thread->chunck;
-	if (thread->id == parallel->n_threads - 1)
+	if (thread->id == (int)parallel->n_threads - 1)
 		thread->range_end = context->mlx.window.height - 1;
 	else
 		thread->range_end = thread->range_start + thread->chunck - 1;
-}
-
-t_parallel	*ft_parallelize(t_context *context)
-{
-	t_parallel	*parallel;
-
-	if (!context)
-		return (NULL);
-	parallel = ft_calloc(1, sizeof(t_parallel));
-	context->parallel = parallel;
 }
 
 void	*ft_thread_destroy(t_thread **self_ref)

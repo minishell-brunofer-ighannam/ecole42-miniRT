@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/01 14:25:25 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/04 10:08:29 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "events/includes/events_bonus.h"
 #include "threads/includes/threads_bonus.h"
 #include "context.h"
+#include "ray_tracing.h"
 
 static void	*ft_crate_context_callbacks(t_context *context)
 {
@@ -26,6 +27,7 @@ static void	*ft_crate_context_callbacks(t_context *context)
 	context->callbacks.is_frame_ready = ft_is_frame_ready;
 	context->callbacks.set_frame_parts_ready = ft_set_frame_parts_ready;
 	context->callbacks.set_frame_ready = ft_set_frame_ready;
+	context->callbacks.is_window_resized = ft_is_window_resized;
 	return (NULL);
 }
 
@@ -35,6 +37,7 @@ int	main(int argc, char **argv)
 	t_events		*events;
 	t_context		context;
 	t_window_info	window;
+	t_parallel		*parallel;
 
 	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
 	if (argc >= 2)
@@ -54,8 +57,10 @@ int	main(int argc, char **argv)
 	mlx->events.mouse_move(*mlx, events->callbacks.mouse.btn_move_callback, &context);
 	mlx->events.loop(*mlx, (int (*)())context.frame.run, &context);
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
-	mlx->events.window_close(*mlx, events->callbacks.window.close, mlx);
+	mlx->events.window_close(*mlx, events->callbacks.window.close, &context);
+	parallel = ft_parallelize(&context, ft_ray_tracing);
 	mlx->loop(*mlx);
+	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
 	return (0);
 }

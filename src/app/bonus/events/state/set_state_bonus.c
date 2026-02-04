@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:18:05 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/03 19:20:21 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../threads/includes/threads_bonus.h"
 #include "../gestures/includes/gestures_bonus.h"
 #include "includes/state_internal_bonus.h"
 
@@ -31,8 +32,12 @@ static void	set_window(t_state *self, int width, int height)
 {
 	if (!self)
 		return ;
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	if (self->window.width == width && self->window.height == height)
+	{
+		pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 		return ;
+	}
 	if (!self->window.has_changes)
 	{
 		if (!self->has_changes)
@@ -45,12 +50,14 @@ static void	set_window(t_state *self, int width, int height)
 		self->window.height = height;
 	self->window.ratio = (double)width / (double)height;
 	printf("window::resize[%d, %d]\n", width, height);
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }
 
 static void	set_keys(t_state *self, int key, bool value)
 {
 	t_pressed_keys	*keys;
 
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	keys = &self->pressed_keys;
 	if (!self->has_changes)
 		self->has_changes = true;
@@ -74,6 +81,7 @@ static void	set_keys(t_state *self, int key, bool value)
 		keys->right_mouse_btn = value;
 	else if (key == MOUSE_MIDDLE_BUTTON && keys->middle_mouse_btn != value)
 		keys->middle_mouse_btn = value;
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }
 
 void	set_camera_changed_flag(t_state *self)

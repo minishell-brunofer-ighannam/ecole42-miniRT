@@ -31,7 +31,7 @@ static int	ft_run_frame(t_context *context)
 	gettimeofday(&context->frame.frame_start, NULL);
 	if (!context->events.state.window.has_changes)
 		ft_draw_square(context, 100, 100);
-	is_render_allowed = ft_process_state(context);
+	is_render_allowed = ft_process_resize_image(context);
 	if (is_render_allowed)
 		ft_render_frame(context);
 	// else
@@ -39,7 +39,7 @@ static int	ft_run_frame(t_context *context)
 	return (1);
 }
 
-static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pixel, t_context *context)
+void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pixel, t_context *context)
 {
 	double		baskara;
 	int			pixels;
@@ -70,9 +70,8 @@ static void	ft_simulate_expensive_prossessing(int threads_amount, int ops_per_pi
 
 static void	ft_render_frame(t_context *context)
 {
-	ft_simulate_expensive_prossessing(10, 100, context);
 	context->mlx.display_image(context->mlx);
-	// TODO: destravar mutex das threads
-	// ...
+	ft_process_state(context);
 	ft_show_frame_info(context);
+	context->callbacks.set_frame_ready(context, false);
 }
