@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 10:08:29 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:32:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 #include "threads/includes/threads_bonus.h"
 #include "context.h"
 #include "ray_tracing.h"
+#include "parser.h"
+#include "scene.h"
+#include "camera.h"
+#include "ray_tracer.h"
+#include "math_rt.h"
+#include "colision.h"
 
 static void	*ft_crate_context_callbacks(t_context *context)
 {
@@ -38,6 +44,8 @@ int	main(int argc, char **argv)
 	t_context		context;
 	t_window_info	window;
 	t_parallel		*parallel;
+	t_scene *scene;
+	
 
 	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
 	if (argc >= 2)
@@ -58,7 +66,12 @@ int	main(int argc, char **argv)
 	mlx->events.loop(*mlx, (int (*)())context.frame.run, &context);
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
 	mlx->events.window_close(*mlx, events->callbacks.window.close, &context);
-	parallel = ft_parallelize(&context, ft_ray_tracing);
+
+	scene = ft_parser("scene/basic/cylinder_blue.rt");
+	ft_camera_init(&scene->camera);
+	context.scene = scene;
+
+	parallel = ft_parallelize(&context, ft_camera_ray_loop);
 	mlx->loop(*mlx);
 	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);

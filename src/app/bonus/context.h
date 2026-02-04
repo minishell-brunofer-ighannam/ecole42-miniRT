@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/02 10:54:43 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:07:51 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "events/includes/events_bonus.h"
 # include "frame/includes/frame.h"
 # include "../../minilibx/includes/minilibx.h"
+# include "scene.h"
 
 typedef struct s_context			t_context;
 
@@ -37,7 +38,7 @@ struct s_context
 	t_events			events;
 	t_frame				frame;
 	void				*parallel;
-	void				*scene;
+	t_scene				*scene;
 	t_context_callbacks	callbacks;
 };
 

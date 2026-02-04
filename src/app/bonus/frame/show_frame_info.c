@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_frame_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 08:41:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 09:01:57 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/04 12:28:17 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_track_fps(t_context *context)
 	fps_str = ft_str_addsufix(ft_utoa_base(fps, "0123456789"), "fps", 1);
 	fps_str = ft_str_addprefix(fps_str, " | ", 1);
 	mlx_string_put(context->mlx.window.mlx_ref, context->mlx.window.win_ref,
-		35, 10, 0xffffffff, fps_str);
+		35, 10, 0x00000000, fps_str);
 	free(fps_str);
 }
 
@@ -57,7 +57,7 @@ static void	ft_track_ms(t_context *context)
 
 	ms = ft_str_addsufix(ft_itoa(time_diff), "ms", 1);
 	mlx_string_put(context->mlx.window.mlx_ref, context->mlx.window.win_ref,
-		10, 10, 0xffffffff, ms);
+		10, 10, 0x00000000, ms);
 	free(ms);
 	last_time = context->frame.frame_start;
 }

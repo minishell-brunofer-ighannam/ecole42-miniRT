@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:52 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 09:15:42 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:26:06 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 #include "ray.h"
 #include "scene.h"
 #include "colision.h"
+#include "context.h"
+#include "threads_bonus.h"
+#include <pthread.h>
 
-void	ft_camera_ray_loop(t_scene *scene);
+
+void	*ft_camera_ray_loop(t_context *context, int start, int end);
 
 #endif

@@ -6,17 +6,18 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 11:01:07 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:26:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera_ray.h"
 #include "camera_ray_internal.h"
 
-static t_ray	ft_camera_ray(t_camera camera, int x, int y);
-static void		color_pixel(t_scene *scene, int x, int y, int color);
 
-void	ft_camera_ray_loop(t_scene *scene)
+static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y);
+static void	color_pixel(t_context *context, int x, int y, int color);
+
+void	*ft_camera_ray_loop(t_context *context, int start, int end)
 {
 	int			i;
 	int			j;
@@ -25,26 +26,27 @@ void	ft_camera_ray_loop(t_scene *scene)
 	int			color;
 
 	i = 0;
-	j = 0;
-	while (j < HEIGHT)
+	j = start;
+	while (j <= end)
 	{
 		i = 0;
-		while (i < WIDTH)
+		while (i < context->mlx.window.width)
 		{
-			ray = ft_camera_ray(scene->camera, i, j);
-			col = ft_closest_colision(scene, ray);
+			ray = ft_camera_ray(context, context->scene->camera, i, j);
+			col = ft_closest_colision(context->scene, ray);
 			if (col.colision)
 				color = 0XFF0000;
 			else
 				color = 0XFFFFFF;
-			color_pixel(scene, i, j, color);
+			color_pixel(context, i, j, color);
 			i++;
 		}
 		j++;
 	}
+	return (NULL);
 }
 
-static t_ray	ft_camera_ray(t_camera camera, int x, int y)
+static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 {
 	double		screen_x;
 	double		screen_y;
@@ -53,8 +55,8 @@ static t_ray	ft_camera_ray(t_camera camera, int x, int y)
 	t_vector_3d	dir;
 	t_ray		ray;
 
-	ndc_x = (x + 0.5) / WIDTH;
-	ndc_y = (y + 0.5) / HEIGHT;
+	ndc_x = (x + 0.5) / context->mlx.window.width;
+	ndc_y = (y + 0.5) / context->mlx.window.height;
 	screen_x = 2 * ndc_x - 1;
 	screen_y = 1 - 2 * ndc_y;
 	screen_x *= camera.aspect * camera.scale;
@@ -67,11 +69,15 @@ static t_ray	ft_camera_ray(t_camera camera, int x, int y)
 	return (ray);
 }
 
-static void	color_pixel(t_scene *scene, int x, int y, int color)
+static void	color_pixel(t_context *context, int x, int y, int color)
 {
-	char	*dest;
+	t_parallel *parallel;
 
 	// ESSA FUNCAO É SÓ PARA TESTE
-	dest = scene->addr + (y * scene->line_len + x * (scene->bpp / 8));
-	*(unsigned int *)dest = color;
+	parallel = context->parallel;
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+	if (!context->events.state.window.has_changes)
+		*context->mlx.frame_buffer[x][y] = color;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+
 }

@@ -32,6 +32,8 @@ INCLUDES = \
 	-I src/core/ray_tracer/includes \
 	-I src/core/ray_tracer/colision/includes \
 	-I src/core/ray_tracer/camera/includes \
+	-I src/app/bonus \
+	-I src/app/bonus/threads/includes \
 	-I lib/minilibx
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
@@ -88,7 +90,7 @@ $(B_THREAD_DIR)/flow_control.c $(B_THREAD_DIR)/parallelize.c $(B_THREAD_DIR)/thr
 
 BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context.c src/app/bonus/ray_tracing.c
 
-SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES)
+SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES) $(PARSER_FILES) $(DATA_STRUCTURES) $(SCENE_FILES) $(RAY_TRACER_FILES) $(MATH_RT_FILES)
 
 # ============== PROGRAM FILES =================
 MAIN_PROGRAM = src/app/mandatory/main.c
@@ -190,24 +192,6 @@ test_colision: \
 	$(COMPILATION_DEPENDENCIES)
 	$(CC) $(CFLAGS) \
 		test/test_colision.c \
-		$(MATH_RT_FILES) \
-		$(DATA_STRUCTURES) \
-		$(PARSER_FILES) \
-		$(SCENE_FILES) \
-		$(RAY_TRACER_FILES) \
-		$(COMPILATION_DEPENDENCIES) \
-		-o $@ $(DEPENDENCIES)
-
-test_first_hit: \
-	test/test_first_hit.c \
-	$(MATH_RT_FILES) \
-	$(DATA_STRUCTURES) \
-	$(PARSER_FILES) \
-	$(SCENE_FILES) \
-	$(RAY_TRACER_FILES) \
-	$(COMPILATION_DEPENDENCIES)
-	$(CC) $(CFLAGS) \
-		test/test_first_hit.c \
 		$(MATH_RT_FILES) \
 		$(DATA_STRUCTURES) \
 		$(PARSER_FILES) \
