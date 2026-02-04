@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_events_internal_bonus.h                   :+:      :+:    :+:   */
+/*   ray_tracing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 05:43:18 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/03 17:29:18 by brunofer          #+#    #+#             */
+/*   Updated: 2026/02/03 17:30:37 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_EVENTS_INTERNAL_BONUS_H
-# define WINDOW_EVENTS_INTERNAL_BONUS_H
+#ifndef RAY_TRACING_H
+# define RAY_TRACING_H
 
-# include "window_events_bonus.h"
+# include "context.h"
+
+void	*ft_ray_tracing(t_context *context, int row_start, int row_end);
 
 #endif

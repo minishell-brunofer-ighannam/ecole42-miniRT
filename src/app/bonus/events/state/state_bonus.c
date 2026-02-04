@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_events_bonus.h                               :+:      :+:    :+:   */
+/*   state_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:21:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 08:21:56 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/01/28 10:05:00 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/state_internal_bonus.h"
 
-#ifndef WINDOW_EVENTS_BONUS_H
-# define WINDOW_EVENTS_BONUS_H
-
-# include <X11/Xlib.h>
-# include <stdio.h>
-# include "../../../../../minilibx/includes/minilibx.h"
-
-typedef struct s_window_callbacks	t_window_callbacks;
-struct s_window_callbacks
+t_state	ft_new_state(void)
 {
-	int	(*close)(t_mlx *mlx);
-	int	(*resize)(void *param, XEvent *event);
-};
+	t_state	state;
 
-t_window_callbacks	ft_new_window_callbacks(void);
-
-#endif
+	ft_bzero(&state, sizeof(t_state));
+	state.set = ft_new_set_state();
+	return (state);
+}

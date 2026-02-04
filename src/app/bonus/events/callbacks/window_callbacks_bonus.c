@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_events_bonus.c                              :+:      :+:    :+:   */
+/*   window_callbacks_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 08:37:28 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 13:11:19 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/04 10:50:29 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "includes/window_events_internal_bonus.h"
+#include "../../context.h"
+#include "includes/events_callbacks_internal_bonus.h"
 
 static int	ft_window_resize(void *param, XEvent *event);
-static int	ft_close_window(t_mlx *mlx);
+static int	ft_close_window(t_context *context);
 
 t_window_callbacks	ft_new_window_callbacks(void)
 {
@@ -27,19 +27,23 @@ t_window_callbacks	ft_new_window_callbacks(void)
 
 static int	ft_window_resize(void *param, XEvent *event)
 {
-	int	new_width;
-	int	new_height;
+	t_context	*context;
+	t_events	*events;
+	int			width;
+	int			height;
 
-	new_width = event->xconfigure.width;
-	new_height = event->xconfigure.height;
-	printf("new width: %d, new height: %d\n", new_width, new_height);
-	// update event status
-	(void)param;
+	context = param;
+	events = &context->events;
+	width = event->xconfigure.width;
+	height = event->xconfigure.height;
+	events->state.set.window(&events->state, width, height);
+	// printf("new width: %d, new height: %d\n", width, height);
 	return (1);
 }
 
-static int	ft_close_window(t_mlx *mlx)
+static int	ft_close_window(t_context *context)
 {
-	mlx_loop_end(mlx->window.mlx_ref);
+	context->callbacks.stop_app(context);
+	mlx_loop_end(context->mlx.window.mlx_ref);
 	return (1);
 }
