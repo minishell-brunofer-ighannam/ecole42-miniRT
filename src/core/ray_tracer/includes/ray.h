@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 11:06:35 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:31 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/04 08:41:47 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/04 08:42:20 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RAY_H
+#define RAY_H
+
 #include "math_rt.h"
 
-double ft_sqtr_newton(double n, double eps)
-{
-    double	x;
-	double	diff;
+typedef struct s_ray t_ray;
 
-	if (n < 0.0)
-		return (-1.0);
-	if (n == 0.0)
-		return (0.0);
-	x = 1.0;
-    if (n > 1.0)
-	    x = n;
-	diff = 1.0;
-	while (diff > eps)
-	{
-		x = 0.5 * (x + n / x);
-		diff = x * x - n;
-		if (diff < 0.0)
-			diff = -diff;
-	}
-	return (x);
-}
+struct s_ray
+{
+    t_point_3d  point;
+    t_vector_3d vector;
+};
+
+
+#endif

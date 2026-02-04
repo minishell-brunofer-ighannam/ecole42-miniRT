@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:36 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 18:10:07 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/03 13:36:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_include_plane(t_scene *scene, t_parser_node *content)
 	pl->point = ft_new_point(ft_atod(content->splited_args[1][0]),
 			ft_atod(content->splited_args[1][1]),
 			ft_atod(content->splited_args[1][2]));
-	pl->orientation = ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
+	pl->normal = ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
 			ft_atod(content->splited_args[2][1]),
 			ft_atod(content->splited_args[2][2]));
 	pl->material = ft_form_material_pl(content);

@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ray_tracer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 11:06:35 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:31 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/02 14:22:20 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/04 08:42:48 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RAY_TRACER_H
+#define RAY_TRACER_H
+
 #include "math_rt.h"
+# include "libft.h"
+#include "scene.h"
+#include "colision.h"
+#include "camera_ray.h"
+#include "ray.h"
 
-double ft_sqtr_newton(double n, double eps)
-{
-    double	x;
-	double	diff;
+t_point_3d ft_ray_at(t_ray ray, double t);
 
-	if (n < 0.0)
-		return (-1.0);
-	if (n == 0.0)
-		return (0.0);
-	x = 1.0;
-    if (n > 1.0)
-	    x = n;
-	diff = 1.0;
-	while (diff > eps)
-	{
-		x = 0.5 * (x + n / x);
-		diff = x * x - n;
-		if (diff < 0.0)
-			diff = -diff;
-	}
-	return (x);
-}
+
+#endif

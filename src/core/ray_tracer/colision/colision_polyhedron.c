@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   colision_polyhedron.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 11:06:35 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:31 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/03 15:32:41 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/03 15:36:50 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_rt.h"
+#include "colision.h"
 
-double ft_sqtr_newton(double n, double eps)
+double ft_polyhedron_colision(t_polyhedron polyhedron, t_ray ray)
 {
-    double	x;
-	double	diff;
-
-	if (n < 0.0)
-		return (-1.0);
-	if (n == 0.0)
-		return (0.0);
-	x = 1.0;
-    if (n > 1.0)
-	    x = n;
-	diff = 1.0;
-	while (diff > eps)
-	{
-		x = 0.5 * (x + n / x);
-		diff = x * x - n;
-		if (diff < 0.0)
-			diff = -diff;
-	}
-	return (x);
+    if (polyhedron.type == SPHERE)
+        return (ft_colision_sp(&polyhedron, ray));
+    else if (polyhedron.type == CYLINDER)
+        return (ft_colision_cy(&polyhedron, ray));
+    else if (polyhedron.type == PLANE)
+        return (ft_colision_pl(&polyhedron, ray));
+    return (INFINITY);
 }

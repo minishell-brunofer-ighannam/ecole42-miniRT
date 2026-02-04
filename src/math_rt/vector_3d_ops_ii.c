@@ -6,42 +6,26 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/29 18:49:54 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/03 17:31:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_rt_internal.h"
 #include "math_rt.h"
 
-t_vector_3d	ft_vector_normalize(t_vector_3d *self)
+t_vector_3d	ft_vector_normalize(t_vector_3d self)
 {
 	t_vector_3d	vector;
+	double module;
 
 	vector = ft_new_vector_3d(0, 0, 0);
-	if (!self)
+	module = ft_vector_module(self);
+	if (!module)
 		return (vector);
-	if (!self->module)
-		return (vector);
-	vector.x = self->x / self->module;
-	vector.y = self->y / self->module;
-	vector.z = self->z / self->module;
+	vector.x = self.x / module;
+	vector.y = self.y / module;
+	vector.z = self.z / module;
 	return (vector);
-}
-
-t_vector_3d_methods	ft_vector_3d_methods(void)
-{
-	t_vector_3d_methods	methods;
-
-	methods.dot_product = ft_vector_dot_product;
-	methods.module = ft_vector_module;
-	methods.module_squared = ft_vector_module_squared;
-	methods.cos_teta = ft_vector_cos_teta;
-	methods.sub_vect = ft_vector_sub_vect;
-	methods.add_vect = ft_vector_add_vect;
-	methods.mult_scalar = ft_vector_mult_scalar;
-	methods.div_scalar = ft_vector_div_scalar;
-	methods.normalize = ft_vector_normalize;
-	return (methods);
 }
 
 bool ft_is_normalized_3d_vector(double x, double y, double z, double eps)
@@ -52,4 +36,24 @@ bool ft_is_normalized_3d_vector(double x, double y, double z, double eps)
 	if (len < 1.0 - eps || len > 1.0 + eps)
 		return (false);
 	return (true);
+}
+
+t_point_3d ft_point_add_vect(t_point_3d p, t_vector_3d v)
+{
+	t_point_3d res;
+
+    res.x = p.x + v.x;
+    res.y = p.y + v.y;
+    res.z = p.z + v.z;
+    return (res);
+}
+
+t_vector_3d ft_cross_product(t_vector_3d v1, t_vector_3d v2)
+{
+	t_vector_3d result;
+
+	result.x = v1.y * v2.z - v1.z * v2.y;
+    result.y = v1.z * v2.x - v1.x * v2.z;
+    result.z = v1.x * v2.y - v1.y * v2.x;
+    return result;
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/29 18:39:55 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/04 10:28:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 # define CAMERA_H
 
 #include "math_rt.h"
+#include "scene.h"
 
 typedef struct s_camera t_camera;
 
-struct s_camera
-{
-    t_point_3d position;
-    t_vector_3d orientation;
-    double horizontal_fov;
-};
 
+
+void	ft_camera_init(t_camera *camera);
 
 #endif

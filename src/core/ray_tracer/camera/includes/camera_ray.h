@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   camera_ray.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 11:06:35 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:31 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/03 17:37:52 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/04 09:15:42 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_rt.h"
+#ifndef CAMERA_RAY_H
+#define CAMERA_RAY_H
 
-double ft_sqtr_newton(double n, double eps)
-{
-    double	x;
-	double	diff;
+#include "ray.h"
+#include "scene.h"
+#include "colision.h"
 
-	if (n < 0.0)
-		return (-1.0);
-	if (n == 0.0)
-		return (0.0);
-	x = 1.0;
-    if (n > 1.0)
-	    x = n;
-	diff = 1.0;
-	while (diff > eps)
-	{
-		x = 0.5 * (x + n / x);
-		diff = x * x - n;
-		if (diff < 0.0)
-			diff = -diff;
-	}
-	return (x);
-}
+void	ft_camera_ray_loop(t_scene *scene);
+
+#endif

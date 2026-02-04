@@ -29,7 +29,10 @@ INCLUDES = \
 	-I src/core/scene/camera/includes \
 	-I src/core/scene/light/includes \
 	-I src/core/scene/polyhedron/includes \
-	-I $(MLX_DIR)
+	-I src/core/ray_tracer/includes \
+	-I src/core/ray_tracer/colision/includes \
+	-I src/core/ray_tracer/camera/includes \
+	-I lib/minilibx
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
 
@@ -42,7 +45,7 @@ src/minilibx/minilibx.c
 
 # **** MATH_RT ****
 MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/ft_sqrt.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
-src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c 
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/comparisons.c
 
 
 # **** PARSER ****
@@ -51,7 +54,13 @@ src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/co
 src/core/parser/parser_verify_iv.c src/core/parser/parser.c
 
 # **** SCENE ****
-SCENE_FILES = src/core/scene/scene.c
+SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/polyhedron/plane.c \
+src/core/scene/polyhedron/sphere.c src/core/scene/polyhedron/cylinder.c src/core/scene/camera/camera_init.c 
+
+# **** RAY_TRACER ****
+RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
+src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
+src/core/ray_tracer/camera/camera_ray.c
 
 
 # **** DATA_STRUCTURES ****
@@ -90,7 +99,7 @@ OBJ_MAIN_PROGRAM = $(MAIN_PROGRAM:%.c=%.o)
 OBJ_MAIN_BONUS_PROGRAM = $(MAIN_BONUS_PROGRAM:%.c=%.o)
 OBJ_TEST_PROGRAM = $(TEST_PROGRAM:%.c=%.o)
 
-TEST_PROGRAMS = test_parser
+TEST_PROGRAMS = test_parser test_colision test_first_hit
 
 # ============== CUSTOM SLEEP =================
 SLEEP = 0.07
@@ -159,6 +168,42 @@ test_parser: \
 		$(DATA_STRUCTURES) \
 		$(PARSER_FILES) \
 		$(SCENE_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
+
+test_colision: \
+	test/test_colision.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(SCENE_FILES) \
+	$(RAY_TRACER_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
+		test/test_colision.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(SCENE_FILES) \
+		$(RAY_TRACER_FILES) \
+		$(COMPILATION_DEPENDENCIES) \
+		-o $@ $(DEPENDENCIES)
+
+test_first_hit: \
+	test/test_first_hit.c \
+	$(MATH_RT_FILES) \
+	$(DATA_STRUCTURES) \
+	$(PARSER_FILES) \
+	$(SCENE_FILES) \
+	$(RAY_TRACER_FILES) \
+	$(COMPILATION_DEPENDENCIES)
+	$(CC) $(CFLAGS) \
+		test/test_first_hit.c \
+		$(MATH_RT_FILES) \
+		$(DATA_STRUCTURES) \
+		$(PARSER_FILES) \
+		$(SCENE_FILES) \
+		$(RAY_TRACER_FILES) \
 		$(COMPILATION_DEPENDENCIES) \
 		-o $@ $(DEPENDENCIES)
 
