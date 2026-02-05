@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 17:31:56 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 10:45:55 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ t_vector_3d ft_cross_product(t_vector_3d v1, t_vector_3d v2)
     result.y = v1.z * v2.x - v1.x * v2.z;
     result.z = v1.x * v2.y - v1.y * v2.x;
     return result;
+}
+
+t_vector_3d ft_component_wise_product(t_vector_3d v1, t_vector_3d v2)
+{
+	t_vector_3d v3;
+
+	v3.x = v1.x * v2.x;
+	v3.y = v1.y * v2.y;
+	v3.z = v1.z * v2.z;
+	return (v3);
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:49:07 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 08:30:26 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:47:08 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-#define EPS 1e-6
+# define EPS 1e-6
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 typedef struct s_point_3d	t_point_3d;
 typedef struct s_vector_3d	t_vector_3d;
@@ -68,8 +68,11 @@ double						ft_sqtr_newton(double n, double eps);
 bool						ft_is_normalized_3d_vector(double x, double y,
 								double z, double eps);
 t_point_3d					ft_point_add_vect(t_point_3d p, t_vector_3d v);
-bool ft_double_is_equal(double a, double b, double eps);
-bool	ft_point_is_equal(t_point_3d a, t_point_3d b, double eps);
-t_vector_3d ft_cross_product(t_vector_3d v1, t_vector_3d v2);
+bool						ft_double_is_equal(double a, double b, double eps);
+bool						ft_point_is_equal(t_point_3d a, t_point_3d b,
+								double eps);
+t_vector_3d					ft_cross_product(t_vector_3d v1, t_vector_3d v2);
+t_vector_3d					ft_component_wise_product(t_vector_3d v1,
+								t_vector_3d v2);
 
 #endif

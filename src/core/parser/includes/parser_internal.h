@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:54:29 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 13:45:04 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ bool							ft_verify_optional_double(char **arg,
 									double min, double max);
 void							ft_include_items_scene(t_linkedlist_node *node,
 									t_scene *scene);
+void							ft_include_default_values(t_material *material);
 
 #endif

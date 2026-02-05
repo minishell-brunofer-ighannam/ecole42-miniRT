@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:43:44 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:37:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,4 @@ double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray)
 		}
 	}
 	return (t_min);
-}
-
-t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p)
-{
-	double		y;
-	t_point_3d	proj;
-
-	y = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
-	proj = ft_point_add_vect(cy->center, ft_vector_mult_scalar(cy->axis, y));
-	return (ft_vector_normalize(ft_sub_point(p, proj)));
 }

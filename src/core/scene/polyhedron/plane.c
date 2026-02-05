@@ -6,12 +6,10 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:16:27 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:26:27 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 15:40:10 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "polyhedron.h"
 #include "polyhedron_internal.h"
-
-
 

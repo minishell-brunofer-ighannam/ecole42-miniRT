@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 13:36:09 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:42:39 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	ft_include_sphere(t_scene *scene, t_parser_node *content)
 			ft_atod(content->splited_args[1][1]),
 			ft_atod(content->splited_args[1][2]));
 	sp->radius = ft_atod(content->splited_args[2][0]) / 2.0;
-	sp->material = ft_form_material_sp(content);
 	scene->polyhedron[scene->count_polyhedron].type = SPHERE;
 	scene->polyhedron[scene->count_polyhedron].specs = sp;
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material_sp(content);
+	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
 	scene->count_polyhedron++;
 }
 
@@ -39,21 +40,35 @@ t_material	ft_form_material_sp(t_parser_node *content)
 	material.albedo = ft_new_vector_3d(ft_atoi(content->splited_args[3][0]),
 			ft_atoi(content->splited_args[3][1]),
 			ft_atoi(content->splited_args[3][2]));
+	material.norm_albedo = ft_new_vector_3d(material.albedo.x / 255.0,
+			material.albedo.y / 255.0, material.albedo.z / 255.0);
 	if (!content->splited_args[4] || !content->splited_args[5]
 		|| !content->splited_args[6] || !content->splited_args[7]
 		|| !content->splited_args[8])
-		return (material);
-	if (content->splited_args[4])
-		material.ka = ft_atod(content->splited_args[4][0]);
-	if (content->splited_args[5])
-		material.kd = ft_atod(content->splited_args[5][0]);
-	if (content->splited_args[6])
-		material.ks = ft_atod(content->splited_args[6][0]);
-	if (content->splited_args[7])
-		material.n = ft_atod(content->splited_args[7][0]);
-	if (content->splited_args[8])
-		material.kr = ft_atod(content->splited_args[8][0]);
+		ft_include_default_values(&material);
+	else
+	{
+		if (content->splited_args[4])
+			material.ka = ft_atod(content->splited_args[4][0]);
+		if (content->splited_args[5])
+			material.kd = ft_atod(content->splited_args[5][0]);
+		if (content->splited_args[6])
+			material.ks = ft_atod(content->splited_args[6][0]);
+		if (content->splited_args[7])
+			material.n = ft_atod(content->splited_args[7][0]);
+		if (content->splited_args[8])
+			material.kr = ft_atod(content->splited_args[8][0]);
+	}
 	return (material);
+}
+
+void ft_include_default_values(t_material *material)
+{
+	material->ka = KA;
+	material->kd = KD;
+	material->kr = KR;
+	material->ks = KS;
+	material->n = N;
 }
 
 void	ft_include_cylinder(t_scene *scene, t_parser_node *content)
@@ -69,9 +84,10 @@ void	ft_include_cylinder(t_scene *scene, t_parser_node *content)
 			ft_atod(content->splited_args[2][2]));
 	cy->radius = ft_atod(content->splited_args[3][0]) / 2.0;
 	cy->height = ft_atod(content->splited_args[4][0]);
-	cy->material = ft_form_material_cy(content);
 	scene->polyhedron[scene->count_polyhedron].type = CYLINDER;
 	scene->polyhedron[scene->count_polyhedron].specs = cy;
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material_cy(content);
+	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
 	scene->count_polyhedron++;
 }
 
@@ -83,10 +99,15 @@ t_material	ft_form_material_cy(t_parser_node *content)
 	material.albedo = ft_new_vector_3d(ft_atoi(content->splited_args[5][0]),
 			ft_atoi(content->splited_args[5][1]),
 			ft_atoi(content->splited_args[5][2]));
+	material.norm_albedo = ft_new_vector_3d(material.albedo.x / 255.0,
+			material.albedo.y / 255.0, material.albedo.z / 255.0);
 	if (!content->splited_args[6] || !content->splited_args[7]
 		|| !content->splited_args[8] || !content->splited_args[9]
 		|| !content->splited_args[10])
+	{
+		ft_include_default_values(&material);	
 		return (material);
+	}
 	if (content->splited_args[6])
 		material.ka = ft_atod(content->splited_args[6][0]);
 	if (content->splited_args[7])

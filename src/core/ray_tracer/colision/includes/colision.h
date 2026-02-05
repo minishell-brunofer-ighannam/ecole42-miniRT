@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 08:43:22 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 16:25:44 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "ray_tracer.h"
 #include "ray.h"
 
-
+typedef struct s_scene t_scene;
+typedef struct s_colision t_colision;
 
 struct				s_colision
 {
@@ -46,7 +47,6 @@ double							ft_colision_cy(t_polyhedron *polyhedron,
 									t_ray ray);
 double							ft_colision_cy_body(t_cylinder *cy, t_ray ray);
 double							ft_colision_cy_caps(t_cylinder *cy, t_ray ray);
-t_vector_3d						ft_cy_normal(t_cylinder *cy, t_point_3d p);
 
 // POLYHEDRON
 double							ft_polyhedron_colision(t_polyhedron polyhedron,

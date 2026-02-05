@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:34:32 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:38:38 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,10 @@ enum							e_polyhedron_type
 	CYLINDER
 };
 
-struct							s_polyhedron
-{
-	t_polyhedron_type			type;
-	void						*specs;
-};
-
 struct							s_material
 {
 	t_vector_3d					albedo;
+	t_vector_3d					norm_albedo;
 	double ka; // coeficiente ambiente do material - entre 0 e 1
 	double kd; // coeficiente difuso do material - entre 0 e 1
 	double ks; // coeficiente especular - entre 0 e 1
@@ -49,11 +44,18 @@ struct							s_material
 	double kr; // coeficiente de reflexão - entre 0 e 1
 };
 
+struct							s_polyhedron
+{
+	t_polyhedron_type			type;
+	int							id;
+	void						*specs;
+	t_material					material;
+};
+
 struct							s_sphere
 {
 	t_point_3d					center;
 	double						radius;
-	t_material					material;
 };
 
 struct							s_cylinder
@@ -62,15 +64,17 @@ struct							s_cylinder
 	t_vector_3d					axis;
 	double						radius;
 	double						height;
-	t_material					material;
 };
 
 struct							s_plane
 {
 	t_point_3d					point;
 	t_vector_3d					normal;
-	t_material					material;
 };
 
+t_vector_3d						ft_sp_normal(t_sphere *sp, t_point_3d pt);
+t_vector_3d						ft_cy_normal(t_cylinder *cy, t_point_3d p);
+t_vector_3d						ft_normal_polyhedron(t_point_3d pt,
+									t_polyhedron polyhedron);
 
 #endif

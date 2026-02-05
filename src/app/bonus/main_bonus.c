@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 12:32:26 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:40:41 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	main(int argc, char **argv)
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
 	mlx->events.window_close(*mlx, events->callbacks.window.close, &context);
 
-	scene = ft_parser("scene/basic/cylinder_blue.rt");
+	scene = ft_parser("scene/basic/2_spheres_red_blue.rt");
+	if (!scene)
+		return (0);
+	
 	ft_camera_init(&scene->camera);
 	context.scene = scene;
 

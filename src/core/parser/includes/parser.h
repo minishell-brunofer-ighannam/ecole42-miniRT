@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:09:37 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 19:41:36 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PARSER_H
 
 # include "libft.h"
+
+# define KA 0.1
+# define KD 0.7
+# define KS 0.2
+# define N 32
+# define KR 1
 
 typedef struct s_scene		t_scene;
 typedef struct s_material	t_material;

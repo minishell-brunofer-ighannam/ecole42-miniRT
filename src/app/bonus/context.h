@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 12:07:51 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 11:14:19 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "scene.h"
 
 typedef struct s_context			t_context;
+typedef struct s_scene			t_scene;
 
 typedef struct s_context_callbacks	t_context_callbacks;
 struct s_context_callbacks

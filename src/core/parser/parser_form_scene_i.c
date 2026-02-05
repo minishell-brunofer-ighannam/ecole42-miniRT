@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 08:31:20 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:57:49 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	ft_include_light(t_scene *scene, t_parser_node *content)
 			ft_atoi(content->splited_args[3][1]),
 			ft_atoi(content->splited_args[3][2]));
 	scene->light[scene->count_light].color = vector_color;
+	scene->light[scene->count_light].norm_color = ft_new_vector_3d(vector_color.x / 255.0,
+			vector_color.y / 255.0, vector_color.z / 255.0);
 	scene->count_light++;
 }
 
@@ -107,4 +109,6 @@ void	ft_include_ambient(t_scene *scene, t_parser_node *content)
 			ft_atoi(content->splited_args[2][1]),
 			ft_atoi(content->splited_args[2][2]));
 	scene->ambient.color = vector_color;
+	scene->ambient.norm_color = ft_new_vector_3d(vector_color.x / 255.0,
+			vector_color.y / 255.0, vector_color.z / 255.0);
 }

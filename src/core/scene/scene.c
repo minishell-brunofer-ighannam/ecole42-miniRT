@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:18 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 08:31:49 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/05 17:56:41 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_print_scene(t_scene *scene)
         printf("position: %f, %f, %f\n", scene->light[i].coord.x, scene->light[i].coord.y, scene->light[i].coord.z);
         printf("intensity: %f\n", scene->light[i].intensity);
         printf("color: %f, %f, %f\n", scene->light[i].color.x, scene->light[i].color.y, scene->light[i].color.z);
+        printf("norm_color: %f, %f, %f\n", scene->light[i].norm_color.x, scene->light[i].norm_color.y, scene->light[i].norm_color.z);
         i++;
     }
     printf("\n");
@@ -57,12 +58,12 @@ void	ft_print_scene(t_scene *scene)
             printf("Sphere\n");
             printf("center: %f, %f, %f\n", ((t_sphere *)scene->polyhedron[i].specs)->center.x, ((t_sphere *)scene->polyhedron[i].specs)->center.y, ((t_sphere *)scene->polyhedron[i].specs)->center.z);
             printf("radius: %f\n",((t_sphere *)scene->polyhedron[i].specs)->radius);
-            printf("color: %f, %f, %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.albedo.x, ((t_sphere *)scene->polyhedron[i].specs)->material.albedo.y, ((t_sphere *)scene->polyhedron[i].specs)->material.albedo.z);
-            printf("ka: %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.ka);
-            printf("kd: %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.kd);
-            printf("ks: %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.ks);
-            printf("n: %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.n);
-            printf("kr: %f\n", ((t_sphere *)scene->polyhedron[i].specs)->material.kr);
+            printf("color: %f, %f, %f\n", scene->polyhedron[i].material.albedo.x, scene->polyhedron[i].material.albedo.y, scene->polyhedron[i].material.albedo.z);
+            printf("ka: %f\n", (scene->polyhedron[i].material.ka));
+            printf("kd: %f\n", (scene->polyhedron[i].material.kd));
+            printf("ks: %f\n", (scene->polyhedron[i].material.ks));
+            printf("n: %f\n", (scene->polyhedron[i].material.n));
+            printf("kr: %f\n", (scene->polyhedron[i].material.kr));
         }
         else if (scene->polyhedron[i].type == CYLINDER)
         {
@@ -71,24 +72,24 @@ void	ft_print_scene(t_scene *scene)
             printf("vector axis: %f, %f, %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->axis.x, ((t_cylinder *)scene->polyhedron[i].specs)->axis.y, ((t_cylinder *)scene->polyhedron[i].specs)->axis.z);
             printf("radius: %f\n",((t_cylinder *)scene->polyhedron[i].specs)->radius);
             printf("height: %f\n",((t_cylinder *)scene->polyhedron[i].specs)->height);
-            printf("color: %f, %f, %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.albedo.x, ((t_cylinder *)scene->polyhedron[i].specs)->material.albedo.y, ((t_cylinder *)scene->polyhedron[i].specs)->material.albedo.z);
-            printf("ka: %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.ka);
-            printf("kd: %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.kd);
-            printf("ks: %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.ks);
-            printf("n: %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.n);
-            printf("kr: %f\n", ((t_cylinder *)scene->polyhedron[i].specs)->material.kr);
+            printf("color: %f, %f, %f\n", scene->polyhedron[i].material.albedo.x, scene->polyhedron[i].material.albedo.y, scene->polyhedron[i].material.albedo.z);
+            printf("ka: %f\n", (scene->polyhedron[i].material.ka));
+            printf("kd: %f\n", (scene->polyhedron[i].material.kd));
+            printf("ks: %f\n", (scene->polyhedron[i].material.ks));
+            printf("n: %f\n", (scene->polyhedron[i].material.n));
+            printf("kr: %f\n", (scene->polyhedron[i].material.kr));
         }
         else if (scene->polyhedron[i].type == PLANE)
         {
             printf("Plane\n");
             printf("coords: %f, %f, %f\n", ((t_plane *)scene->polyhedron[i].specs)->point.x, ((t_plane *)scene->polyhedron[i].specs)->point.y, ((t_plane *)scene->polyhedron[i].specs)->point.z);
             printf("vector normal: %f, %f, %f\n", ((t_plane *)scene->polyhedron[i].specs)->normal.x, ((t_plane *)scene->polyhedron[i].specs)->normal.y, ((t_plane *)scene->polyhedron[i].specs)->normal.z);
-            printf("color: %f, %f, %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.albedo.x, ((t_plane *)scene->polyhedron[i].specs)->material.albedo.y, ((t_plane *)scene->polyhedron[i].specs)->material.albedo.z);
-            printf("ka: %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.ka);
-            printf("kd: %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.kd);
-            printf("ks: %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.ks);
-            printf("n: %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.n);
-            printf("kr: %f\n", ((t_plane *)scene->polyhedron[i].specs)->material.kr);
+            printf("color: %f, %f, %f\n", scene->polyhedron[i].material.albedo.x, scene->polyhedron[i].material.albedo.y, scene->polyhedron[i].material.albedo.z);
+            printf("ka: %f\n", (scene->polyhedron[i].material.ka));
+            printf("kd: %f\n", (scene->polyhedron[i].material.kd));
+            printf("ks: %f\n", (scene->polyhedron[i].material.ks));
+            printf("n: %f\n", (scene->polyhedron[i].material.n));
+            printf("kr: %f\n", (scene->polyhedron[i].material.kr));
         }
         i++;        
     }
