@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:29:39 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 18:52:04 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/06 12:55:32 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	ft_verify_camera(t_parser_node *content_node)
 {
 	if (content_node->num_args_line < 4
 		|| !ft_verify_coords(content_node->splited_args[1])
-		|| !ft_verify_normal_vector(content_node->splited_args[2])
+		// || !ft_verify_normal_vector(content_node->splited_args[2])
 		|| ft_count_size_splited(content_node->splited_args[3]) != 1
 		|| !ft_verify_double_between(content_node->splited_args[3][0], 0, 180,
 		1e-6))

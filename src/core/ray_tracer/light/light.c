@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 18:15:58 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:24:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col)
     t_vector_3d L;
     t_vector_3d normal;
     t_vector_3d color;
-    t_ray ray;
     int i;
     double fact;
 
@@ -59,7 +58,6 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col)
     normal = ft_normal_polyhedron(col->colision_point, col->polyhedron);
     V = ft_vector_normalize(ft_sub_point(context->scene->camera.origin, col->colision_point));
     i = -1;
-    ray.point = ft_point_add_vect(col->colision_point, ft_vector_mult_scalar(normal, EPS));
     while (++i < context->scene->num_light)
     {
         L = ft_vector_normalize(ft_sub_point(context->scene->light[i].coord, col->colision_point));

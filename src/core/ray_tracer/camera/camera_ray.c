@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 19:43:30 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/06 19:38:51 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x,
 					int y);
-static void		color_pixel(t_context *context, int x, int y, int color);
+static bool	color_pixel(t_context *context, int x, int y, int color);
 int ft_vector_to_int_color(t_vector_3d color);
 int clamp_int(int v);
 t_vector_3d ft_reflexion(t_context *context, int depth, t_ray ray);
@@ -30,18 +30,30 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 	//t_colision	col;
 	int			color;
 	t_vector_3d vect_color;
-
+	t_parallel	*parallel;
+	
+	parallel = context->parallel;
+	context->scene->camera.aspect = (double)context->mlx.window.width / (double)context->mlx.window.height;
 	i = 0;
 	j = start;
 	while (j <= end)
 	{
 		i = 0;
+		
 		while (i < context->mlx.window.width)
 		{
+			pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+			if (context->events.state.window.has_changes)
+			{
+				pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+				return (NULL);
+			}
+			pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 			ray = ft_camera_ray(context, context->scene->camera, i, j);
 			vect_color = ft_reflexion(context, 0, ray);
 			color = ft_vector_to_int_color(vect_color);
-			color_pixel(context, i, j, color);
+			if (color_pixel(context, i, j, color))
+				return (NULL);
 			i++;
 		}
 		j++;
@@ -72,16 +84,21 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 	return (ray);
 }
 
-static void	color_pixel(t_context *context, int x, int y, int color)
+static bool	color_pixel(t_context *context, int x, int y, int color)
 {
 	t_parallel	*parallel;
+	bool ret;
 
 	// ESSA FUNCAO É SÓ PARA TESTE
+	ret = false;
 	parallel = context->parallel;
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-	if (!context->events.state.window.has_changes)
+	if (context->events.state.window.has_changes)
+		ret = true;
+	else
 		*context->mlx.frame_buffer[x][y] = color;
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+	return (ret);
 }
 
 int clamp_int(int i)
@@ -117,20 +134,23 @@ t_vector_3d ft_reflexion(t_context *context, int depth, t_ray ray)
 	col = ft_closest_colision(context->scene, ray);
 	if (col.colision)
 	{
-		vect_color = ft_vector_add_vect(ft_vector_add_vect(ft_ambient_light(context, &col.polyhedron), ft_difuse_light(context, &col)), ft_specular_light(context, &col));
+		vect_color = ft_vector_add_vect(ft_ambient_light(context, &col.polyhedron), ft_difuse_light(context, &col));
 		vect_color = ft_component_wise_product(vect_color, col.polyhedron.material.norm_albedo);
+		vect_color = ft_vector_add_vect(vect_color,ft_specular_light(context, &col));
 	}
 	else
 	{
-		vect_color = ft_new_vector_3d(255, 255, 255);
+		vect_color = ft_new_vector_3d(1.0, 1.0, 1.0);
 		return (vect_color);
 	}
-	if (depth > 10)
+	if (depth > 10 || col.polyhedron.material.kr <= 0.0)
 		return (vect_color);
 	N = ft_normal_polyhedron(col.colision_point, col.polyhedron);
+	if (ft_vector_dot_product(ray.vector, N) > 0)
+    	N = ft_vector_mult_scalar(N, -1);
 	reflected_ray.vector = ft_vector_normalize(ft_vector_sub_vect(ray.vector, ft_vector_mult_scalar(N, 2.0 * ft_vector_dot_product(ray.vector, N))));
-	reflected_ray.point = col.colision_point;
-	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
+	reflected_ray.point = ft_point_add_vect(col.colision_point, ft_vector_mult_scalar(N, 1e-4));
+	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);	
 	vect_color_final = ft_vector_add_vect(ft_vector_mult_scalar(vect_color, (1 - col.polyhedron.material.kr)), ft_vector_mult_scalar(vect_color_reflexive, col.polyhedron.material.kr));
 	return (vect_color_final);
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/05 19:41:36 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/06 19:22:57 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define KD 0.7
 # define KS 0.2
 # define N 32
-# define KR 1
+# define KR 0.0
 
 typedef struct s_scene		t_scene;
 typedef struct s_material	t_material;

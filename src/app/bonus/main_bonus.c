@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/05 19:40:41 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/06 17:43:52 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	main(int argc, char **argv)
 	
 
 	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
-	if (argc >= 2)
+	if (argc >= 4)
 	{
-		window.width = ft_atoi(argv[1]);
-		if (argv[2])
-			window.height = ft_atoi(argv[2]);
+		window.width = ft_atoi(argv[2]);
+		if (argv[3])
+			window.height = ft_atoi(argv[3]);
 	}
-	printf("[BONUS] --> argv: %s\n", argv[1]);
+	printf("[BONUS] --> argv: %s\n", argv[2]);
 	context = ft_new_context(window, NULL, ft_crate_context_callbacks);
 	mlx = &context.mlx;
 	events = &context.events;
@@ -67,11 +67,12 @@ int	main(int argc, char **argv)
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
 	mlx->events.window_close(*mlx, events->callbacks.window.close, &context);
 
-	scene = ft_parser("scene/basic/2_spheres_red_blue.rt");
+	scene = ft_parser(argv[1]);
 	if (!scene)
 		return (0);
 	
-	ft_camera_init(&scene->camera);
+	
+	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 
 	parallel = ft_parallelize(&context, ft_camera_ray_loop);
