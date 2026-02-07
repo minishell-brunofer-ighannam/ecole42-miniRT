@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_callbacks_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/02 18:18:24 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:37:52 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,22 @@ bool	ft_is_window_resized(t_context *self)
 	is_window_resize = self->events.state.window.has_changes;
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_window_resize);
+}
+
+bool	ft_is_process_stopped(t_context *self)
+{
+	t_parallel	*parallel;
+	bool		window_change;
+	bool		app_stopped;
+
+	window_change = false;
+	parallel = self->parallel;
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+	if (self->events.state.window.has_changes)
+		window_change = true;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_app_run);
+	app_stopped = self->events.state.stop_app;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_app_run);
+	return (window_change || app_stopped);
 }

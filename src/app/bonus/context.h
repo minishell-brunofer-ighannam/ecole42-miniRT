@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/05 11:14:19 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:14:53 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_scene			t_scene;
 typedef struct s_context_callbacks	t_context_callbacks;
 struct s_context_callbacks
 {
+	bool	(*is_process_stopped)(t_context * self);
 	bool	(*is_app_running)(t_context * self);
 	void	(*stop_app)(t_context *self);
 	bool	(*is_frame_ready)(t_context * self);

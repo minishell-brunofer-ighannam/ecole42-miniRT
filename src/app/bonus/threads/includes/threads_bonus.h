@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 11:52:57 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:15:05 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_parallel	*ft_parallelize(t_context *context,
 					int row_start, int row_end));
 
 bool		ft_is_window_resized(t_context *self);
+bool		ft_is_process_stopped(t_context *self);
 bool		ft_is_app_running(t_context *self);
 void		ft_stop_app(t_context *self);
 bool		ft_is_frame_ready(t_context *self);
