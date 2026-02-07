@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 17:28:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 13:39:22 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/07 14:44:47 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	*ft_thread_routine(t_thread *thread)
 		if (context->mlx.window.height < (int)parallel->n_threads
 			&& thread->id > context->mlx.window.height)
 			continue ;
-		printf("thread[%d/%d]::begin_ray_tracing...\n", thread->id, parallel->n_threads - 1);
+		// printf("thread[%d/%d]::begin_ray_tracing...\n", thread->id, parallel->n_threads - 1);
+		usleep(500);
 		parallel->ray_tracing(context, thread->range_start, thread->range_end);
+		usleep(500);
 		printf("thread[%d/%d]::end_ray_tracing...\n", thread->id, parallel->n_threads - 1);
 		if (context->callbacks.is_process_stopped(context))
 			continue ;
@@ -51,9 +53,10 @@ void	*ft_thread_routine(t_thread *thread)
 			parallel->flow_ctrl->frame_parts_ready++;
 		while (parallel->flow_ctrl->frame_parts_ready > 0)
 		{
+			printf("thread[%d/%d]::finish...\n", thread->id, parallel->n_threads - 1);
 			pthread_cond_wait(&parallel->flow_ctrl->cond_frame_ready,
 				&parallel->flow_ctrl->mutex_frame_parts_ready);
-			// printf("thread[%d/%d]::frame_ready::awake...\n", thread->id, parallel->n_threads - 1);
+			printf("thread[%d/%d]::work_again...\n", thread->id, parallel->n_threads - 1);
 		}
 		pthread_mutex_unlock(&parallel->flow_ctrl->mutex_frame_parts_ready);
 	}

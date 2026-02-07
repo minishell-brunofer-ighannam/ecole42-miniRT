@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_callbacks_i.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/06 17:09:50 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 14:45:09 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ bool	ft_is_app_running(t_context *self)
 {
 	bool		stop_app;
 	t_parallel	*parallel;
-	
+
 	parallel = self->parallel;
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_app_run);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	stop_app = self->events.state.stop_app;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_app_run);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (!stop_app);
 }
 
@@ -30,9 +30,9 @@ void	ft_stop_app(t_context *self)
 	t_parallel	*parallel;
 
 	parallel = self->parallel;
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_app_run);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	self->events.state.stop_app = true;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_app_run);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 }
 
 bool	ft_is_frame_ready(t_context *self)

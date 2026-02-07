@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 11:37:52 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/07 14:47:44 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ bool	ft_is_process_stopped(t_context *self)
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (self->events.state.window.has_changes)
 		window_change = true;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_app_run);
 	app_stopped = self->events.state.stop_app;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_app_run);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (window_change || app_stopped);
 }

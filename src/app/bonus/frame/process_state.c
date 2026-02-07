@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 12:49:58 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/07 14:49:09 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,19 @@
 
 bool	ft_process_state(t_context *context)
 {
-	t_state	*state;
-	bool	is_render_allowed;
+	t_state		*state;
+	bool		is_render_allowed;
+	t_parallel	*parallel;
 
 
 	if (!context)
 		return (false);
 	is_render_allowed = true;
+	parallel = context->parallel;
 	state = &context->events.state;
-	if (state->has_changes && state->window.has_changes)
-	{
-		is_render_allowed = false;
-		context->mlx.resize_image(&context->mlx, state->window.width, state->window.height);
-		context->mlx.display_image(context->mlx);
-		state->window.has_changes = false;
-
-	}
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+	(void)state;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_render_allowed);
 }
 
