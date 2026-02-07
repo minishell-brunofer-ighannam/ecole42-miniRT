@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 17:28:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 14:44:47 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/07 14:51:19 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	*ft_thread_routine(t_thread *thread)
 		// printf("thread[%d/%d]::begin_ray_tracing...\n", thread->id, parallel->n_threads - 1);
 		usleep(500);
 		parallel->ray_tracing(context, thread->range_start, thread->range_end);
-		usleep(500);
 		printf("thread[%d/%d]::end_ray_tracing...\n", thread->id, parallel->n_threads - 1);
 		if (context->callbacks.is_process_stopped(context))
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 14:49:09 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/07 14:52:48 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ bool	ft_process_resize_image(t_context *context)
 			state->window.has_changes = false;
 			printf("broadcast::made\n");
 			pthread_cond_broadcast(&parallel->flow_ctrl->cond_window_resize);
+			usleep(500);
 		}
 	}
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
