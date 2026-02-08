@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 10:47:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:55:13 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 	int			j;
 	t_ray		ray;
 	int			color;
-	t_vector_3d	vect_color;
-	t_parallel	*parallel;
+	t_vector_3d vect_color;
 
-	parallel = context->parallel;
-	context->scene->camera.aspect = (double)context->mlx.window.width
-		/ (double)context->mlx.window.height;
 	i = 0;
 	j = start;
 	while (j <= end)
@@ -40,15 +36,12 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 		i = 0;
 		while (i < context->mlx.window.width)
 		{
-			pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-			if (context->events.state.window.has_changes)
-			{
-				pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
-			}
-			pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 			ray = ft_camera_ray(context, context->scene->camera, i, j);
 			vect_color = ft_reflexion(context, 0, ray);
+			if (context->callbacks.is_process_stopped(context))
+				return (NULL);
 			color = ft_vector_to_int_color(vect_color);
 			if (color_pixel(context, i, j, color))
 				return (NULL);
@@ -80,19 +73,12 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 
 static bool	color_pixel(t_context *context, int x, int y, int color)
 {
-	t_parallel	*parallel;
-	bool		ret;
 
 	// ESSA FUNCAO É SÓ PARA TESTE
-	ret = false;
-	parallel = context->parallel;
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-	if (context->events.state.window.has_changes)
-		ret = true;
-	else
-		*context->mlx.frame_buffer[x][y] = color;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
-	return (ret);
+	if (context->callbacks.is_process_stopped(context))
+		return (true);
+	*context->mlx.frame_buffer[x][y] = color;
+	return (false);
 }
 
 int	ft_vector_to_int_color(t_vector_3d color)
@@ -115,6 +101,11 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	t_vector_3d	vect_color_reflexive;
 	t_vector_3d	vect_color_final;
 
+	if (context->callbacks.is_process_stopped(context))
+	{
+		ft_bzero(&vect_color_final, sizeof(t_vector_3d));
+		return (vect_color_final);
+	}
 	col = ft_closest_colision(context->scene, ray);
 	if (col.colision)
 		vect_color = ft_local_color(context, col);

@@ -15,6 +15,7 @@
 # define STATE_BONUS_H
 
 # include <stdbool.h>
+# include "debug.h"
 
 typedef struct s_parallel			t_parallel;
 typedef struct s_spatial_gesture	t_spatial_gesture;

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/05 11:14:19 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 12:36:25 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "frame/includes/frame.h"
 # include "../../minilibx/includes/minilibx.h"
 # include "scene.h"
+# include "debug.h"
 
 typedef struct s_context			t_context;
 typedef struct s_scene			t_scene;
@@ -24,6 +25,7 @@ typedef struct s_scene			t_scene;
 typedef struct s_context_callbacks	t_context_callbacks;
 struct s_context_callbacks
 {
+	bool	(*is_process_stopped)(t_context * self);
 	bool	(*is_app_running)(t_context * self);
 	void	(*stop_app)(t_context *self);
 	bool	(*is_frame_ready)(t_context * self);
@@ -55,5 +57,9 @@ t_window_info	ft_new_window_info(int width, int height, const char *name);
 t_context		ft_new_context(
 					t_window_info window, void *scene,
 					void *(*create_callbacks)(t_context *context));
+
+
+
+
 
 #endif

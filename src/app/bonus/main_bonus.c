@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/06 17:43:52 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:15:07 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 static void	*ft_crate_context_callbacks(t_context *context)
 {
+	context->callbacks.is_process_stopped = ft_is_process_stopped;
 	context->callbacks.is_app_running = ft_is_app_running;
 	context->callbacks.stop_app = ft_stop_app;
 	context->callbacks.is_frame_ready = ft_is_frame_ready;
@@ -45,7 +46,7 @@ int	main(int argc, char **argv)
 	t_window_info	window;
 	t_parallel		*parallel;
 	t_scene *scene;
-	
+
 
 	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
 	if (argc >= 4)
@@ -70,8 +71,8 @@ int	main(int argc, char **argv)
 	scene = ft_parser(argv[1]);
 	if (!scene)
 		return (0);
-	
-	
+
+
 	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 
