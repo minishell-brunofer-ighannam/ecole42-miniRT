@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:28:33 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/07 13:37:07 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/08 12:34:13 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_recalculate_thread_chunck(t_thread *thread)
 
 	context = thread->context;
 	parallel = context->parallel;
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
+	LOCK(&parallel->flow_ctrl->mutex_set_state);
 	if (context->mlx.window.height <= (int)parallel->n_threads)
 		thread->chunck = 1;
 	else
@@ -56,7 +56,7 @@ void	ft_recalculate_thread_chunck(t_thread *thread)
 		thread->range_end = context->mlx.window.height - 1;
 	else
 		thread->range_end = thread->range_start + thread->chunck - 1;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+	UNLOCK(&parallel->flow_ctrl->mutex_set_state);
 }
 
 void	*ft_thread_destroy(t_thread **self_ref)
