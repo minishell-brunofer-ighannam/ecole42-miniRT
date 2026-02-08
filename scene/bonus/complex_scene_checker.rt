@@ -11,8 +11,8 @@ C   0,1.5,-6         0,0,1   70
 # Light
 # <coordinates: x,y,z> <brightness: 0-1> <color:red,green,blue>
 L  -10,10,-10                0.5         255,255,255
-L   10,10,-10                0.5         255,255,255
-L   0,10,-10                 0.5         255,255,255
+l   10,10,-10                0.5         255,255,255
+l   0,10,-10                 0.5         255,255,255
 
 # Pattern
 #   name            type            color_a         color_b         scale           rotation        translation
@@ -26,22 +26,22 @@ sp  -1.5,0.33,-0.75          0.6         255,204,26
 
 # Cone
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
-cn  3.5,1.0,1        1,0,0   1.5   1.5   40,220,55
+# cn  3.5,1.0,1        1,0,0   1.5   1.5   40,220,55
 
 # Cylinder
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
 cy  0.8,0.7,0        0,1,0   0.5   4     200,200,200
-cy  -4,0.6,1.6       0,0,1   1.2   2     122,23,230
+cy  -4,0.6,1.6       0,1,0   1.2   2     122,23,230
 
 # Plane
 # <coordinates: x,y,z> <origin:x,y,z> <color:red,green,blue>
 # Optional parameters: <pattern_type: checkered, striped_at> <origin: x,y,z> <color:red,green,blue>
 
 # Floor
-pl  0,0,0            0,1,0               0,0,0        default     checkers
+pl  0,0,0            0,1,0               255,0,0        default     checkers
 # Right wall
-pl  10,0,0           1,0,0               0,0,0        default     checkers
+pl  10,0,0           1,0,0               0,255,0        default     checkers
 # Left wall
-pl  -10,0,0          1,0,0               0,0,0        default     checkers
+pl  -10,0,0          1,0,0               0,0,255        default     checkers
 # Backdrop
-pl  0,0,30           0,0,1               0,0,0        default     checkers
+pl  0,0,30           0,0,1               255,0,0        default     checkers

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:47:50 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 18:14:13 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 10:42:10 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 
 typedef struct s_polyhedron	t_polyhedron;
 
+t_vector_3d					ft_local_color(t_context *context, t_colision col);
 t_vector_3d					ft_ambient_light(t_context *context,
 								t_polyhedron *polyhedron);
-t_vector_3d					ft_difuse_light(t_context *context,
-								t_colision *col);
+t_vector_3d					ft_difuse_light(t_context *context, t_colision *col,
+								int i);
 t_vector_3d					ft_specular_light(t_context *context,
-								t_colision *col);
+								t_colision *col, int i);
 
 #endif

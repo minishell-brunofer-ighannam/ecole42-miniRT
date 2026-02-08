@@ -47,7 +47,7 @@ src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_ne
 
 # **** MATH_RT ****
 MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/ft_sqrt.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
-src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/comparisons.c
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c
 
 
 # **** PARSER ****
@@ -56,13 +56,12 @@ src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/co
 src/core/parser/parser_verify_iv.c src/core/parser/parser.c
 
 # **** SCENE ****
-SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/polyhedron/plane.c \
-src/core/scene/polyhedron/sphere.c src/core/scene/polyhedron/cylinder.c src/core/scene/camera/camera_init.c 
+SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/camera/camera_init.c 
 
 # **** RAY_TRACER ****
 RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
 src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
-src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/ambient.c src/core/ray_tracer/light/light.c
+src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c
 
 
 # **** DATA_STRUCTURES ****

@@ -20,6 +20,7 @@
 # define KS 0.2
 # define N 32
 # define KR 0.0
+# define BACK_COLOR 0.0, 0.0, 0.0
 
 typedef struct s_scene		t_scene;
 typedef struct s_material	t_material;

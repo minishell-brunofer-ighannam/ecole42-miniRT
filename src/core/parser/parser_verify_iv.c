@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:11:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 19:01:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 09:12:39 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ bool	ft_verify_list_scene(t_linkedlist *input_list)
 	first_node = input_list->first;
 	if (ft_count_items_scene(first_node, "C") != 1
 		|| ft_count_items_scene(first_node, "L") > 1
-		|| ft_count_items_scene(first_node, "A") > 1)
+		|| ft_count_items_scene(first_node, "A") > 1
+		|| ft_count_items_scene(first_node, "B") > 1)
 	{
-		printf("Error\nError: wrong number of C, L or A identified\n");
+		printf("Error\nError: wrong number of C, L, A or B identified\n");
 		input_list->destroy(&input_list, ft_free_content_parser_node);
 		return (false);
 	}

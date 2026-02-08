@@ -6,12 +6,15 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 15:47:00 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 09:50:30 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "polyhedron.h"
 #include "polyhedron_internal.h"
+
+static t_vector_3d ft_sp_normal(t_sphere *sp, t_point_3d pt);
+static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p);
 
 t_vector_3d ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron)
 {
@@ -23,3 +26,20 @@ t_vector_3d ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron)
         return (ft_cy_normal((t_cylinder *)polyhedron.specs, pt));
 }
 
+static t_vector_3d ft_sp_normal(t_sphere *sp, t_point_3d pt)
+{
+    t_vector_3d normal;
+
+    normal = ft_vector_normalize(ft_sub_point(pt, sp->center));
+    return (normal);
+}
+
+static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p)
+{
+	double		y;
+	t_point_3d	proj;
+
+	y = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
+	proj = ft_point_add_vect(cy->center, ft_vector_mult_scalar(cy->axis, y));
+	return (ft_vector_normalize(ft_sub_point(p, proj)));
+}

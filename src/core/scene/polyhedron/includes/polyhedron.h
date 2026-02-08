@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 17:38:38 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:14:23 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ struct							s_material
 	double ks; // coeficiente especular - entre 0 e 1
 	double n;  // shininess
 	double kr; // coeficiente de reflexão - entre 0 e 1
+	bool checker;
+	t_vector_3d					albedo2;
+	t_vector_3d norm_albedo2;
+	double tile_checker;
 };
 
 struct							s_polyhedron
@@ -72,8 +76,6 @@ struct							s_plane
 	t_vector_3d					normal;
 };
 
-t_vector_3d						ft_sp_normal(t_sphere *sp, t_point_3d pt);
-t_vector_3d						ft_cy_normal(t_cylinder *cy, t_point_3d p);
 t_vector_3d						ft_normal_polyhedron(t_point_3d pt,
 									t_polyhedron polyhedron);
 
