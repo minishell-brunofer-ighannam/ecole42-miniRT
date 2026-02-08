@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 13:52:06 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 17:51:21 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ bool	ft_process_state(t_context *context)
 	is_render_allowed = true;
 	parallel = context->parallel;
 	state = &context->events.state;
-	LOCK(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	(void)state;
-	UNLOCK(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_render_allowed);
 }
 
@@ -44,7 +44,7 @@ bool	ft_process_resize_image(t_context *context)
 	parallel = context->parallel;
 	is_render_allowed = true;
 	state = &context->events.state;
-	LOCK(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (state->has_changes && state->window.has_changes
 		&& context->mlx.window.width != state->window.width
 		&& context->mlx.window.height != state->window.height)
@@ -72,13 +72,11 @@ bool	ft_process_resize_image(t_context *context)
 			{
 				state->window.has_changes = false;
 				parallel->flow_ctrl->threads_sleepping = 0;
-				usleep(500);
 				printf("broadcast::made\n");
 				pthread_cond_broadcast(&parallel->flow_ctrl->cond_window_resize);
-				usleep(500);				
 			}
 		}
 	}
-	UNLOCK(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_render_allowed);
 }

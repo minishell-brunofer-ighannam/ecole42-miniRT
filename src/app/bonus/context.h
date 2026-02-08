@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 12:36:25 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 17:49:48 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "frame/includes/frame.h"
 # include "../../minilibx/includes/minilibx.h"
 # include "scene.h"
-# include "debug.h"
 
 typedef struct s_context			t_context;
 typedef struct s_scene			t_scene;

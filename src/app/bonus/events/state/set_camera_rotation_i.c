@@ -13,7 +13,6 @@
 #include "../../threads/includes/threads_bonus.h"
 #include "../gestures/includes/gestures_bonus.h"
 #include "includes/state_internal_bonus.h"
-#include "debug.h"
 
 t_set_movement	ft_new_camera_rotation(void)
 {
@@ -33,43 +32,43 @@ void	set_camera_rotation_up(t_state *self)
 {
 	if (!self)
 		return ;
-	LOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	set_camera_changed_flag(self);
 	self->scene.camera.rotate_x += CAMERA_ROTATION_INTENSITY;
 	printf("camera::rotation->up [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	UNLOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }
 
 void	set_camera_rotation_down(t_state *self)
 {
 	if (!self)
 		return ;
-	LOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	set_camera_changed_flag(self);
 	self->scene.camera.rotate_x -= CAMERA_ROTATION_INTENSITY;
 	printf("camera::rotation->down [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	UNLOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }
 
 void	set_camera_rotation_left(t_state *self)
 {
 	if (!self)
 		return ;
-	LOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	set_camera_changed_flag(self);
 	self->scene.camera.rotate_y -= CAMERA_ROTATION_INTENSITY;
 	printf("camera::rotation->left [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	UNLOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }
 
 void	set_camera_rotation_right(t_state *self)
 {
 	if (!self)
 		return ;
-	LOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
 	set_camera_changed_flag(self);
 	self->scene.camera.rotate_y += CAMERA_ROTATION_INTENSITY;
 	printf("camera::rotation->right [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	UNLOCK(&self->parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 
 }

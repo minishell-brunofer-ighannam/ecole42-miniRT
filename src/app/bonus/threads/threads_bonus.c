@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:28:33 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 12:34:13 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 18:09:58 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ t_thread	*ft_new_thread(t_context *context, t_flow_ctrl *flow_ctrl, int id, int 
 	return (thread);
 }
 
-void	ft_recalculate_thread_chunck(t_thread *thread)
+bool	ft_recalculate_thread_chunck(t_thread *thread)
 {
 	t_context	*context;
 	t_parallel	*parallel;
+	bool		error;
 
+	error = false;
 	context = thread->context;
 	parallel = context->parallel;
-	LOCK(&parallel->flow_ctrl->mutex_set_state);
+	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (context->mlx.window.height <= (int)parallel->n_threads)
 		thread->chunck = 1;
 	else
@@ -56,7 +58,11 @@ void	ft_recalculate_thread_chunck(t_thread *thread)
 		thread->range_end = context->mlx.window.height - 1;
 	else
 		thread->range_end = thread->range_start + thread->chunck - 1;
-	UNLOCK(&parallel->flow_ctrl->mutex_set_state);
+	if (context->mlx.window.height < (int)parallel->n_threads
+		&& thread->id + 1 > context->mlx.window.height)
+		error = true;
+	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+	return (error);
 }
 
 void	*ft_thread_destroy(t_thread **self_ref)
