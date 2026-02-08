@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/08 16:17:25 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:17:20 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 	t_vector_3d	dir;
 	t_ray		ray;
 
-	screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
-	screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
+	if (context->mlx.window.width > 0)
+		screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
+	else
+		screen_x = 1;
+	if (context->mlx.window.height > 0)
+		screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
+	else
+		screen_y = 1;
 	screen_x *= camera.aspect * camera.scale;
 	screen_y *= camera.scale;
 	dir = ft_vector_normalize(ft_vector_add_vect(ft_vector_add_vect(
@@ -100,10 +106,7 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	t_vector_3d	vect_color_final;
 
 	if (context->callbacks.is_process_stopped(context))
-	{
-		ft_bzero(&vect_color_final, sizeof(t_vector_3d));
-		return (vect_color_final);
-	}
+		return (ft_new_vector_3d(0,0,0));
 	col = ft_closest_colision(context->scene, ray);
 	if (col.colision)
 		vect_color = ft_local_color(context, col);
@@ -122,7 +125,6 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (ft_vector_module(reflected_ray.vector) < 1e-9)
 		return (vect_color);
 	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
-	vect_color_final = vect_color;
 	vect_color_final = ft_vector_add_vect(ft_vector_mult_scalar(vect_color, (1
 					- col.polyhedron.material.kr)),
 			ft_vector_mult_scalar(vect_color_reflexive,

@@ -46,7 +46,7 @@ src/minilibx/events/mouse_events.c src/minilibx/events/window_events.c src/minil
 src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_nearest_neighbor.c
 
 # **** MATH_RT ****
-MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/ft_sqrt.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
+MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
 src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c
 
 

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:31:43 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:32:13 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 18:33:46 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double ft_solve_quadratic_normalized(double half_b, double c)
     delta = half_b * half_b - c;
     if (delta < 0.0)
         return (INFINITY);
-    delta = ft_sqtr_newton(delta, 1e-6);
+    delta = sqrt(delta);
     t = (-half_b - delta);
     if (t < EPS)
     {

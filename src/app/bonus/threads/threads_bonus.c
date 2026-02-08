@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:28:33 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 18:09:58 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/08 18:16:54 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ bool	ft_recalculate_thread_chunck(t_thread *thread)
 		thread->range_end = context->mlx.window.height - 1;
 	else
 		thread->range_end = thread->range_start + thread->chunck - 1;
-	if (context->mlx.window.height < (int)parallel->n_threads
-		&& thread->id + 1 > context->mlx.window.height)
+	if ((context->mlx.window.height < (int)parallel->n_threads
+		&& thread->id + 1 > context->mlx.window.height) || context->mlx.window.width < 2)
 		error = true;
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (error);

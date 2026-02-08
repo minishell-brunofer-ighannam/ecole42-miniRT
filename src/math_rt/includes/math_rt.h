@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:49:07 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 09:58:10 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:11:33 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ bool						ft_is_between_int(int ref_one, int ref_two,
 								int eval);
 bool						ft_is_between_double(double ref_one, double ref_two,
 								double eval, double eps);
-double						ft_sqtr_newton(double n, double eps);
 bool						ft_is_normalized_3d_vector(double x, double y,
 								double z, double eps);
 t_point_3d					ft_point_add_vect(t_point_3d p, t_vector_3d v);

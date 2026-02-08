@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:25:26 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/31 13:03:35 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/08 18:20:53 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	ft_recreate_image(
 
 	self->window.width = width;
 	self->window.height = height;
-	self->window.ratio = (double)width / (double)height;
 	self->window.img = mlx_new_image(self->window.mlx_ref, width, height);
 	self->window.addr = mlx_get_minilib_layer_addr(
 			self->window.img, &self->window.bits_per_pixel,

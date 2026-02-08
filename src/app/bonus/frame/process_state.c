@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 17:51:21 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/08 18:43:55 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,15 @@ bool	ft_process_resize_image(t_context *context)
 		context->mlx.resize_image(&context->mlx, state->window.width, state->window.height);
 		context->mlx.display_image(context->mlx);
 		// REALIZAR TODAS A S ALTERAÇÕES NA SCENE (relacionadas a window resize) AQUI
-		context->scene->camera.aspect = (double)context->mlx.window.width / (double)context->mlx.window.height;
+		if ((double)context->mlx.window.height > 0)
+			context->scene->camera.aspect = (double)context->mlx.window.width / (double)context->mlx.window.height;
 		gettimeofday(&last_resize, NULL);
 		//printf("resize::made\n");
 	}
 	if (state->has_changes && state->window.has_changes)
 	{
 		gettimeofday(&time_now, NULL);
-		if (((time_now.tv_sec - last_resize.tv_sec) * 1000 + (time_now.tv_usec - last_resize.tv_usec) / 1000) > 5)
+		if (((time_now.tv_sec - last_resize.tv_sec) * 1000 + (time_now.tv_usec - last_resize.tv_usec) / 1000) > 1)
 		{
 			printf("threads_sleepping: %u\n", parallel->flow_ctrl->threads_sleepping);
 			if (parallel->flow_ctrl->threads_sleepping && parallel->flow_ctrl->frame_parts_ready)

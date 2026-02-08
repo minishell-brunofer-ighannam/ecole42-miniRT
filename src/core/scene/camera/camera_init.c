@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:07:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/06 17:43:38 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 18:19:17 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_camera_init(t_camera *camera, t_context *context)
 	camera->up = ft_vector_normalize(ft_cross_product(camera->right,
 				camera->forward));
     camera->scale = tan((camera->horizontal_fov * M_PI / 180.0) / 2);
-    camera->aspect = (double)context->mlx.window.width /  (double)context->mlx.window.height;
+	if ((double)context->mlx.window.height != 0)
+		camera->aspect = (double)context->mlx.window.width /  (double)context->mlx.window.height;
 }
