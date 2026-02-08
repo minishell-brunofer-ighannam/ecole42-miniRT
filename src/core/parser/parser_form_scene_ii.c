@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/06 13:40:42 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:31:57 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_material	ft_form_material_sp(t_parser_node *content)
 		if (content->splited_args[8])
 			material.kr = ft_atod(content->splited_args[8][0]);
 	}
+	material.albedo2 = ft_new_vector_3d(0,0,0);
+	material.norm_albedo2 = ft_new_vector_3d(0.0,0.0,0.0);
 	return (material);
 }
 
@@ -69,6 +71,7 @@ void ft_include_default_values(t_material *material)
 	material->kr = KR;
 	material->ks = KS;
 	material->n = N;
+	material->tile_checker = 1;
 }
 
 void	ft_include_cylinder(t_scene *scene, t_parser_node *content)
@@ -118,5 +121,7 @@ t_material	ft_form_material_cy(t_parser_node *content)
 		material.n = ft_atod(content->splited_args[9][0]);
 	if (content->splited_args[10])
 		material.kr = ft_atod(content->splited_args[10][0]);
+	material.albedo2 = ft_new_vector_3d(0,0,0);
+	material.norm_albedo2 = ft_new_vector_3d(0.0,0.0,0.0);
 	return (material);
 }

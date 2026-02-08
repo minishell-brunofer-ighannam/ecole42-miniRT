@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/06 19:38:51 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 10:47:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,28 @@
 
 static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x,
 					int y);
-static bool	color_pixel(t_context *context, int x, int y, int color);
-int ft_vector_to_int_color(t_vector_3d color);
-int clamp_int(int v);
-t_vector_3d ft_reflexion(t_context *context, int depth, t_ray ray);
-
+static bool		color_pixel(t_context *context, int x, int y, int color);
+int				ft_vector_to_int_color(t_vector_3d color);
+int				clamp_int(int v);
+t_vector_3d		ft_reflexion(t_context *context, int depth, t_ray ray);
 
 void	*ft_camera_ray_loop(t_context *context, int start, int end)
 {
 	int			i;
 	int			j;
 	t_ray		ray;
-	//t_colision	col;
 	int			color;
-	t_vector_3d vect_color;
+	t_vector_3d	vect_color;
 	t_parallel	*parallel;
-	
+
 	parallel = context->parallel;
-	context->scene->camera.aspect = (double)context->mlx.window.width / (double)context->mlx.window.height;
+	context->scene->camera.aspect = (double)context->mlx.window.width
+		/ (double)context->mlx.window.height;
 	i = 0;
 	j = start;
 	while (j <= end)
 	{
 		i = 0;
-		
 		while (i < context->mlx.window.width)
 		{
 			pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
@@ -65,20 +63,16 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 {
 	double		screen_x;
 	double		screen_y;
-	double		ndc_x;
-	double		ndc_y;
 	t_vector_3d	dir;
 	t_ray		ray;
 
-	ndc_x = (x + 0.5) / context->mlx.window.width;
-	ndc_y = (y + 0.5) / context->mlx.window.height;
-	screen_x = 2 * ndc_x - 1;
-	screen_y = 1 - 2 * ndc_y;
+	screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
+	screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
 	screen_x *= camera.aspect * camera.scale;
 	screen_y *= camera.scale;
-	dir = ft_vector_normalize(ft_vector_add_vect(ft_vector_add_vect(ft_vector_mult_scalar(camera.right,
-						screen_x), ft_vector_mult_scalar(camera.up, screen_y)),
-				camera.forward));
+	dir = ft_vector_normalize(ft_vector_add_vect(ft_vector_add_vect(
+		ft_vector_mult_scalar(camera.right,	screen_x), ft_vector_mult_scalar(
+			camera.up, screen_y)),camera.forward));
 	ray.point = camera.origin;
 	ray.vector = dir;
 	return (ray);
@@ -87,7 +81,7 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 static bool	color_pixel(t_context *context, int x, int y, int color)
 {
 	t_parallel	*parallel;
-	bool ret;
+	bool		ret;
 
 	// ESSA FUNCAO É SÓ PARA TESTE
 	ret = false;
@@ -101,56 +95,42 @@ static bool	color_pixel(t_context *context, int x, int y, int color)
 	return (ret);
 }
 
-int clamp_int(int i)
+int	ft_vector_to_int_color(t_vector_3d color)
 {
-    if (i < 0)
-        return 0;
-    if (i > 255)
-        return 255;
-    return i;
+	int	r;
+	int	g;
+	int	b;
+
+	r = clamp_int((int)(color.x * 255 + 0.5));
+	g = clamp_int((int)(color.y * 255 + 0.5));
+	b = clamp_int((int)(color.z * 255 + 0.5));
+	return ((r << 16) | (g << 8) | b);
 }
 
-int ft_vector_to_int_color(t_vector_3d color)
-{
-    int r;
-    int g;
-    int b;
-
-    r = clamp_int((int)(color.x * 255 + 0.5));
-    g = clamp_int((int)(color.y * 255 + 0.5));
-    b = clamp_int((int)(color.z * 255 + 0.5));
-    return ((r << 16) | (g << 8) | b);
-}
-
-t_vector_3d ft_reflexion(t_context *context, int depth, t_ray ray)
+t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 {
 	t_colision	col;
-	t_vector_3d vect_color;
-	t_ray reflected_ray;
-	t_vector_3d N;
-	t_vector_3d vect_color_reflexive;
-	t_vector_3d vect_color_final;
+	t_vector_3d	vect_color;
+	t_ray		reflected_ray;
+	t_vector_3d	vect_color_reflexive;
+	t_vector_3d	vect_color_final;
 
 	col = ft_closest_colision(context->scene, ray);
 	if (col.colision)
-	{
-		vect_color = ft_vector_add_vect(ft_ambient_light(context, &col.polyhedron), ft_difuse_light(context, &col));
-		vect_color = ft_component_wise_product(vect_color, col.polyhedron.material.norm_albedo);
-		vect_color = ft_vector_add_vect(vect_color,ft_specular_light(context, &col));
-	}
+		vect_color = ft_local_color(context, col);
 	else
-	{
-		vect_color = ft_new_vector_3d(1.0, 1.0, 1.0);
-		return (vect_color);
-	}
+		return (context->scene->norm_color_back);
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0)
 		return (vect_color);
-	N = ft_normal_polyhedron(col.colision_point, col.polyhedron);
-	if (ft_vector_dot_product(ray.vector, N) > 0)
-    	N = ft_vector_mult_scalar(N, -1);
-	reflected_ray.vector = ft_vector_normalize(ft_vector_sub_vect(ray.vector, ft_vector_mult_scalar(N, 2.0 * ft_vector_dot_product(ray.vector, N))));
-	reflected_ray.point = ft_point_add_vect(col.colision_point, ft_vector_mult_scalar(N, 1e-4));
-	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);	
-	vect_color_final = ft_vector_add_vect(ft_vector_mult_scalar(vect_color, (1 - col.polyhedron.material.kr)), ft_vector_mult_scalar(vect_color_reflexive, col.polyhedron.material.kr));
+	reflected_ray.vector = ft_vector_normalize(ft_vector_sub_vect(ray.vector,
+				ft_vector_mult_scalar(col.normal, 2.0
+					* ft_vector_dot_product(ray.vector, col.normal))));
+	reflected_ray.point = ft_point_add_vect(col.colision_point,
+			ft_vector_mult_scalar(col.normal, 1e-4));
+	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
+	vect_color_final = ft_vector_add_vect(ft_vector_mult_scalar(vect_color, (1
+					- col.polyhedron.material.kr)),
+			ft_vector_mult_scalar(vect_color_reflexive,
+				col.polyhedron.material.kr));
 	return (vect_color_final);
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/06 19:22:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 09:35:53 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define KS 0.2
 # define N 32
 # define KR 0.0
+# define BACK_COLOR 0.0, 0.0, 0.0
 
 typedef struct s_scene		t_scene;
 typedef struct s_material	t_material;

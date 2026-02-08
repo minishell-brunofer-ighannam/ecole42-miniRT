@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:49:07 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 17:47:08 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 09:58:10 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ bool						ft_point_is_equal(t_point_3d a, t_point_3d b,
 t_vector_3d					ft_cross_product(t_vector_3d v1, t_vector_3d v2);
 t_vector_3d					ft_component_wise_product(t_vector_3d v1,
 								t_vector_3d v2);
+int							clamp_int(int i);
 
 #endif

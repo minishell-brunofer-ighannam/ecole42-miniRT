@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 09:52:38 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/06 19:29:17 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 08:39:17 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,10 @@ static void	ft_destroy_threads(t_thread ***threads_ref, unsigned int n_threads)
 static void	*ft_destroy_parallelize(t_parallel **self_ref)
 {
 	t_parallel	*self;
-	int			i;
 
 	if (!self_ref || !*self_ref)
 		return (NULL);
 	self = *self_ref;
-	i = -1;
 	if (self->threads)
 		ft_destroy_threads(&self->threads, self->n_threads);
 	if (self->flow_ctrl)

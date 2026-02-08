@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:36 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 17:42:46 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:25:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,18 @@ t_material	ft_form_material_pl(t_parser_node *content)
 		material.n = ft_atod(content->splited_args[7][0]);
 	if (content->splited_args[8])
 		material.kr = ft_atod(content->splited_args[8][0]);
+	material.albedo2 = ft_new_vector_3d(0,0,0);
+	material.norm_albedo2 = ft_new_vector_3d(0.0,0.0,0.0);
+	material.tile_checker = 1;
 	return (material);
+}
+
+void	ft_include_back_color(t_scene *scene, t_parser_node *content)
+{
+	t_vector_3d	color;
+
+	color = ft_new_vector_3d(ft_atod(content->splited_args[1][0]),
+			ft_atod(content->splited_args[1][1]),
+			ft_atod(content->splited_args[1][2]));
+	scene->color_back = color;
 }
