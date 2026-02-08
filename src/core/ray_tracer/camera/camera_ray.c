@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 11:55:13 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/08 16:17:25 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 {
 	int			i;
 	int			j;
-	t_ray		ray;
 	int			color;
 	t_vector_3d vect_color;
 
@@ -38,8 +37,7 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 		{
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
-			ray = ft_camera_ray(context, context->scene->camera, i, j);
-			vect_color = ft_reflexion(context, 0, ray);
+			vect_color = ft_reflexion(context, 0, ft_camera_ray(context, context->scene->camera, i, j));
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
 			color = ft_vector_to_int_color(vect_color);
@@ -87,9 +85,9 @@ int	ft_vector_to_int_color(t_vector_3d color)
 	int	g;
 	int	b;
 
-	r = clamp_int((int)(color.x * 255 + 0.5));
-	g = clamp_int((int)(color.y * 255 + 0.5));
-	b = clamp_int((int)(color.z * 255 + 0.5));
+	r = clamp_int((color.x * 255 + 0.5));
+	g = clamp_int((color.y * 255 + 0.5));
+	b = clamp_int((color.z * 255 + 0.5));
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -113,12 +111,18 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 		return (context->scene->norm_color_back);
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0)
 		return (vect_color);
-	reflected_ray.vector = ft_vector_normalize(ft_vector_sub_vect(ray.vector,
-				ft_vector_mult_scalar(col.normal, 2.0
+	if (ft_vector_dot_product(ray.vector, col.normal) > 0)
+    	col.normal = ft_vector_mult_scalar(col.normal, -1);
+	if (ft_vector_module(ray.vector) < 1e-12)
+		return (vect_color);
+	reflected_ray.vector = ft_vector_normalize(ft_vector_sub_vect(ray.vector,ft_vector_mult_scalar(col.normal, 2.0
 					* ft_vector_dot_product(ray.vector, col.normal))));
 	reflected_ray.point = ft_point_add_vect(col.colision_point,
 			ft_vector_mult_scalar(col.normal, 1e-4));
+	if (ft_vector_module(reflected_ray.vector) < 1e-9)
+		return (vect_color);
 	vect_color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
+	vect_color_final = vect_color;
 	vect_color_final = ft_vector_add_vect(ft_vector_mult_scalar(vect_color, (1
 					- col.polyhedron.material.kr)),
 			ft_vector_mult_scalar(vect_color_reflexive,

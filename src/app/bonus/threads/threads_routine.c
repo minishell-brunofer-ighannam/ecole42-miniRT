@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 17:28:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 13:36:24 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 16:28:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ void	*ft_thread_routine(t_thread *thread)
 	}
 	LOCK(&parallel->flow_ctrl->mutex_set_state);
 	parallel->flow_ctrl->threads_finished++;
+	while (parallel->flow_ctrl->frame_parts_ready)
+	{
+		pthread_cond_broadcast(&parallel->flow_ctrl->cond_frame_ready);
+		parallel->flow_ctrl->frame_parts_ready--;
+	}
+	while (parallel->flow_ctrl->threads_sleepping)
+	{
+		pthread_cond_broadcast(&parallel->flow_ctrl->cond_window_resize);
+		parallel->flow_ctrl->threads_sleepping--;
+	}
 	if (parallel->flow_ctrl->threads_finished == parallel->n_threads)
 		mlx_loop_end(context->mlx.window.mlx_ref);
 	UNLOCK(&parallel->flow_ctrl->mutex_set_state);
