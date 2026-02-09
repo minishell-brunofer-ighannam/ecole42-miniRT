@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comparisons.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:19:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 09:57:56 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 00:54:19 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,13 @@ int clamp_int(int i)
         return 255;
     return i;
 }
+
+// inline double	sqrdd(double num)
+// {
+// 	return (num * num);
+// }
+
+// inline double	sqrdvec(t_vector_3d vect)
+// {
+// 	return (ft_vector_dot_product(vect, vect));
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 17:14:23 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/08 22:36:34 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_material		t_material;
 typedef struct s_plane			t_plane;
 typedef struct s_sphere			t_sphere;
 typedef struct s_cylinder		t_cylinder;
+typedef struct s_cone			t_cone;
 typedef enum e_polyhedron_type	t_polyhedron_type;
 
 enum							e_polyhedron_type
@@ -67,6 +68,14 @@ struct							s_cylinder
 	t_point_3d					center;
 	t_vector_3d					axis;
 	double						radius;
+	double						height;
+};
+
+struct							s_cone
+{
+	t_point_3d					vertex;
+	t_vector_3d					axis;
+	double						half_apex_angle;
 	double						height;
 };
 
