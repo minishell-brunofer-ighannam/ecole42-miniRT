@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 19:20:21 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/08 19:14:42 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	set_window(t_state *self, int width, int height)
 		self->window.width = width;
 	if (self->window.height != height)
 		self->window.height = height;
-	self->window.ratio = (double)width / (double)height;
 	printf("window::resize[%d, %d]\n", width, height);
 	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
 }

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   comparisons.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/29 11:06:35 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:31 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/02 16:19:24 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/07 09:57:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_rt.h"
 
-double ft_sqtr_newton(double n, double eps)
+bool ft_double_is_equal(double a, double b, double eps)
 {
-    double	x;
-	double	diff;
+    return (fabs(a - b) < eps);
+}
 
-	if (n < 0.0)
-		return (-1.0);
-	if (n == 0.0)
-		return (0.0);
-	x = 1.0;
-    if (n > 1.0)
-	    x = n;
-	diff = 1.0;
-	while (diff > eps)
-	{
-		x = 0.5 * (x + n / x);
-		diff = x * x - n;
-		if (diff < 0.0)
-			diff = -diff;
-	}
-	return (x);
+int clamp_int(int i)
+{
+    if (i < 0)
+        return 0;
+    if (i > 255)
+        return 255;
+    return i;
 }

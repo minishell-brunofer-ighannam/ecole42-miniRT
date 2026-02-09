@@ -6,40 +6,43 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/04 12:26:26 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:31:03 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera_ray.h"
 #include "camera_ray_internal.h"
+#include "light.h"
 
-
-static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y);
-static void	color_pixel(t_context *context, int x, int y, int color);
+static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x,
+					int y);
+static bool		color_pixel(t_context *context, int x, int y, int color);
+int				ft_vector_to_int_color(t_vector_3d color);
+t_vector_3d		ft_reflexion(t_context *context, int depth, t_ray ray);
 
 void	*ft_camera_ray_loop(t_context *context, int start, int end)
 {
 	int			i;
 	int			j;
-	t_ray		ray;
-	t_colision	col;
 	int			color;
+	t_vector_3d	vect_color;
 
-	i = 0;
+	i = -1;
 	j = start;
 	while (j <= end)
 	{
-		i = 0;
-		while (i < context->mlx.window.width)
+		i = -1;
+		while (++i < context->mlx.window.width)
 		{
-			ray = ft_camera_ray(context, context->scene->camera, i, j);
-			col = ft_closest_colision(context->scene, ray);
-			if (col.colision)
-				color = 0XFF0000;
-			else
-				color = 0XFFFFFF;
-			color_pixel(context, i, j, color);
-			i++;
+			if (context->callbacks.is_process_stopped(context))
+				return (NULL);
+			vect_color = ft_reflexion(context, 0, ft_camera_ray(context,
+						context->scene->camera, i, j));
+			if (context->callbacks.is_process_stopped(context))
+				return (NULL);
+			color = ft_vector_to_int_color(vect_color);
+			if (color_pixel(context, i, j, color))
+				return (NULL);
 		}
 		j++;
 	}
@@ -50,34 +53,72 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 {
 	double		screen_x;
 	double		screen_y;
-	double		ndc_x;
-	double		ndc_y;
 	t_vector_3d	dir;
 	t_ray		ray;
 
-	ndc_x = (x + 0.5) / context->mlx.window.width;
-	ndc_y = (y + 0.5) / context->mlx.window.height;
-	screen_x = 2 * ndc_x - 1;
-	screen_y = 1 - 2 * ndc_y;
+	if (context->mlx.window.width > 0)
+		screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
+	else
+		screen_x = 1;
+	if (context->mlx.window.height > 0)
+		screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
+	else
+		screen_y = 1;
 	screen_x *= camera.aspect * camera.scale;
 	screen_y *= camera.scale;
-	dir = ft_vector_normalize(ft_vector_add_vect(ft_vector_add_vect(ft_vector_mult_scalar(camera.right,
-						screen_x), ft_vector_mult_scalar(camera.up, screen_y)),
+	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult_scal(camera.right,
+						screen_x), ft_vec_mult_scal(camera.up, screen_y)),
 				camera.forward));
 	ray.point = camera.origin;
 	ray.vector = dir;
 	return (ray);
 }
 
-static void	color_pixel(t_context *context, int x, int y, int color)
+static bool	color_pixel(t_context *context, int x, int y, int color)
 {
-	t_parallel *parallel;
+	if (context->callbacks.is_process_stopped(context))
+		return (true);
+	*context->mlx.frame_buffer[x][y] = color;
+	return (false);
+}
 
-	// ESSA FUNCAO É SÓ PARA TESTE
-	parallel = context->parallel;
-	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-	if (!context->events.state.window.has_changes)
-		*context->mlx.frame_buffer[x][y] = color;
-	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
+int	ft_vector_to_int_color(t_vector_3d color)
+{
+	int	r;
+	int	g;
+	int	b;
 
+	r = clamp_int((color.x * 255 + 0.5));
+	g = clamp_int((color.y * 255 + 0.5));
+	b = clamp_int((color.z * 255 + 0.5));
+	return ((r << 16) | (g << 8) | b);
+}
+
+t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
+{
+	t_colision	col;
+	t_ray		reflected_ray;
+
+	if (context->callbacks.is_process_stopped(context))
+		return (ft_new_vector_3d(0, 0, 0));
+	col = ft_closest_colision(context->scene, ray);
+	if (col.colision)
+		col.color_local = ft_local_color(context, col);
+	else
+		return (context->scene->norm_color_back);
+	if (depth > 10 || col.polyhedron.material.kr <= 0.0
+		|| isnan(ft_vec_mod(ray.vector)) || isinf(ft_vec_mod(ray.vector)))
+		return (col.color_local);
+	if (ft_vector_dot_product(ray.vector, col.normal) > 0)
+		col.normal = ft_vec_mult_scal(col.normal, -1);
+	reflected_ray.vector = ft_vec_norm(ft_vec_sub(ray.vector,
+				ft_vec_mult_scal(col.normal, 2.0
+					* ft_vector_dot_product(ray.vector, col.normal))));
+	reflected_ray.point = ft_point_add_vect(col.colision_point,
+			ft_vec_mult_scal(col.normal, 1e-4));
+	col.color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
+	col.color_final = ft_vec_add(ft_vec_mult_scal(col.color_local, (1
+					- col.polyhedron.material.kr)),
+			ft_vec_mult_scal(col.color_reflexive, col.polyhedron.material.kr));
+	return (col.color_final);
 }

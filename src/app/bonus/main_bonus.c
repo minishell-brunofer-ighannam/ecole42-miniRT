@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 12:32:26 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/07 11:15:07 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 static void	*ft_crate_context_callbacks(t_context *context)
 {
+	context->callbacks.is_process_stopped = ft_is_process_stopped;
 	context->callbacks.is_app_running = ft_is_app_running;
 	context->callbacks.stop_app = ft_stop_app;
 	context->callbacks.is_frame_ready = ft_is_frame_ready;
@@ -45,16 +46,16 @@ int	main(int argc, char **argv)
 	t_window_info	window;
 	t_parallel		*parallel;
 	t_scene *scene;
-	
+
 
 	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
-	if (argc >= 2)
+	if (argc >= 4)
 	{
-		window.width = ft_atoi(argv[1]);
-		if (argv[2])
-			window.height = ft_atoi(argv[2]);
+		window.width = ft_atoi(argv[2]);
+		if (argv[3])
+			window.height = ft_atoi(argv[3]);
 	}
-	printf("[BONUS] --> argv: %s\n", argv[1]);
+	printf("[BONUS] --> argv: %s\n", argv[2]);
 	context = ft_new_context(window, NULL, ft_crate_context_callbacks);
 	mlx = &context.mlx;
 	events = &context.events;
@@ -67,8 +68,12 @@ int	main(int argc, char **argv)
 	mlx->events.window_resize(*mlx, events->callbacks.window.resize, &context);
 	mlx->events.window_close(*mlx, events->callbacks.window.close, &context);
 
-	scene = ft_parser("scene/basic/cylinder_blue.rt");
-	ft_camera_init(&scene->camera);
+	scene = ft_parser(argv[1]);
+	if (!scene)
+		return (0);
+
+
+	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 
 	parallel = ft_parallelize(&context, ft_camera_ray_loop);

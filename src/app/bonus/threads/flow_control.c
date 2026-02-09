@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flow_control.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 11:29:42 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/03 17:59:09 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/08 13:35:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static bool	ft_init_mutext(t_flow_ctrl *flow)
 
 	if (pthread_mutex_init(&flow->mutex_app_run, NULL))
 		return (false);
-	if (pthread_mutex_init(&flow->mutex_frame_parts_ready, NULL))
+	if (pthread_mutex_init(&flow->mutex_set_state, NULL))
 	{
 		pthread_mutex_destroy(&flow->mutex_app_run);
 		return (false);
@@ -61,13 +61,13 @@ static bool	ft_init_mutext(t_flow_ctrl *flow)
 	if (pthread_mutex_init(&flow->mutex_frame_ready, NULL))
 	{
 		pthread_mutex_destroy(&flow->mutex_app_run);
-		pthread_mutex_destroy(&flow->mutex_frame_parts_ready);
+		pthread_mutex_destroy(&flow->mutex_set_state);
 		return (false);
 	}
 	if (pthread_mutex_init(&flow->mutex_set_state, NULL))
 	{
 		pthread_mutex_destroy(&flow->mutex_app_run);
-		pthread_mutex_destroy(&flow->mutex_frame_parts_ready);
+		pthread_mutex_destroy(&flow->mutex_set_state);
 		pthread_mutex_destroy(&flow->mutex_frame_ready);
 		return (false);
 	}
@@ -84,7 +84,7 @@ void	*ft_destroy_flow_control(t_flow_ctrl **self_ref)
 	pthread_cond_destroy(&self->cond_frame_ready);
 	pthread_cond_destroy(&self->cond_window_resize);
 	pthread_mutex_destroy(&self->mutex_app_run);
-	pthread_mutex_destroy(&self->mutex_frame_parts_ready);
+	pthread_mutex_destroy(&self->mutex_set_state);
 	pthread_mutex_destroy(&self->mutex_frame_ready);
 	pthread_mutex_destroy(&self->mutex_set_state);
 	free(self);

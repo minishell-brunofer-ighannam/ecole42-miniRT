@@ -6,21 +6,21 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/03 17:31:56 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:28:34 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_rt_internal.h"
 #include "math_rt.h"
 
-t_vector_3d	ft_vector_normalize(t_vector_3d self)
+t_vector_3d	ft_vec_norm(t_vector_3d self)
 {
 	t_vector_3d	vector;
 	double module;
 
 	vector = ft_new_vector_3d(0, 0, 0);
-	module = ft_vector_module(self);
-	if (!module)
+	module = ft_vec_mod(self);
+	if (module <= 1e-9)
 		return (vector);
 	vector.x = self.x / module;
 	vector.y = self.y / module;
@@ -56,4 +56,14 @@ t_vector_3d ft_cross_product(t_vector_3d v1, t_vector_3d v2)
     result.y = v1.z * v2.x - v1.x * v2.z;
     result.z = v1.x * v2.y - v1.y * v2.x;
     return result;
+}
+
+t_vector_3d ft_component_wise_product(t_vector_3d v1, t_vector_3d v2)
+{
+	t_vector_3d v3;
+
+	v3.x = v1.x * v2.x;
+	v3.y = v1.y * v2.y;
+	v3.z = v1.z * v2.z;
+	return (v3);
 }

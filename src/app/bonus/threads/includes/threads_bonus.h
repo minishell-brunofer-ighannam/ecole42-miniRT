@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:31:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 11:52:57 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/08 13:11:24 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ struct s_flow_ctrl
 	bool			is_frame_ready;
 	unsigned int	frame_parts_ready;
 	unsigned int	threads_finished;
+	unsigned int	threads_sleepping;
 	pthread_cond_t	cond_frame_ready;
 	pthread_mutex_t	mutex_frame_ready;
 	pthread_mutex_t	mutex_frame_parts_ready;
@@ -61,6 +62,7 @@ t_parallel	*ft_parallelize(t_context *context,
 					int row_start, int row_end));
 
 bool		ft_is_window_resized(t_context *self);
+bool		ft_is_process_stopped(t_context *self);
 bool		ft_is_app_running(t_context *self);
 void		ft_stop_app(t_context *self);
 bool		ft_is_frame_ready(t_context *self);
