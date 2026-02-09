@@ -51,7 +51,7 @@ src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c
 
 
 # **** PARSER ****
-PARSER_FILES = src/core/parser/parser_utils_i.c src/core/parser/parser_form_scene_i.c src/core/parser/parser_form_scene_ii.c \
+PARSER_FILES = src/core/parser/parser_utils_i.c src/core/parser/parser_utils_ii.c src/core/parser/parser_form_scene_i.c src/core/parser/parser_form_scene_ii.c \
 src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/core/parser/parser_verify_ii.c src/core/parser/parser_verify_iii.c \
 src/core/parser/parser_verify_iv.c src/core/parser/parser.c
 

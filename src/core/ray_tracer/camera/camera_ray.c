@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:31:03 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:40:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 	t_vector_3d	vect_color;
 
 	i = -1;
-	j = start;
-	while (j <= end)
+	j = start - 1;
+	while (++j <= end)
 	{
 		i = -1;
 		while (++i < context->mlx.window.width)
@@ -44,7 +44,6 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 			if (color_pixel(context, i, j, color))
 				return (NULL);
 		}
-		j++;
 	}
 	return (NULL);
 }
