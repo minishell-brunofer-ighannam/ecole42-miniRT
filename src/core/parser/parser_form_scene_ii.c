@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 17:31:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:28:34 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_include_cylinder(t_scene *scene, t_parser_node *content)
 	cy->center = ft_new_point(ft_atod(content->splited_args[1][0]),
 			ft_atod(content->splited_args[1][1]),
 			ft_atod(content->splited_args[1][2]));
-	cy->axis = ft_vector_normalize(ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
+	cy->axis = ft_vec_norm(ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
 			ft_atod(content->splited_args[2][1]),
 			ft_atod(content->splited_args[2][2])));
 	cy->radius = ft_atod(content->splited_args[3][0]) / 2.0;

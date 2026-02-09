@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:49:07 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/08 19:11:33 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:28:47 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ struct						s_vector_3d
 
 double						ft_vector_dot_product(t_vector_3d self,
 								t_vector_3d other);
-double						ft_vector_module(t_vector_3d self);
-double						ft_vector_module_squared(t_vector_3d self);
+double						ft_vec_mod(t_vector_3d self);
+double						ft_vec_mod_squared(t_vector_3d self);
 double						ft_vector_cos_teta(t_vector_3d self,
 								t_vector_3d other);
-t_vector_3d					ft_vector_sub_vect(t_vector_3d self,
+t_vector_3d					ft_vec_sub(t_vector_3d self,
 								t_vector_3d other);
-t_vector_3d					ft_vector_add_vect(t_vector_3d self,
+t_vector_3d					ft_vec_add(t_vector_3d self,
 								t_vector_3d other);
-t_vector_3d					ft_vector_mult_scalar(t_vector_3d self,
+t_vector_3d					ft_vec_mult_scal(t_vector_3d self,
 								double scalar);
-t_vector_3d					ft_vector_mult_scalar(t_vector_3d self,
+t_vector_3d					ft_vec_mult_scal(t_vector_3d self,
 								double scalar);
 t_vector_3d					ft_vector_div_scalar(t_vector_3d self,
 								double scalar);
-t_vector_3d					ft_vector_normalize(t_vector_3d self);
+t_vector_3d					ft_vec_norm(t_vector_3d self);
 t_point_3d					ft_new_point(double x, double y, double z);
 t_vector_3d					ft_sub_point(t_point_3d self, t_point_3d other);
 t_vector_3d					ft_new_vector_3d(double x, double y, double z);

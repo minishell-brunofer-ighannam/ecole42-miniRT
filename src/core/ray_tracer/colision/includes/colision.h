@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 08:53:34 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:24:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ struct				s_colision
 	t_vector_3d normal;
 	t_vector_3d color_dif;
 	t_vector_3d color_spec;
+	t_vector_3d color_local;
+	t_vector_3d color_reflexive;
+	t_vector_3d color_final;
 };
 
 // SPHERE

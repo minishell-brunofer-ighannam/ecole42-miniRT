@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 09:40:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:28:34 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_include_camera(t_scene *scene, t_parser_node *content)
 	vector = ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
 			ft_atod(content->splited_args[2][1]),
 			ft_atod(content->splited_args[2][2]));
-	scene->camera.forward = ft_vector_normalize(vector);
+	scene->camera.forward = ft_vec_norm(vector);
 }
 
 void	ft_include_light(t_scene *scene, t_parser_node *content)

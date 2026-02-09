@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 02:02:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 16:16:12 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:34:02 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ double	ft_vector_dot_product(t_vector_3d self, t_vector_3d other)
 	return ((self.x * other.x) + (self.y * other.y) + (self.z * other.z));
 }
 
-double	ft_vector_module(t_vector_3d self)
+double	ft_vec_mod(t_vector_3d self)
 {
-	return (
-		sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z))
-	);
+	double mod;
+
+	mod = sqrt((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
+	if (isnan(mod))
+		return (INFINITY);
+	return (mod);
 }
 
-double	ft_vector_module_squared(t_vector_3d self)
+double	ft_vec_mod_squared(t_vector_3d self)
 {
 	return ((self.x * self.x) + (self.y * self.y) + (self.z * self.z));
 }
