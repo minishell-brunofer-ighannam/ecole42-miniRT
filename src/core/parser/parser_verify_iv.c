@@ -6,29 +6,12 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:11:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 09:12:39 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 17:37:47 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "parser_internal.h"
-
-bool	ft_verify_list_scene(t_linkedlist *input_list)
-{
-	t_linkedlist_node	*first_node;
-
-	first_node = input_list->first;
-	if (ft_count_items_scene(first_node, "C") != 1
-		|| ft_count_items_scene(first_node, "L") > 1
-		|| ft_count_items_scene(first_node, "A") > 1
-		|| ft_count_items_scene(first_node, "B") > 1)
-	{
-		printf("Error\nError: wrong number of C, L, A or B identified\n");
-		input_list->destroy(&input_list, ft_free_content_parser_node);
-		return (false);
-	}
-	return (true);
-}
 
 int	ft_count_items_scene(t_linkedlist_node *node, char *type)
 {
@@ -44,6 +27,35 @@ int	ft_count_items_scene(t_linkedlist_node *node, char *type)
 		node = node->next;
 	}
 	return (count);
+}
+
+bool	ft_verify_duplicated_patterns(t_linkedlist *input_list)
+{
+	t_linkedlist_node	*node_one;
+	t_linkedlist_node	*node_two;
+
+	if (!input_list || !input_list->first || !input_list->first->next)
+		return (false);
+	node_one = input_list->first;
+	node_two = input_list->first->next;
+	while (node_one && node_two)
+	{
+		while (node_two)
+		{
+			if (((t_parser_node *)node_one->content)->pattern_name
+				&& ((t_parser_node *)node_two->content)->pattern_name)
+			{
+				if (!ft_strcmp(((t_parser_node *)node_one->content)->pattern_name,
+						((t_parser_node *)node_two->content)->pattern_name))
+					return (false);
+			}
+			node_two = node_two->next;
+		}
+		node_one = node_one->next;
+		if (node_one)
+			node_two = node_one->next;
+	}
+	return (true);
 }
 
 bool	ft_verify_color(char **str)

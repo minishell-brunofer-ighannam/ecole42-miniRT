@@ -6,36 +6,79 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:31:01 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/30 18:57:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 17:37:50 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "parser_internal.h"
 
-bool	ft_verify_sphere(t_parser_node *content_node)
+bool	ft_verify_optional_double(char **arg, double min, double max)
 {
-	if (content_node->num_args_line < 4
-		|| !ft_verify_coords(content_node->splited_args[1])
-		|| ft_count_size_splited(content_node->splited_args[2]) != 1
-		|| !ft_verify_double_between(content_node->splited_args[2][0], 0, 0, 0)
-		|| !ft_verify_color(content_node->splited_args[3])
-		|| !ft_verify_mat_opt_sp(content_node))
+	if (!arg)
+		return (true);
+	if (ft_count_size_splited(arg) != 1)
 		return (false);
-	return (true);
+	return (ft_verify_double_between(arg[0], min, max, 1e-6));
 }
 
-bool	ft_verify_mat_opt_sp(t_parser_node *content)
+int ft_verify_opt_item_phong(t_parser_node *content, int pos_file, int item)
 {
-	if (!content->splited_args[4] || !content->splited_args[5]
-		|| !content->splited_args[6] || !content->splited_args[7]
-		|| !content->splited_args[8])
-		return (true);
-	if (!ft_verify_optional_double(content->splited_args[4], 0, 1)
-		|| !ft_verify_optional_double(content->splited_args[5], 0, 1)
-		|| !ft_verify_optional_double(content->splited_args[6], 0, 1)
-		|| !ft_verify_optional_double(content->splited_args[7], 0, 0)
-		|| !ft_verify_optional_double(content->splited_args[8], 0, 1))
+	if (!content->splited_args[pos_file])
+		return (0);
+	if (item < 3 || item == 4)
+	{
+		if (!ft_verify_optional_double(content->splited_args[pos_file], 0, 1))
+			return (1);
+	}
+	else if (item == 3)
+	{
+		if (!ft_verify_optional_double(content->splited_args[pos_file], 0, 500))
+			return (1);
+	}
+	content->opt_phong[item] = ft_atod(content->splited_args[pos_file][0]);
+	return (2);
+}
+
+bool	ft_verify_mat_opt(t_parser_node *content, int pos_file)
+{
+	int item;
+	int verify;
+
+	item = 0;
+	while (item < 5)
+	{
+		verify = ft_verify_opt_item_phong(content, pos_file, item);
+		if (verify == 0)
+			return (true);
+		else if (verify == 1)
+			return (false);
+		item++;
+		pos_file++;
+	}
+	if (content->splited_args[pos_file])
+		content->pattern_name = content->splited_args[pos_file][0];
+	return (true);
+}
+bool	ft_verify_list_scene(t_linkedlist *input_list)
+{
+	t_linkedlist_node	*first_node;
+
+	first_node = input_list->first;
+	if (ft_count_items_scene(first_node, "C") != 1
+		|| ft_count_items_scene(first_node, "L") > 1
+		|| ft_count_items_scene(first_node, "A") > 1
+		|| ft_count_items_scene(first_node, "B") > 1)
+	{
+		printf("Error\nError: wrong number of C, L, A or B identified\n");
+		input_list->destroy(&input_list, ft_free_content_parser_node);
 		return (false);
+	}
+	if (!ft_verify_duplicated_patterns(input_list))
+	{
+		printf("Error\nError: duplicated patterns identified\n");
+		input_list->destroy(&input_list, ft_free_content_parser_node);
+		return (false);
+	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:28:34 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 17:33:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,112 +16,130 @@
 #include "polyhedron.h"
 #include "scene.h"
 
-void	ft_include_sphere(t_scene *scene, t_parser_node *content)
+void	ft_include_sphere(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
 {
 	t_sphere	*sp;
 
 	sp = ft_calloc(1, sizeof(t_sphere));
-	sp->center = ft_new_point(ft_atod(content->splited_args[1][0]),
-			ft_atod(content->splited_args[1][1]),
-			ft_atod(content->splited_args[1][2]));
-	sp->radius = ft_atod(content->splited_args[2][0]) / 2.0;
+	sp->center = content->origin;
+	sp->radius = content->radius;
 	scene->polyhedron[scene->count_polyhedron].type = SPHERE;
 	scene->polyhedron[scene->count_polyhedron].specs = sp;
-	scene->polyhedron[scene->count_polyhedron].material = ft_form_material_sp(content);
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);
 	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
 	scene->count_polyhedron++;
 }
 
-t_material	ft_form_material_sp(t_parser_node *content)
+t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list)
 {
 	t_material	material;
 
 	ft_bzero(&material, sizeof(t_material));
-	material.albedo = ft_new_vector_3d(ft_atoi(content->splited_args[3][0]),
-			ft_atoi(content->splited_args[3][1]),
-			ft_atoi(content->splited_args[3][2]));
-	material.norm_albedo = ft_new_vector_3d(material.albedo.x / 255.0,
-			material.albedo.y / 255.0, material.albedo.z / 255.0);
-	if (!content->splited_args[4] || !content->splited_args[5]
-		|| !content->splited_args[6] || !content->splited_args[7]
-		|| !content->splited_args[8])
-		ft_include_default_values(&material);
-	else
-	{
-		if (content->splited_args[4])
-			material.ka = ft_atod(content->splited_args[4][0]);
-		if (content->splited_args[5])
-			material.kd = ft_atod(content->splited_args[5][0]);
-		if (content->splited_args[6])
-			material.ks = ft_atod(content->splited_args[6][0]);
-		if (content->splited_args[7])
-			material.n = ft_atod(content->splited_args[7][0]);
-		if (content->splited_args[8])
-			material.kr = ft_atod(content->splited_args[8][0]);
-	}
-	material.albedo2 = ft_new_vector_3d(0,0,0);
-	material.norm_albedo2 = ft_new_vector_3d(0.0,0.0,0.0);
+	material.albedo = content->color;
+	material.norm_albedo = ft_new_vector_3d(content->color.x / 255.0,
+			content->color.y / 255.0, content->color.z / 255.0);
+	ft_material_values(content, &material);
+	ft_include_pattern(input_list, &material);
 	return (material);
 }
 
-void ft_include_default_values(t_material *material)
+
+void ft_include_pattern(t_linkedlist *input_list, t_material *material)
+{
+	t_linkedlist_node *node;
+
+	node = input_list->first;
+	if (!material->pattern_name)
+	{
+		material->pattern = ft_form_pattern(NULL);
+		return ;
+	}
+	while (node)
+	{
+		if (!ft_strcmp(((t_parser_node *)node->content)->splited_line[0], "p"))
+		{
+			if (!ft_strcmp(((t_parser_node *)node->content)->pattern_name, material->pattern_name))
+				material->pattern = ft_form_pattern((t_parser_node *)node->content);
+		}
+		node = node->next;	
+	}
+	printf("Pattern not found. No pattern applied.");
+}
+
+t_pattern ft_form_pattern(t_parser_node *content)
+{
+	t_pattern pattern;
+	t_checker *checker;
+
+	if (!content)
+	{
+		pattern.pattern = NO_PATTERN;
+		return (pattern);
+	}
+	if (content->pattern_type == CHECKER)
+	{
+		checker = ft_calloc(1, sizeof(t_checker));
+		pattern.pattern = CHECKER;
+		checker->color_one = content->color_one;
+		checker->color_two = content->color_two;
+		checker->tile = content->tile;
+		pattern.specs = checker;
+		return (pattern);
+	}
+	printf("Pattern type out of scope. No pattern applied.");
+	pattern.pattern = NO_PATTERN;
+	return (pattern);
+}
+
+void ft_material_values(t_parser_node *content, t_material *material)
 {
 	material->ka = KA;
 	material->kd = KD;
 	material->kr = KR;
 	material->ks = KS;
 	material->n = N;
-	material->tile_checker = 1;
+	if (content->opt_phong[0] != -1)
+		material->ka = content->opt_phong[0];
+	if (content->opt_phong[1] != -1)
+		material->kd = content->opt_phong[1];
+	if (content->opt_phong[2] != -1)
+		material->ks = content->opt_phong[2];
+	if (content->opt_phong[3] != -1)
+		material->n = content->opt_phong[3];
+	if (content->opt_phong[4] != -1)
+		material->kr = content->opt_phong[4];
+	if (content->pattern_name)
+		material->pattern_name = content->pattern_name;
 }
 
-void	ft_include_cylinder(t_scene *scene, t_parser_node *content)
+void	ft_include_cylinder(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
 {
 	t_cylinder	*cy;
 
 	cy = ft_calloc(1, sizeof(t_cylinder));
-	cy->center = ft_new_point(ft_atod(content->splited_args[1][0]),
-			ft_atod(content->splited_args[1][1]),
-			ft_atod(content->splited_args[1][2]));
-	cy->axis = ft_vec_norm(ft_new_vector_3d(ft_atod(content->splited_args[2][0]),
-			ft_atod(content->splited_args[2][1]),
-			ft_atod(content->splited_args[2][2])));
-	cy->radius = ft_atod(content->splited_args[3][0]) / 2.0;
-	cy->height = ft_atod(content->splited_args[4][0]);
+	cy->center = content->origin;
+	cy->axis = content->normal;
+	cy->radius = content->radius;
+	cy->height = content->height;
 	scene->polyhedron[scene->count_polyhedron].type = CYLINDER;
 	scene->polyhedron[scene->count_polyhedron].specs = cy;
-	scene->polyhedron[scene->count_polyhedron].material = ft_form_material_cy(content);
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);
 	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
 	scene->count_polyhedron++;
 }
 
-t_material	ft_form_material_cy(t_parser_node *content)
+void ft_include_cone(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
 {
-	t_material	material;
+	t_cone *cn;
 
-	ft_bzero(&material, sizeof(t_material));
-	material.albedo = ft_new_vector_3d(ft_atoi(content->splited_args[5][0]),
-			ft_atoi(content->splited_args[5][1]),
-			ft_atoi(content->splited_args[5][2]));
-	material.norm_albedo = ft_new_vector_3d(material.albedo.x / 255.0,
-			material.albedo.y / 255.0, material.albedo.z / 255.0);
-	if (!content->splited_args[6] || !content->splited_args[7]
-		|| !content->splited_args[8] || !content->splited_args[9]
-		|| !content->splited_args[10])
-	{
-		ft_include_default_values(&material);	
-		return (material);
-	}
-	if (content->splited_args[6])
-		material.ka = ft_atod(content->splited_args[6][0]);
-	if (content->splited_args[7])
-		material.kd = ft_atod(content->splited_args[7][0]);
-	if (content->splited_args[8])
-		material.ks = ft_atod(content->splited_args[8][0]);
-	if (content->splited_args[9])
-		material.n = ft_atod(content->splited_args[9][0]);
-	if (content->splited_args[10])
-		material.kr = ft_atod(content->splited_args[10][0]);
-	material.albedo2 = ft_new_vector_3d(0,0,0);
-	material.norm_albedo2 = ft_new_vector_3d(0.0,0.0,0.0);
-	return (material);
+	cn = ft_calloc(1, sizeof(t_cone));
+	cn->axis = content->normal;
+	cn->half_apex_angle = content->half_apex_angle;
+	cn->height = content->height;
+	cn->vertex = content->origin;
+	scene->polyhedron[scene->count_polyhedron].type = CONE;
+	scene->polyhedron[scene->count_polyhedron].specs = cn;
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);
+	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
+	scene->count_polyhedron++;
 }
