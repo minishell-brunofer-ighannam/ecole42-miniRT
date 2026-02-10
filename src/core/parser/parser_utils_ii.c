@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tracer.c                                       :+:      :+:    :+:   */
+/*   parser_utils_ii.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/02 14:26:29 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:27:47 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/09 17:34:55 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/09 17:35:10 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray_tracer.h"
+#include "parser.h"
+#include "parser_internal.h"
 
-
-t_point_3d ft_ray_at(t_ray ray, double t)
+t_point_3d ft_new_point_str(char **splited)
 {
-    t_point_3d point;
-    t_vector_3d scaled;
+	return (ft_new_point(ft_atod(splited[0]), ft_atod(splited[1]), ft_atod(splited[2])));
+}
 
-    scaled = ft_vec_mult_scal(ray.vector, t);
-    point = ft_point_add_vect(ray.point, scaled);
-    return (point);
+t_vector_3d ft_new_vec_str(char **splited)
+{
+	return (ft_new_vector_3d(ft_atod(splited[0]), ft_atod(splited[1]), ft_atod(splited[2])));
 }

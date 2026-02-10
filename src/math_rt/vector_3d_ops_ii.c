@@ -13,13 +13,13 @@
 #include "math_rt_internal.h"
 #include "math_rt.h"
 
-t_vector_3d	ft_vector_normalize(t_vector_3d self)
+t_vector_3d	ft_vec_norm(t_vector_3d self)
 {
 	t_vector_3d	vector;
 	double		module;
 
 	vector = ft_new_vector_3d(0, 0, 0);
-	module = ft_vector_module(self);
+	module = ft_vec_mod(self);
 	if (module <= 1e-9)
 		return (vector);
 	vector.x = self.x / module;

@@ -31,8 +31,8 @@ static t_vector_3d	ft_sp_normal(t_sphere *sp, t_point_3d pt)
 {
 	t_vector_3d	normal;
 
-	normal = ft_vector_normalize(ft_sub_point(pt, sp->center));
-	return (normal);
+    normal = ft_vec_norm(ft_sub_point(pt, sp->center));
+    return (normal);
 }
 
 static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p)
@@ -41,8 +41,8 @@ static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p)
 	t_point_3d	proj;
 
 	y = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
-	proj = ft_point_add_vect(cy->center, ft_vector_mult_scalar(cy->axis, y));
-	return (ft_vector_normalize(ft_sub_point(p, proj)));
+	proj = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, y));
+	return (ft_vec_norm(ft_sub_point(p, proj)));
 }
 
 static t_vector_3d	ft_co_normal(t_cone *co, t_point_3d p, int section)

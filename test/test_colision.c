@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 13:12:18 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:13:03 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:28:34 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void test_sphere_front(void)
     scene = ft_parser("scene/basic/0_test_sp.rt");
 
     ray.point = ft_new_point(0, 0, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 
@@ -64,7 +64,7 @@ void test_plane_front(void)
     scene = ft_parser("scene/basic/0_test_pl.rt");
 
     ray.point = ft_new_point(0, 0, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 
@@ -88,7 +88,7 @@ void test_cylinder_body(void)
     scene = ft_parser("scene/basic/0_test_cy.rt");
 
     ray.point = ft_new_point(1, 2, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 
@@ -111,7 +111,7 @@ void test_closest_two_spheres(void)
     scene = ft_parser("scene/basic/0_test_2sp.rt");
 
     ray.point = ft_new_point(0, 0, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 
@@ -134,7 +134,7 @@ void test_closest_sphere_vs_plane(void)
     scene = ft_parser("scene/basic/0_test_sp_pl.rt");
 
     ray.point = ft_new_point(0, 0, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 
@@ -158,7 +158,7 @@ void test_closest_sphere_vs_cylinder(void)
     scene = ft_parser("scene/basic/0_test_cy_sp.rt");
 
     ray.point = ft_new_point(0, 2, 0);
-    ray.vector = ft_vector_normalize(ft_new_vector_3d(0, 0, 1));
+    ray.vector = ft_vec_norm(ft_new_vector_3d(0, 0, 1));
 
     col = ft_closest_colision(scene, ray);
 

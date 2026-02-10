@@ -28,9 +28,12 @@ struct				s_colision
 	bool			colision;
 	double			t;
 	t_point_3d		colision_point;
-	t_vector_3d		normal;
-	t_vector_3d		color_dif;
-	t_vector_3d		color_spec;
+	t_vector_3d normal;
+	t_vector_3d color_dif;
+	t_vector_3d color_spec;
+	t_vector_3d color_local;
+	t_vector_3d color_reflexive;
+	t_vector_3d color_final;
 };
 
 // SPHERE

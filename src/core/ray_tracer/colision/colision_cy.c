@@ -39,9 +39,9 @@ double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)
 	double		t;
 
 	oc = ft_sub_point(ray.point, cy->center);
-	d_perp = ft_vector_sub_vect(ray.vector, ft_vector_mult_scalar(cy->axis,
+	d_perp = ft_vec_sub(ray.vector, ft_vec_mult_scal(cy->axis,
 				ft_vector_dot_product(ray.vector, cy->axis)));
-	oc_perp = ft_vector_sub_vect(oc, ft_vector_mult_scalar(cy->axis,
+	oc_perp = ft_vec_sub(oc, ft_vec_mult_scal(cy->axis,
 				ft_vector_dot_product(oc, cy->axis)));
 	a = ft_vector_dot_product(d_perp, d_perp);
 	if (a < EPS)
@@ -67,7 +67,7 @@ double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray)
 
 	t_min = INFINITY;
 	t = ft_colision_plane_normal(ray, cy->center,
-			ft_vector_mult_scalar(cy->axis, -1));
+			ft_vec_mult_scal(cy->axis, -1));
 	if (t > EPS)
 	{
 		p = ft_ray_at(ray, t);
@@ -75,7 +75,7 @@ double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray)
 					cy->center)) <= cy->radius * cy->radius)
 			t_min = t;
 	}
-	cap_center = ft_point_add_vect(cy->center, ft_vector_mult_scalar(cy->axis,
+	cap_center = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis,
 				cy->height));
 	t = ft_colision_plane_normal(ray, cap_center, cy->axis);
 	if (t > EPS)
