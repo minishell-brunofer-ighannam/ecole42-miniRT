@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 16:33:29 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/09 20:39:31 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,37 @@ struct							s_material
 
 struct							s_polyhedron
 {
-	t_polyhedron_type			type;
-	int							id;
-	void						*specs;
-	t_material					material;
+	t_polyhedron_type	type;
+	int					id;
+	void				*specs;
+	t_material			material;
 };
 
 struct							s_sphere
 {
-	t_point_3d					center;
-	double						radius;
+	t_point_3d	center;
+	double		radius;
 };
 
 struct							s_cylinder
 {
-	t_point_3d					center;
-	t_vector_3d					axis;
-	double						radius;
-	double						height;
+	t_point_3d	center;
+	t_vector_3d	axis;
+	double		radius;
+	double		height;
+};
+
+struct							s_cone
+{
+	// Read in file.rt
+	t_plane		base;
+	t_point_3d	vertex;
+	t_vector_3d	axis;
+	double		height;
+	double		apex_angle;
+	double		cos_alpha;
+	double		tan_alpha;
+	double		sin_alpha;
 };
 
 struct							s_cone
@@ -102,11 +115,10 @@ struct							s_cone
 
 struct							s_plane
 {
-	t_point_3d					point;
-	t_vector_3d					normal;
+	t_point_3d	point;
+	t_vector_3d	normal;
 };
 
-t_vector_3d						ft_normal_polyhedron(t_point_3d pt,
-									t_polyhedron polyhedron);
+t_vector_3d	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron);
 
 #endif

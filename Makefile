@@ -56,12 +56,12 @@ src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/co
 src/core/parser/parser_verify_iv.c src/core/parser/parser.c
 
 # **** SCENE ****
-SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/camera/camera_init.c 
+SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/camera/camera_init.c
 
 # **** RAY_TRACER ****
 RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
 src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
-src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c
+src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c src/core/ray_tracer/colision/colision_co.c
 
 
 # **** DATA_STRUCTURES ****
