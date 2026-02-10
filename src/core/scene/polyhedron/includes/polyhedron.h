@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 16:33:29 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:52:01 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ struct s_pattern
 struct s_checker
 {
 	t_vector_3d color_one;
+	t_vector_3d norm_color_one;
 	t_vector_3d color_two;
+	t_vector_3d norm_color_two;
 	double tile;
 };
 

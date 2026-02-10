@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:28:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:13:44 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,21 @@ t_vector_3d	ft_local_color(t_context *context, t_colision col)
 {
 	t_vector_3d	local_color;
 	t_vector_3d	norm_albedo;
+	double tile;
 
-	norm_albedo = col.polyhedron.material.norm_albedo;
-	// if (col.polyhedron.material.checker)
-	// 	norm_albedo = ft_checker_color(col);
-	//norm_albedo = ft_checker_color_pl(col);
+	if (col.polyhedron.material.pattern.pattern == CHECKER)
+	{
+		tile = ((t_checker *)col.polyhedron.material.pattern.specs)->tile;
+		ft_calc_u_v(&col);
+		if (isnan(col.u) || isnan(col.v) || isinf(col.u) || isinf(col.v))
+			norm_albedo = ((t_checker *)col.polyhedron.material.pattern.specs)->norm_color_one;
+		else if (((int)floor(col.u * tile) + (int)floor(col.v * tile)) % 2 == 0)
+			norm_albedo = ((t_checker *)col.polyhedron.material.pattern.specs)->norm_color_one;
+		else
+			norm_albedo = ((t_checker *)col.polyhedron.material.pattern.specs)->norm_color_two;
+	}
+	else
+		norm_albedo = col.polyhedron.material.norm_albedo;
 	local_color = ft_vec_add(ft_ambient_light(context, &col.polyhedron),
 			ft_difuse_light(context, &col, -1));
 	local_color = ft_component_wise_product(local_color, norm_albedo);

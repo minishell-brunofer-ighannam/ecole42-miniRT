@@ -1,14 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   pattern.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 10:54:44 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 10:56:44 by ighannam         ###   ########.fr       */
+/*   Created: 2026/02/09 18:01:12 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/10 10:56:55 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_rt.h"
+#ifndef PATTERN_H
+#define PATTERN_H
 
+#include "colision.h"
+
+void ft_calc_u_v(t_colision *col);
+
+
+#endif
