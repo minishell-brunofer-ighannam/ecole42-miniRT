@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:30:22 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 17:37:22 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 13:08:37 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ bool ft_verify_cone(t_parser_node *content_node)
 	content_node->origin = ft_new_point_str(content_node->splited_args[1]);
 	content_node->normal = ft_vec_norm(ft_new_vec_str(content_node->splited_args[2]));
 	content_node->half_apex_angle = ft_atod(content_node->splited_args[3][0]) / 2.0;
+	content_node->cos_half_apex_angle = cos(content_node->half_apex_angle / 2 * M_PI);
+	content_node->plane_normal = content_node->normal;
+	content_node->plane_point = ft_point_add_vect(content_node->origin, ft_vec_mult_scal(content_node->plane_normal, content_node->height));
 	return (true);
 }
 
