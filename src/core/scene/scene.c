@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:18 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/05 17:56:41 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:12:10 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_print_scene(t_scene *scene)
         printf("No scene found\n");
         return ;
     }
-    
+
 	printf("CAMERA\n");
 	printf("position: %f, %f, %f\n", scene->camera.origin.x,
 		scene->camera.origin.y, scene->camera.origin.z);
@@ -46,7 +46,7 @@ void	ft_print_scene(t_scene *scene)
         i++;
     }
     printf("\n");
-    
+
     printf("POLYHEDRONS\n");
     i = 0;
     while (i < scene->num_polyhedron)
@@ -91,9 +91,24 @@ void	ft_print_scene(t_scene *scene)
             printf("n: %f\n", (scene->polyhedron[i].material.n));
             printf("kr: %f\n", (scene->polyhedron[i].material.kr));
         }
-        i++;        
+		else if (scene->polyhedron[i].type == CONE)
+		{
+			printf("Cone\n");
+			printf("vertex: %f, %f, %f\n", ((t_cone *)scene->polyhedron[i].specs)->vertex.x, ((t_cone *)scene->polyhedron[i].specs)->vertex.y, ((t_cone *)scene->polyhedron[i].specs)->vertex.z);
+            printf("axis: %f, %f, %f\n", ((t_cone *)scene->polyhedron[i].specs)->axis.x, ((t_cone *)scene->polyhedron[i].specs)->axis.y, ((t_cone *)scene->polyhedron[i].specs)->axis.z);
+			printf("angle: %f\n", ((t_cone *)scene->polyhedron[i].specs)->half_apex_angle);
+			printf("height: %f\n", ((t_cone *)scene->polyhedron[i].specs)->height);
+            printf("cos alpha: %f\n", ((t_cone *)scene->polyhedron[i].specs)->cos_alpha);
+            printf("color: %f, %f, %f\n", scene->polyhedron[i].material.albedo.x, scene->polyhedron[i].material.albedo.y, scene->polyhedron[i].material.albedo.z);
+			printf("ka: %f\n", (scene->polyhedron[i].material.ka));
+            printf("kd: %f\n", (scene->polyhedron[i].material.kd));
+            printf("ks: %f\n", (scene->polyhedron[i].material.ks));
+            printf("n: %f\n", (scene->polyhedron[i].material.n));
+            printf("kr: %f\n", (scene->polyhedron[i].material.kr));
+		}
+        i++;
     }
-    printf("\n"); 
+    printf("\n");
 }
 
 void ft_destroy_scene(t_scene *scene)

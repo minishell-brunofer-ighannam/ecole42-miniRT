@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/09 17:25:59 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 16:32:52 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ struct							s_parser_node
 	double						intensity;
 	double						radius;
 	double						half_apex_angle;
+	double cos_half_apex_angle;
+	t_vector_3d plane_normal;
+	t_point_3d plane_point;
 };
 
 int								ft_open_file(char *file);

@@ -14,7 +14,7 @@ L   10,12,-5        1               255,255,255
 
 # Sphere
 #   position        radius          color
-sp  3,1,0           1               255,51,255
+cn  3,1,0           1,0,0   60   5               255,51,255
 
 # Plane             normal
 #   position        direction       color

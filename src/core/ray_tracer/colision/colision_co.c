@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_co.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 20:42:06 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/10 16:22:50 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static inline double	ft_cone_baskara(
 	return (INFINITY);
 }
 
-double	ft_colision_co(t_polyhedron *polyhedron, t_ray ray)
+void	ft_colision_co(t_polyhedron *polyhedron, t_ray ray, t_colision *col)
 {
 	t_cone	*co;
 	double	colision_body;
@@ -53,12 +53,14 @@ double	ft_colision_co(t_polyhedron *polyhedron, t_ray ray)
 	colision_body = ft_colision_cone_body(ray, co);
 	colision_base = ft_colision_cone_base(ray, co);
 	if (isinf(colision_body))
-		return (colision_base);
-	if (isinf(colision_base))
-		return (colision_body);
-	if (colision_body < colision_base)
-		return (colision_body);
-	return (colision_base);
+		col->t = colision_base;
+	else if (isinf(colision_base))
+		col->t = colision_body;
+	else if (colision_body < colision_base)
+		col->t = colision_body;
+	else
+		col->t = colision_base;
+	col->section = col->t == colision_body;
 }
 
 /**

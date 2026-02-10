@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 17:28:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 18:04:24 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:08:15 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,16 @@ void	*ft_thread_routine(t_thread *thread)
 		if (ft_recalculate_thread_chunck(thread))
 			continue ;
 		parallel->ray_tracing(context, thread->range_start, thread->range_end);
-		printf("thread[%d/%d]::end_ray_tracing...\n", thread->id, parallel->n_threads - 1);
 		if (context->callbacks.is_process_stopped(context))
-		{
-			printf("thread[%d/%d]::back_to_top...\n", thread->id, parallel->n_threads - 1);
 			continue ;
-		}
 		// context->callbacks.set_frame_parts_ready(context);
 		pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 		if (parallel->flow_ctrl->frame_parts_ready < parallel->n_threads)
 			parallel->flow_ctrl->frame_parts_ready++;
 		while (parallel->flow_ctrl->frame_parts_ready > 0)
 		{
-			printf("thread[%d/%d]::finish...\n", thread->id, parallel->n_threads - 1);
 			pthread_cond_wait(&parallel->flow_ctrl->cond_frame_ready,
 				&parallel->flow_ctrl->mutex_set_state);
-			printf("thread[%d/%d]::work_again...\n", thread->id, parallel->n_threads - 1);
 		}
 		pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	}

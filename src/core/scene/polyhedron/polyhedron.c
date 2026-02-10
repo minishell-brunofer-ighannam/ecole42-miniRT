@@ -3,62 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 20:53:07 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/10 15:45:07 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "polyhedron.h"
 #include "polyhedron_internal.h"
+#include "colision.h"
 
-static t_vector_3d	ft_sp_normal(t_sphere *sp, t_point_3d pt);
-static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p);
-static t_vector_3d	ft_co_normal(t_cone *co, t_point_3d p, int section);
+static void	ft_sp_normal(t_sphere *sp, t_point_3d pt, t_colision *col);
+static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col);
+void		ft_co_normal(t_cone *co, t_point_3d p, t_colision *col);
 
-t_vector_3d	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron)
+void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col)
 {
 	if (polyhedron.type == SPHERE)
-		return (ft_sp_normal((t_sphere *)polyhedron.specs, pt));
+		ft_sp_normal((t_sphere *)polyhedron.specs, pt, col);
 	else if (polyhedron.type == PLANE)
-		return (((t_plane *)polyhedron.specs)->normal);
+		col->normal = ((t_plane *)polyhedron.specs)->normal;
 	else
-		return (ft_cy_normal((t_cylinder *)polyhedron.specs, pt));
+		ft_cy_normal((t_cylinder *)polyhedron.specs, pt, col);
 }
 
-static t_vector_3d	ft_sp_normal(t_sphere *sp, t_point_3d pt)
+static void	ft_sp_normal(t_sphere *sp, t_point_3d pt, t_colision *col)
 {
-	t_vector_3d	normal;
-
-    normal = ft_vec_norm(ft_sub_point(pt, sp->center));
-    return (normal);
+	col->normal = ft_vec_norm(ft_sub_point(pt, sp->center));
 }
 
-static t_vector_3d	ft_cy_normal(t_cylinder *cy, t_point_3d p)
+static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col)
 {
 	double		y;
 	t_point_3d	proj;
 
 	y = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
 	proj = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, y));
-	return (ft_vec_norm(ft_sub_point(p, proj)));
+	col->normal = ft_vec_norm(ft_sub_point(p, proj));
 }
 
-static t_vector_3d	ft_co_normal(t_cone *co, t_point_3d p, int section)
+void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
 {
-	double		y;
 	t_vector_3d	vp;
 	t_vector_3d	axis_projection;
 	t_vector_3d	normal;
 
-	if (section == 0)
-		return (co->base.normal);
+	if (col->section == 0)
+	{
+		col->normal = co->base.normal;
+		return ;
+	}
 	vp = ft_sub_point(p, co->vertex);
-	axis_projection = ft_vector_mult_scalar(
+	axis_projection = ft_vec_mult_scal(
 			co->axis, ft_vector_dot_product(vp, co->axis));
-	normal = ft_vector_sub_vect(
-			ft_vector_mult_scalar(vp, sqrdd(co->cos_alpha)), axis_projection);
-	normal = ft_vector_normalize(normal);
-	return (normal);
+	normal = ft_vec_sub(
+			ft_vec_mult_scal(vp, sqrdd(co->cos_alpha)), axis_projection);
+	col->normal = ft_vec_norm(normal);
 }

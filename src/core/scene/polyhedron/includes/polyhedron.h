@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 20:39:31 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/10 15:03:00 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,13 @@ struct							s_cylinder
 	double		height;
 };
 
+struct							s_plane
+{
+	t_point_3d	point;
+	t_vector_3d	normal;
+};
+
+
 struct							s_cone
 {
 	// Read in file.rt
@@ -99,26 +106,12 @@ struct							s_cone
 	t_point_3d	vertex;
 	t_vector_3d	axis;
 	double		height;
-	double		apex_angle;
+	double		half_apex_angle;
 	double		cos_alpha;
 	double		tan_alpha;
 	double		sin_alpha;
 };
 
-struct							s_cone
-{
-	t_point_3d					vertex;
-	t_vector_3d					axis;
-	double						half_apex_angle;
-	double						height;
-};
-
-struct							s_plane
-{
-	t_point_3d	point;
-	t_vector_3d	normal;
-};
-
-t_vector_3d	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron);
+void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
 
 #endif
