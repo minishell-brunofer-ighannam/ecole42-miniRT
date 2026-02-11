@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 02:58:13 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/09 11:28:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:26:21 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_vector_3d	ft_vector_div_scalar(t_vector_3d self, double scalar)
 {
 	t_vector_3d	vector;
 
+	if (scalar < 1e-6)
+		scalar = 1e-6;
 	vector.x = self.x / scalar;
 	vector.y = self.y / scalar;
 	vector.z = self.z / scalar;

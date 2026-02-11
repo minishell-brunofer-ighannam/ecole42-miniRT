@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 00:05:43 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/11 09:51:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void ft_include_pattern(t_linkedlist *input_list, t_material *material)
 		if (!ft_strcmp(((t_parser_node *)node->content)->splited_line[0], "p"))
 		{
 			if (!ft_strcmp(((t_parser_node *)node->content)->pattern_name, material->pattern_name))
+			{
 				material->pattern = ft_form_pattern((t_parser_node *)node->content);
+				return ;
+			}
 		}
 		node = node->next;
 	}
-	printf("Pattern not found. No pattern applied.");
+	printf("Pattern not found. No pattern applied. --> %s\n", material->pattern_name);
 }
 
 t_pattern ft_form_pattern(t_parser_node *content)

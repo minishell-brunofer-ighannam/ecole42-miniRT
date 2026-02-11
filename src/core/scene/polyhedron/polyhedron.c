@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:45:07 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:53:56 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,19 @@ static void	ft_sp_normal(t_sphere *sp, t_point_3d pt, t_colision *col)
 
 static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col)
 {
-	double		y;
+	double		p_axis;
 	t_point_3d	proj;
 
-	y = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
-	proj = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, y));
-	col->normal = ft_vec_norm(ft_sub_point(p, proj));
+	if (col->section == 0)
+	{
+		p_axis = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
+		proj = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, p_axis));
+		col->normal = ft_vec_norm(ft_sub_point(p, proj));
+	}
+	else if (col->section == 1)
+		col->normal = cy->axis;
+	else if (col->section == 2)
+		col->normal = ft_vec_mult_scal(cy->axis, -1.0);	
 }
 
 void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)

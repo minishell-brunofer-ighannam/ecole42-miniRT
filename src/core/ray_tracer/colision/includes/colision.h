@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:13:16 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:15:25 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ struct				s_colision
 	t_vector_3d color_final;
 	double u;
 	double v;
+	t_vector_3d dir_u;
+	t_vector_3d dir_v;
 };
 
 // SPHERE
@@ -51,7 +53,7 @@ double		ft_colision_plane_normal(t_ray ray, t_point_3d point,
 // CYLINDER
 void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col);
 double		ft_colision_cy_body(t_cylinder *cy, t_ray ray);
-double		ft_colision_cy_caps(t_cylinder *cy, t_ray ray);
+double		ft_colision_cy_caps(t_cylinder *cy, t_ray ray, t_colision *col);
 
 // CONE
 void	ft_colision_co(t_polyhedron *polyhedron, t_ray ray, t_colision *col);

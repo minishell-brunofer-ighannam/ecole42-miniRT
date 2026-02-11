@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:08:52 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:24:33 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col)
 
 	cy = polyhedron->specs;
 	t_body = ft_colision_cy_body(cy, ray);
-	t_cap = ft_colision_cy_caps(cy, ray);
-	if (isinf(t_body) || t_body < 0)
+	t_cap = ft_colision_cy_caps(cy, ray, col);
+	if (isinf(t_body) || t_body < EPS)
 		col->t = t_cap;
-	else if (isinf(t_cap) || t_cap < 0)
+	else if (isinf(t_cap) || t_cap < EPS || t_body < t_cap)
+	{
 		col->t = t_body;
-	else if (t_body < t_cap)
-		col->t = t_body;
+		col->section = 0;
+	}
 	else
-		col->t = t_cap;
+		col->t = INFINITY;
 }
 
 double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)
@@ -54,40 +55,50 @@ double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)
 		return (INFINITY);
 	a = ft_vector_dot_product(ft_sub_point(ft_ray_at(ray, t), cy->center),
 			cy->axis);
-	if (a < 0.0 || a > cy->height)
+	if (a < -cy->height / 2.0 || a > cy->height / 2.0)
 		return (INFINITY);
 	return (t);
 }
 
-double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray)
+static double ft_check_cap(t_ray ray, t_point_3d center, t_vector_3d axis, double radius)
 {
-	double		t_min;
 	double		t;
-	t_point_3d	cap_center;
 	t_point_3d	p;
 
-	t_min = INFINITY;
-	t = ft_colision_plane_normal(ray, cy->center,
-			ft_vec_mult_scal(cy->axis, -1));
+	t = ft_colision_plane_normal(ray, center,
+			ft_vec_mult_scal(axis, -1));
 	if (t > EPS)
 	{
 		p = ft_ray_at(ray, t);
-		if (ft_vector_dot_product(ft_sub_point(p, cy->center), ft_sub_point(p,
-					cy->center)) <= cy->radius * cy->radius)
-			t_min = t;
+		if (ft_vector_dot_product(ft_sub_point(p, center), ft_sub_point(p,
+					center)) <= radius * radius)
+			return (t);
 	}
-	cap_center = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis,
-				cy->height));
-	t = ft_colision_plane_normal(ray, cap_center, cy->axis);
-	if (t > EPS)
+	return (INFINITY);
+}
+
+double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray, t_colision *col)
+{
+	double		t1;
+	double		t2;
+	t_point_3d	cap_top;
+	t_point_3d	cap_bottom;
+
+	cap_top = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, cy->height / 2.0));
+	cap_bottom = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, -cy->height / 2.0));
+	t1 = ft_check_cap(ray, cap_top, cy->axis, cy->radius);
+	t2 = ft_check_cap(ray, cap_bottom, ft_vec_mult_scal(cy->axis, -1.0), cy->radius);
+	if (isinf(t1) && isinf(t2))
+        return (INFINITY);
+	if (!isinf(t1) && t1 > EPS && (isinf(t2) || t1 < t2))
 	{
-		p = ft_ray_at(ray, t);
-		if (ft_vector_dot_product(ft_sub_point(p, cap_center), ft_sub_point(p,
-					cap_center)) <= cy->radius * cy->radius)
-		{
-			if (t_min < 0 || t < t_min)
-				t_min = t;
-		}
+		col->section = 1;
+        return (t1);
 	}
-	return (t_min);
+	if (t2 > EPS)
+	{
+		col->section = 2;
+        return (t2);
+	}
+	return (INFINITY);
 }
