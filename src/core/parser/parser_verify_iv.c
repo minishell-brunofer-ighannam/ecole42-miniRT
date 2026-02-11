@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:11:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 17:37:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 11:06:32 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ bool	ft_verify_duplicated_patterns(t_linkedlist *input_list)
 	{
 		while (node_two)
 		{
-			if (((t_parser_node *)node_one->content)->pattern_name
-				&& ((t_parser_node *)node_two->content)->pattern_name)
+			if (!ft_strcmp(((t_parser_node *)node_one->content)->splited_line[0],
+					"p")
+				&& !ft_strcmp(((t_parser_node *)node_two->content)->splited_line[0],
+					"p"))
 			{
 				if (!ft_strcmp(((t_parser_node *)node_one->content)->pattern_name,
 						((t_parser_node *)node_two->content)->pattern_name))

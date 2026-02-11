@@ -53,7 +53,9 @@ struct s_pattern
 struct s_checker
 {
 	t_vector_3d color_one;
+	t_vector_3d norm_color_one;
 	t_vector_3d color_two;
+	t_vector_3d norm_color_two;
 	double tile;
 };
 

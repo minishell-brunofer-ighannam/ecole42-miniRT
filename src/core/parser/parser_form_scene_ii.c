@@ -81,7 +81,9 @@ t_pattern ft_form_pattern(t_parser_node *content)
 		checker = ft_calloc(1, sizeof(t_checker));
 		pattern.pattern = CHECKER;
 		checker->color_one = content->color_one;
+		checker->norm_color_one = ft_new_vector_3d(content->color_one.x / 255.0, content->color_one.y / 255.0, content->color_one.z / 255.0);
 		checker->color_two = content->color_two;
+		checker->norm_color_two = ft_new_vector_3d(content->color_two.x / 255.0, content->color_two.y / 255.0, content->color_two.z / 255.0);
 		checker->tile = content->tile;
 		pattern.specs = checker;
 		return (pattern);

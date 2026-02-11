@@ -35,6 +35,8 @@ struct				s_colision
 	t_vector_3d color_local;
 	t_vector_3d color_reflexive;
 	t_vector_3d color_final;
+	double u;
+	double v;
 };
 
 // SPHERE
