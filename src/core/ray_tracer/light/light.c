@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:28:47 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:19:21 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_vector_3d	ft_difuse_light(t_context *context, t_colision *col, int i)
 	{
 		ray.vector = ft_vec_norm(ft_sub_point(context->scene->light[i].coord,
 					col->colision_point));
-		light_col = ft_closest_colision(context->scene, ray);
+		light_col = ft_closest_colision(context->scene, &ray);
 		if (light_col.colision && light_col.polyhedron.id != col->polyhedron.id
 			&& light_col.t < ft_vec_mod(ft_sub_point(context->scene->light[i].coord,
 					col->colision_point)))

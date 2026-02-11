@@ -36,7 +36,9 @@ INCLUDES = \
 	-I src/app/bonus/threads/includes \
 	-I lib/minilibx
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 $(INCLUDES)
+CFLAGS := -Wall -Werror -Wextra -O3 -march=native -flto -funroll-loops $(INCLUDES)
+CFLAGS_DEBUG := -Wall -Werror -Wextra -g3 $(INCLUDES)
+CFLAGS_USED := $(CFLAGS)
 
 # ============== SRC FILES =================
 
@@ -123,6 +125,11 @@ SLEEP = 0.07
 
 all: $(NAME)
 
+debug:
+	@$(MAKE) -s fclean
+	@$(MAKE) -s CFLAGS_USED="$(CFLAGS_DEBUG)" all
+	@clear
+
 stats:
 	@printf "$(BOLD)$(LIGHT_CYAN)src stats:$(RESET)\n"
 #	=================== FILES AMOUNT INFO =====================
@@ -155,7 +162,7 @@ stats:
 
 $(NAME): $(COMPILATION_DEPENDENCIES) $(OBJS_BONUS) $(MAIN_BONUS_PROGRAM)
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(MAIN_BONUS_PROGRAM) $(COMPILATION_DEPENDENCIES)  -o $@ $(DEPENDENCIES)
+	@$(CC) $(CFLAGS_USED) $(OBJS_BONUS) $(MAIN_BONUS_PROGRAM) $(COMPILATION_DEPENDENCIES)  -o $@ $(DEPENDENCIES)
 
 $(LIBFT):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
@@ -172,7 +179,7 @@ test_parser: \
 	$(PARSER_FILES) \
 	$(SCENE_FILES) \
 	$(COMPILATION_DEPENDENCIES)
-	$(CC) $(CFLAGS) \
+	$(CC) $(CFLAGS_USED) \
 		test/test_parser.c \
 		$(MATH_RT_FILES) \
 		$(DATA_STRUCTURES) \
@@ -189,7 +196,7 @@ test_colision: \
 	$(SCENE_FILES) \
 	$(RAY_TRACER_FILES) \
 	$(COMPILATION_DEPENDENCIES)
-	$(CC) $(CFLAGS) \
+	$(CC) $(CFLAGS_USED) \
 		test/test_colision.c \
 		$(MATH_RT_FILES) \
 		$(DATA_STRUCTURES) \
@@ -204,7 +211,7 @@ run_valgrind: $(NAME)
 
 %.o: %.c
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$<$(RESET)..." && sleep $(SLEEP)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS_USED) -c $< -o $@
 
 
 clean:

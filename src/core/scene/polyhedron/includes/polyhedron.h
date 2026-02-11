@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:03:00 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:22:32 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ typedef struct s_material		t_material;
 typedef struct s_plane			t_plane;
 typedef struct s_sphere			t_sphere;
 typedef struct s_cylinder		t_cylinder;
-typedef struct s_cone		t_cone;
+typedef struct s_cone			t_cone;
 typedef enum e_polyhedron_type	t_polyhedron_type;
-typedef enum e_pattern_type	t_pattern_type;
-typedef struct s_pattern t_pattern;
-typedef struct s_checker t_checker;
+typedef enum e_pattern_type		t_pattern_type;
+typedef struct s_pattern		t_pattern;
+typedef struct s_checker		t_checker;
 
 enum							e_polyhedron_type
 {
@@ -46,28 +46,28 @@ enum							e_pattern_type
 
 struct s_pattern
 {
-	t_pattern_type pattern;
-	void *specs;
+	t_pattern_type	pattern;
+	void			*specs;
 };
 
 struct s_checker
 {
-	t_vector_3d color_one;
-	t_vector_3d color_two;
-	double tile;
+	t_vector_3d	color_one;
+	t_vector_3d	color_two;
+	double		tile;
 };
 
 struct							s_material
 {
-	t_vector_3d					albedo;
-	t_vector_3d					norm_albedo;
-	double ka; // coeficiente ambiente do material - entre 0 e 1
-	double kd; // coeficiente difuso do material - entre 0 e 1
-	double ks; // coeficiente especular - entre 0 e 1
-	double n;  // shininess
-	double kr; // coeficiente de reflexão - entre 0 e 1
-	char *pattern_name;
-	t_pattern pattern;
+	t_vector_3d	albedo;
+	t_vector_3d	norm_albedo;
+	double		ka;	// coeficiente ambiente do material - entre 0 e 1
+	double		kd;	// coeficiente difuso do material - entre 0 e 1
+	double		ks;	// coeficiente especular - entre 0 e 1
+	double		n;	// shininess
+	double		kr;	// coeficiente de reflexão - entre 0 e 1
+	char		*pattern_name;
+	t_pattern	pattern;
 };
 
 struct							s_polyhedron

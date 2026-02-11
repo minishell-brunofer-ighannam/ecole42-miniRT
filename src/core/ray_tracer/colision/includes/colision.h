@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:13:16 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:45:40 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,34 @@ struct				s_colision
 	double			t;
 	int				section;
 	t_point_3d		colision_point;
-	t_vector_3d normal;
-	t_vector_3d color_dif;
-	t_vector_3d color_spec;
-	t_vector_3d color_local;
-	t_vector_3d color_reflexive;
-	t_vector_3d color_final;
+	t_vector_3d		normal;
+	t_vector_3d		color_dif;
+	t_vector_3d		color_spec;
+	t_vector_3d		color_local;
+	t_vector_3d		color_reflexive;
+	t_vector_3d		color_final;
 };
 
 // SPHERE
-void	ft_colision_sp(t_polyhedron *polyhedron, t_ray ray, t_colision *col);
+void	ft_colision_sp(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
 double		ft_solve_quadratic_normalized(double half_b, double c);
 
 // PLANE
-void	ft_colision_pl(t_polyhedron *polyhedron, t_ray ray, t_colision *col);
-double		ft_colision_plane_normal(t_ray ray, t_point_3d point,
+void	ft_colision_pl(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
+double		ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point,
 				t_vector_3d normal);
 
 // CYLINDER
-void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col);
-double		ft_colision_cy_body(t_cylinder *cy, t_ray ray);
-double		ft_colision_cy_caps(t_cylinder *cy, t_ray ray);
+void		ft_colision_cy(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
+double		ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray);
+double		ft_colision_cy_caps(t_cylinder *restrict cy, t_ray *restrict ray);
 
 // CONE
-void	ft_colision_co(t_polyhedron *polyhedron, t_ray ray, t_colision *col);
+void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
 
 // POLYHEDRON
-void	ft_polyhedron_colision(t_polyhedron polyhedron, t_ray ray, t_colision *col);
+void	ft_polyhedron_colision(t_polyhedron polyhedron, t_ray *restrict ray, t_colision *restrict col);
 
-t_colision	ft_closest_colision(t_scene *scene, t_ray ray);
+t_colision	ft_closest_colision(t_scene *restrict scene, t_ray *restrict ray);
 
 #endif
