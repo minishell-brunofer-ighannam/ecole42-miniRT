@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/10 16:32:52 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/10 23:54:10 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ struct							s_parser_node
 	double						radius;
 	double						half_apex_angle;
 	double cos_half_apex_angle;
+	double sin_half_apex_angle;
+	double tan_half_apex_angle;
 	t_vector_3d plane_normal;
 	t_point_3d plane_point;
 };

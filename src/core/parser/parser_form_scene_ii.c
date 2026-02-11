@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 16:32:57 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 00:05:43 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void ft_include_cone(t_scene *scene, t_parser_node *content, t_linkedlist *input
 	pl.point = content->plane_point;
 	cn->base = pl;
 	cn->cos_alpha = content->cos_half_apex_angle;
+	cn->sin_alpha = content->sin_half_apex_angle;
+	cn->tan_alpha = content->tan_half_apex_angle;
 	scene->polyhedron[scene->count_polyhedron].type = CONE;
 	scene->polyhedron[scene->count_polyhedron].specs = cn;
 	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);

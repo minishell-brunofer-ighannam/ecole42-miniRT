@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_co.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 16:22:50 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 00:45:18 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,22 @@ static inline double	ft_cone_baskara(
 	double	result1;
 	double	result2;
 
-	if (a < EPS)
+	if (a < EPS && a > -EPS)
 		return (INFINITY);
-	delta = sqrdd(half_b * 2) - 4 * a * c;
-	if (delta < 0.0)
+	delta = half_b * half_b - a * c;
+	if (delta < -EPS)
 		return (INFINITY);
-	sqrt_delta = sqrt(delta) / (2 * a);
+	sqrt_delta = sqrt(delta) / (a);
 	minus_b = -half_b / a;
-	if (delta == 0)
+	if (delta < EPS && delta > -EPS)
 		return (minus_b);
 	result1 = minus_b - sqrt_delta;
 	result2 = minus_b + sqrt_delta;
-	if (result1 < result2 && result1 > 0.0)
+	if (result1 > EPS && result2 > EPS)
+		return (result1 < result2 ? result1 : result2);
+	if (result1 > EPS)
 		return (result1);
-	else if (result2 > 0.0)
+	if (result2 > EPS)
 		return (result2);
 	return (INFINITY);
 }
@@ -88,7 +90,7 @@ static double	ft_colision_cone_body(t_ray ray, t_cone *cone)
 		- ft_vector_dot_product(ov, ray.vector) * cos_alpha_sqrd;
 	half_b = ft_cone_baskara(sqrdd(d_dot_a) - cos_alpha_sqrd, half_b,
 			sqrdd(ov_dot_a) - sqrdvec(ov) * cos_alpha_sqrd);
-	if (isinf(half_b))
+	if (isinf(half_b) || half_b < -EPS)
 		return (INFINITY);
 	d_dot_a = ft_vector_dot_product(
 			ft_sub_point(ft_ray_at(ray, half_b), cone->vertex), cone->axis);
@@ -106,13 +108,19 @@ static double	ft_colision_cone_body(t_ray ray, t_cone *cone)
  */
 static double	ft_colision_cone_base(t_ray ray, t_cone *cone)
 {
-	double	d_dot_n;
-	double	ob_dot_n;
+	double		d_dot_n;
+	double		ob_dot_n;
+	double		t;
+	t_vector_3d	bp;
 
 	d_dot_n = ft_vector_dot_product(ray.vector, cone->base.normal);
 	if (d_dot_n < EPS)
 		return (INFINITY);
 	ob_dot_n = ft_vector_dot_product(
 			ft_sub_point(ray.point, cone->base.point), cone->base.normal);
-	return (-ob_dot_n / d_dot_n);
+	t = -ob_dot_n / d_dot_n;
+	bp = ft_sub_point(ft_point_add_vect(ray.point, ft_vec_mult_scal(ray.vector, t)), cone->base.point);
+	if (ft_vector_dot_product(bp, bp) <= sqrdd(cone->height * cone->tan_alpha))
+		return (t);
+	return (INFINITY);
 }
