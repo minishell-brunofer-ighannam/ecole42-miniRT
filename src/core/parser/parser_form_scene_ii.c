@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 10:54:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/11 00:05:43 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void ft_include_pattern(t_linkedlist *input_list, t_material *material)
 			if (!ft_strcmp(((t_parser_node *)node->content)->pattern_name, material->pattern_name))
 				material->pattern = ft_form_pattern((t_parser_node *)node->content);
 		}
-		node = node->next;	
+		node = node->next;
 	}
 	printf("Pattern not found. No pattern applied.");
 }
@@ -133,12 +133,19 @@ void	ft_include_cylinder(t_scene *scene, t_parser_node *content, t_linkedlist *i
 void ft_include_cone(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
 {
 	t_cone *cn;
+	t_plane pl;
 
 	cn = ft_calloc(1, sizeof(t_cone));
 	cn->axis = content->normal;
 	cn->half_apex_angle = content->half_apex_angle;
 	cn->height = content->height;
 	cn->vertex = content->origin;
+	pl.normal = content->plane_normal;
+	pl.point = content->plane_point;
+	cn->base = pl;
+	cn->cos_alpha = content->cos_half_apex_angle;
+	cn->sin_alpha = content->sin_half_apex_angle;
+	cn->tan_alpha = content->tan_half_apex_angle;
 	scene->polyhedron[scene->count_polyhedron].type = CONE;
 	scene->polyhedron[scene->count_polyhedron].specs = cn;
 	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);

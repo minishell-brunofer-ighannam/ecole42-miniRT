@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   colision_polyhedron.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:32:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/03 15:36:50 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:30:58 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
 
-double ft_polyhedron_colision(t_polyhedron polyhedron, t_ray ray)
+void	ft_polyhedron_colision(
+			t_polyhedron polyhedron, t_ray ray, t_colision *col)
 {
-    if (polyhedron.type == SPHERE)
-        return (ft_colision_sp(&polyhedron, ray));
-    else if (polyhedron.type == CYLINDER)
-        return (ft_colision_cy(&polyhedron, ray));
-    else if (polyhedron.type == PLANE)
-        return (ft_colision_pl(&polyhedron, ray));
-    return (INFINITY);
+	if (polyhedron.type == SPHERE)
+		ft_colision_sp(&polyhedron, ray, col);
+	else if (polyhedron.type == CYLINDER)
+		ft_colision_cy(&polyhedron, ray, col);
+	else if (polyhedron.type == PLANE)
+		ft_colision_pl(&polyhedron, ray, col);
+	else if (polyhedron.type == CONE)
+		ft_colision_co(&polyhedron, ray, col);
+	else
+		col->t = INFINITY;
 }

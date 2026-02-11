@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   colision_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 11:28:05 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:08:52 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
 
-double	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray)
+void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col)
 {
 	t_cylinder	*cy;
 	double		t_body;
@@ -22,12 +22,13 @@ double	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray)
 	t_body = ft_colision_cy_body(cy, ray);
 	t_cap = ft_colision_cy_caps(cy, ray);
 	if (isinf(t_body) || t_body < 0)
-		return (t_cap);
-	if (isinf(t_cap) || t_cap < 0)
-		return (t_body);
-	if (t_body < t_cap)
-		return (t_body);
-	return (t_cap);
+		col->t = t_cap;
+	else if (isinf(t_cap) || t_cap < 0)
+		col->t = t_body;
+	else if (t_body < t_cap)
+		col->t = t_body;
+	else
+		col->t = t_cap;
 }
 
 double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)

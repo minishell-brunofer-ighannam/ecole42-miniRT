@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 10:52:01 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:03:00 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,41 +74,46 @@ struct							s_material
 
 struct							s_polyhedron
 {
-	t_polyhedron_type			type;
-	int							id;
-	void						*specs;
-	t_material					material;
+	t_polyhedron_type	type;
+	int					id;
+	void				*specs;
+	t_material			material;
 };
 
 struct							s_sphere
 {
-	t_point_3d					center;
-	double						radius;
+	t_point_3d	center;
+	double		radius;
 };
 
 struct							s_cylinder
 {
-	t_point_3d					center;
-	t_vector_3d					axis;
-	double						radius;
-	double						height;
-};
-
-struct							s_cone
-{
-	t_point_3d					vertex;
-	t_vector_3d					axis;
-	double						half_apex_angle;
-	double						height;
+	t_point_3d	center;
+	t_vector_3d	axis;
+	double		radius;
+	double		height;
 };
 
 struct							s_plane
 {
-	t_point_3d					point;
-	t_vector_3d					normal;
+	t_point_3d	point;
+	t_vector_3d	normal;
 };
 
-t_vector_3d						ft_normal_polyhedron(t_point_3d pt,
-									t_polyhedron polyhedron);
+
+struct							s_cone
+{
+	// Read in file.rt
+	t_plane		base;
+	t_point_3d	vertex;
+	t_vector_3d	axis;
+	double		height;
+	double		half_apex_angle;
+	double		cos_alpha;
+	double		tan_alpha;
+	double		sin_alpha;
+};
+
+void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
 
 #endif
