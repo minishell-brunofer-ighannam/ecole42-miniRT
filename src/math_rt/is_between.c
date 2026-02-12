@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   is_between.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:48:33 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/02 16:19:37 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/11 13:20:02 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_rt.h"
 
-bool	ft_is_between_int(int ref_one, int ref_two, int eval)
+inline bool	ft_is_between_int(int ref_one, int ref_two, int eval)
 {
 	if (ref_one <= ref_two)
 	{
@@ -25,7 +25,7 @@ bool	ft_is_between_int(int ref_one, int ref_two, int eval)
 	return (false);
 }
 
-bool	ft_is_between_double(double ref_one, double ref_two,
+inline bool	ft_is_between_double(double ref_one, double ref_two,
 		double eval, double eps)
 {
 	double	min;
@@ -46,4 +46,18 @@ bool	ft_is_between_double(double ref_one, double ref_two,
 	if (eval + eps < min || eval - eps > max)
 		return (false);
 	return (true);
+}
+
+inline double	ft_min(double n1, double n2)
+{
+	if (n1 < n2)
+		return (n1);
+	return (n2);
+}
+
+inline double	ft_max(double n1, double n2)
+{
+	if (n1 > n2)
+		return (n1);
+	return (n2);
 }

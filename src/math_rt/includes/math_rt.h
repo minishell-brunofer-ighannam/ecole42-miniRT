@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:49:07 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 00:54:44 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/11 13:20:34 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_vector_3d					ft_sub_point(t_point_3d self, t_point_3d other);
 t_vector_3d					ft_new_vector_3d(double x, double y, double z);
 bool						ft_is_between_int(int ref_one, int ref_two,
 								int eval);
+double						ft_min(double n1, double n2);
+double						ft_max(double n1, double n2);
 bool						ft_is_between_double(double ref_one, double ref_two,
 								double eval, double eps);
 bool						ft_is_normalized_3d_vector(double x, double y,
@@ -75,14 +77,7 @@ t_vector_3d					ft_component_wise_product(t_vector_3d v1,
 								t_vector_3d v2);
 int							clamp_int(int i);
 
-static inline double	sqrdd(double num)
-{
-	return (num * num);
-}
-
-static inline double	sqrdvec(t_vector_3d vect)
-{
-	return (ft_vector_dot_product(vect, vect));
-}
+double						sqrdd(double num);
+double						sqrdvec(t_vector_3d vect);
 
 #endif
