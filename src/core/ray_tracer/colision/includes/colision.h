@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 14:45:40 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/11 16:15:25 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ struct				s_colision
 	t_vector_3d color_final;
 	double u;
 	double v;
+	t_vector_3d dir_u;
+	t_vector_3d dir_v;
 };
 
 // SPHERE

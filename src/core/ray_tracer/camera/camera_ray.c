@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 14:25:59 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/11 12:33:09 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 		return (col.color_local);
 	if (ft_vector_dot_product(ray.vector, col.normal) > 0)
 		col.normal = ft_vec_mult_scal(col.normal, -1);
+	col.normal = ft_vec_norm(col.normal);
 	reflected_ray.vector = ft_vec_norm(ft_vec_sub(ray.vector,
 				ft_vec_mult_scal(col.normal, 2.0
 					* ft_vector_dot_product(ray.vector, col.normal))));

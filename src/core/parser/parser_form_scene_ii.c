@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 00:05:43 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/12 14:05:17 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void ft_include_pattern(t_linkedlist *input_list, t_material *material)
 		if (!ft_strcmp(((t_parser_node *)node->content)->splited_line[0], "p"))
 		{
 			if (!ft_strcmp(((t_parser_node *)node->content)->pattern_name, material->pattern_name))
+			{
 				material->pattern = ft_form_pattern((t_parser_node *)node->content);
+				return ;
+			}
 		}
 		node = node->next;
 	}
-	printf("Pattern not found. No pattern applied.");
+	printf("Pattern not found. No pattern applied. --> %s\n", material->pattern_name);
 }
 
 t_pattern ft_form_pattern(t_parser_node *content)
@@ -117,12 +120,21 @@ void ft_material_values(t_parser_node *content, t_material *material)
 void	ft_include_cylinder(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
 {
 	t_cylinder	*cy;
+	t_plane cap_top;
+	t_plane cap_bot;
 
 	cy = ft_calloc(1, sizeof(t_cylinder));
 	cy->center = content->origin;
 	cy->axis = content->normal;
 	cy->radius = content->radius;
+	cy->radius_sqrd = cy->radius * cy->radius;
 	cy->height = content->height;
+	cap_top.normal = cy->axis;
+	cap_top.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, cy->height / 2.0));
+	cap_bot.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, -cy->height / 2.0));
+	cap_bot.normal = ft_vec_mult_scal(cy->axis, -1.0);
+	cy->cap_top = cap_top;
+	cy->cap_bot = cap_bot;
 	scene->polyhedron[scene->count_polyhedron].type = CYLINDER;
 	scene->polyhedron[scene->count_polyhedron].specs = cy;
 	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);

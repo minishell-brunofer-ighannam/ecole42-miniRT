@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d_ops_ii.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/09 20:48:04 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/11 16:25:24 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vector_3d	ft_vec_norm(t_vector_3d self)
 	vector = ft_new_vector_3d(0, 0, 0);
 	module = ft_vec_mod(self);
 	if (module <= 1e-9)
-		return (vector);
+		module = 1e-4;
 	vector.x = self.x / module;
 	vector.y = self.y / module;
 	vector.z = self.z / module;

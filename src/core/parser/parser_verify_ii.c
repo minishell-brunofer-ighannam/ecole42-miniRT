@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_verify_ii.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:30:22 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 23:54:47 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/12 13:58:58 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	ft_verify_plane(t_parser_node *content_node)
 		content_node->opt_phong[i] = -1;
 	if (content_node->num_args_line < 4
 		|| !ft_verify_coords(content_node->splited_args[1])
-		|| !ft_verify_normal_vector(content_node->splited_args[2])
+		// || !ft_verify_normal_vector(content_node->splited_args[2])
 		|| !ft_verify_color(content_node->splited_args[3])
 		|| !ft_verify_mat_opt(content_node, 4))
 		return (false);
