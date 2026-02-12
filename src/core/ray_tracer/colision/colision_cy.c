@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 09:24:33 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 14:05:58 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,9 @@ double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray, t_colision *col)
 {
 	double		t1;
 	double		t2;
-	t_point_3d	cap_top;
-	t_point_3d	cap_bottom;
 
-	cap_top = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, cy->height / 2.0));
-	cap_bottom = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, -cy->height / 2.0));
-	t1 = ft_check_cap(ray, cap_top, cy->axis, cy->radius);
-	t2 = ft_check_cap(ray, cap_bottom, ft_vec_mult_scal(cy->axis, -1.0), cy->radius);
+	t1 = ft_check_cap(ray, cy->cap_top.point, cy->cap_top.normal, cy->radius);
+	t2 = ft_check_cap(ray,cy->cap_bot.point, cy->cap_bot.normal, cy->radius);
 	if (isinf(t1) && isinf(t2))
         return (INFINITY);
 	if (!isinf(t1) && t1 > EPS && (isinf(t2) || t1 < t2))

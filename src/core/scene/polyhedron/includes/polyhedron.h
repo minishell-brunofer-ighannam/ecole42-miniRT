@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:03:00 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:52:59 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,29 @@ struct							s_sphere
 	double		radius;
 };
 
-struct							s_cylinder
-{
-	t_point_3d	center;
-	t_vector_3d	axis;
-	double		radius;
-	double		height;
-};
-
 struct							s_plane
 {
 	t_point_3d	point;
 	t_vector_3d	normal;
 };
 
+struct							s_cylinder
+{
+	t_point_3d	center;
+	t_vector_3d	axis;
+	double		radius;
+	double radius_sqrd;
+	double		height;
+	t_plane	cap_top;
+	t_plane cap_bot;
+};
 
 struct							s_cone
 {
-	// Read in file.rt
 	t_plane		base;
 	t_point_3d	vertex;
 	t_vector_3d	axis;
+	double radius;
 	double		height;
 	double		half_apex_angle;
 	double		cos_alpha;
