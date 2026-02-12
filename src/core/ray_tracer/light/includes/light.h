@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:47:50 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/07 10:42:10 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:46:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "math_rt.h"
 # include "polyhedron.h"
 # include "scene.h"
+#include "pattern.h"
 
 typedef struct s_polyhedron	t_polyhedron;
 

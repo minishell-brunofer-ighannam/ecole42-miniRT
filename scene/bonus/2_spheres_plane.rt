@@ -21,4 +21,7 @@ sp  -2,1,0.5               2           26,255,128
 
 # Plane             normal
 #   position        direction       color
-pl  5,1,0           -1,0,0          200,200,200
+pl  5,1,0           -1,0,0          200,200,200    0.1 0.7 0.2 32 0.5 checker_b_w
+
+
+p checker_b_w CHECKER 0,0,0   255,255,255   1

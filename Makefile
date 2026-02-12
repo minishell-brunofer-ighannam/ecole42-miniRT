@@ -30,6 +30,7 @@ INCLUDES = \
 	-I src/core/scene/polyhedron/includes \
 	-I src/core/ray_tracer/light/includes \
 	-I src/core/ray_tracer/includes \
+	-I src/core/ray_tracer/pattern/includes \
 	-I src/core/ray_tracer/colision/includes \
 	-I src/core/ray_tracer/camera/includes \
 	-I src/app/bonus \
@@ -63,7 +64,7 @@ SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/
 # **** RAY_TRACER ****
 RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
 src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
-src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c src/core/ray_tracer/colision/colision_co.c
+src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c src/core/ray_tracer/pattern/pattern.c src/core/ray_tracer/pattern/checker.c
 
 
 # **** DATA_STRUCTURES ****
