@@ -100,7 +100,7 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 
 	if (context->callbacks.is_process_stopped(context))
 		return (ft_new_vector_3d(0, 0, 0));
-	col = ft_closest_colision(context->scene, ray);
+	col = ft_closest_colision(context->scene, &ray);
 	if (col.colision)
 		col.color_local = ft_local_color(context, col);
 	else

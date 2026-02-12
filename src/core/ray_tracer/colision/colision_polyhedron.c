@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   colision_polyhedron.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:32:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 15:30:58 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:39:22 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
 
 void	ft_polyhedron_colision(
-			t_polyhedron polyhedron, t_ray ray, t_colision *col)
+			t_polyhedron polyhedron, t_ray *restrict ray, t_colision *restrict col)
 {
 	if (polyhedron.type == SPHERE)
 		ft_colision_sp(&polyhedron, ray, col);

@@ -24,6 +24,8 @@ void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *co
 		ft_sp_normal((t_sphere *)polyhedron.specs, pt, col);
 	else if (polyhedron.type == PLANE)
 		col->normal = ((t_plane *)polyhedron.specs)->normal;
+	else if (polyhedron.type == CONE)
+		ft_co_normal((t_cone *)polyhedron.specs, pt, col);
 	else
 		ft_cy_normal((t_cylinder *)polyhedron.specs, pt, col);
 }

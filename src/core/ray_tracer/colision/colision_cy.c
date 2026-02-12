@@ -12,7 +12,7 @@
 
 #include "colision.h"
 
-void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col)
+void	ft_colision_cy(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col)
 {
 	t_cylinder	*cy;
 	double		t_body;
@@ -32,7 +32,7 @@ void	ft_colision_cy(t_polyhedron *polyhedron, t_ray ray, t_colision *col)
 		col->t = INFINITY;
 }
 
-double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)
+double	ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray)
 {
 	t_vector_3d	oc;
 	t_vector_3d	d_perp;
@@ -40,9 +40,9 @@ double	ft_colision_cy_body(t_cylinder *cy, t_ray ray)
 	double		a;
 	double		t;
 
-	oc = ft_sub_point(ray.point, cy->center);
-	d_perp = ft_vec_sub(ray.vector, ft_vec_mult_scal(cy->axis,
-				ft_vector_dot_product(ray.vector, cy->axis)));
+	oc = ft_sub_point(ray->point, cy->center);
+	d_perp = ft_vec_sub(ray->vector, ft_vec_mult_scal(cy->axis,
+				ft_vector_dot_product(ray->vector, cy->axis)));
 	oc_perp = ft_vec_sub(oc, ft_vec_mult_scal(cy->axis,
 				ft_vector_dot_product(oc, cy->axis)));
 	a = ft_vector_dot_product(d_perp, d_perp);
