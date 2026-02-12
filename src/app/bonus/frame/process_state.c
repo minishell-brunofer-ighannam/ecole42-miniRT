@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 18:43:55 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:16:04 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,19 @@ bool	ft_process_state(t_context *context)
 	parallel = context->parallel;
 	state = &context->events.state;
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-	(void)state;
+	if (state->scene.camera.has_changes)
+	{
+		context->scene->camera.origin.x += state->scene.camera.translate_x;
+		context->scene->camera.origin.y += state->scene.camera.translate_y;
+		context->scene->camera.origin.z += state->scene.camera.translate_z;
+		state->scene.camera.translate_x = 0;
+		state->scene.camera.translate_y = 0;
+		state->scene.camera.translate_z = 0;
+		state->scene.camera.has_changes = false;
+		ft_camera_init(&context->scene->camera, context);
+	}
+	
+	//(void)state;
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_render_allowed);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 13:45:15 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:11:59 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_vector_3d	ft_local_color(t_context *context, t_colision col)
 			ft_difuse_light(context, &col, -1));
 	local_color = ft_component_wise_product(local_color, norm_albedo);
 	local_color = ft_vec_add(local_color, ft_specular_light(context, &col, -1));
+	//local_color = ft_vec_mult_scal(local_color, 100);
 	return (local_color);
 }
 
@@ -60,11 +61,15 @@ t_vector_3d	ft_difuse_light(t_context *context, t_colision *col, int i)
 	{
 		ray.vector = ft_vec_norm(ft_vec_norm(ft_sub_point(context->scene->light[i].coord,
 					col->colision_point)));
-		light_col = ft_closest_colision(context->scene, ray);
-		if (light_col.colision && light_col.t > EPS && light_col.t < ft_vec_mod(ray.vector))
-    		continue;
+		light_col = ft_closest_colision(context->scene, &ray);
+		// if (light_col.colision && light_col.t > EPS && light_col.t < ft_vec_mod(ray.vector))
+    	// 	continue;
 		fact = ft_vector_dot_product(col->normal, ray.vector);
-		fact = fmax(0.0, fact);
+		if (fact < 0)
+			fact *= -1;
+		
+		// fact = fmax(0.0, fact);
+		
 		col->color_dif = ft_vec_add(col->color_dif,
 				ft_vec_mult_scal(ft_vec_mult_scal(ft_vec_mult_scal(context->scene->light[i].norm_color,
 							context->scene->light[i].intensity),
@@ -91,7 +96,7 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col, int i)
 					* ft_vector_dot_product(col->normal, L)), L);
 		fact = ft_vector_dot_product(R, V);
 		if (fact < 0)
-			fact = 0;
+			fact *= -1;
 		fact = pow(fact, col->polyhedron.material.n);
 		I_l = context->scene->light[i].norm_color;
 		col->color_spec = ft_vec_add(col->color_spec,

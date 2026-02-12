@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 14:05:58 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:22:31 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ double	ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray)
 	return (t);
 }
 
-static double ft_check_cap(t_ray ray, t_point_3d center, t_vector_3d axis, double radius)
+static double ft_check_cap(t_ray *ray, t_point_3d center, t_vector_3d axis, double radius)
 {
 	double		t;
 	t_point_3d	p;
@@ -77,7 +77,7 @@ static double ft_check_cap(t_ray ray, t_point_3d center, t_vector_3d axis, doubl
 	return (INFINITY);
 }
 
-double	ft_colision_cy_caps(t_cylinder *cy, t_ray ray, t_colision *col)
+double	ft_colision_cy_caps(t_cylinder *cy, t_ray *ray, t_colision *col)
 {
 	double		t1;
 	double		t2;

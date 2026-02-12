@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 12:33:09 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:36:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,15 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (context->callbacks.is_process_stopped(context))
 		return (ft_new_vector_3d(0, 0, 0));
 	col = ft_closest_colision(context->scene, &ray);
+	
 	if (col.colision)
+	{
 		col.color_local = ft_local_color(context, col);
+		// if (col.polyhedron.type == CONE)
+		// {
+		// 	printf("color: %f %f %f\n", col.color_local.x, col.color_local.y, col.color_local.z);
+		// }
+	}
 	else
 		return (context->scene->norm_color_back);
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0
@@ -120,5 +127,10 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	col.color_final = ft_vec_add(ft_vec_mult_scal(col.color_local, (1
 					- col.polyhedron.material.kr)),
 			ft_vec_mult_scal(col.color_reflexive, col.polyhedron.material.kr));
+	// if (col.polyhedron.type == CONE)
+	// {
+	// 	printf("color: %f %f %f\n", col.color_final.x, col.color_final.y, col.color_final.z);
+	// }
+	
 	return (col.color_final);
 }

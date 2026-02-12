@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_gestures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:21:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/31 08:20:56 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/12 17:05:31 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	lctrl_mouse_move_handler(
 		self->diff.y /= state->window.ratio;
 		self->last_pos.y = y;
 	}
+	
 	self->state_setter(state, self);
 }
 
@@ -123,6 +124,7 @@ void	calibrate_diff_y(double *diff)
 {
 	if (*diff < 2 && *diff > -2)
 		*diff *= 0.05;
+	printf("self->diff.y: %f\n", *diff);
 	if (*diff > 50 || *diff < -50)
 	{
 		if (*diff > 0)

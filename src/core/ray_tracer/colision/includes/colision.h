@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 16:15:25 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:23:53 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double		ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point,
 // CYLINDER
 void		ft_colision_cy(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
 double		ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray);
-double		ft_colision_cy_caps(t_cylinder *restrict cy, t_ray *restrict ray);
+double	ft_colision_cy_caps(t_cylinder *cy, t_ray *ray, t_colision *col);
 
 // CONE
 void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col);
