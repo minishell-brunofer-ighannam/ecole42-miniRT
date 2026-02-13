@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:18 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 16:17:40 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:23:40 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "libft.h"
+# include "context.h"
 
 # define KA 0.1
 # define KD 0.7
@@ -25,6 +26,6 @@
 typedef struct s_scene		t_scene;
 typedef struct s_material	t_material;
 
-t_scene						*ft_parser(char *file);
+t_scene						*ft_parser(char *file, t_context *context);
 
 #endif

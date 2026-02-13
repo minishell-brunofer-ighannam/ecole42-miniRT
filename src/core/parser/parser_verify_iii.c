@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:31:01 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 17:37:50 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 20:35:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,15 @@ bool	ft_verify_mat_opt(t_parser_node *content, int pos_file)
 		pos_file++;
 	}
 	if (content->splited_args[pos_file])
+	{
 		content->pattern_name = content->splited_args[pos_file][0];
+		if (content->splited_args[pos_file + 1])
+		{
+			content->file_texture_color = content->splited_args[pos_file + 1][0];
+			if (content->splited_args[pos_file + 2])
+				content->file_texture_normal = content->splited_args[pos_file + 2][0];	
+		}
+	}
 	return (true);
 }
 bool	ft_verify_list_scene(t_linkedlist *input_list)

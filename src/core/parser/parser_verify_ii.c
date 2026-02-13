@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:30:22 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 13:58:58 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:17:38 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	ft_verify_plane(t_parser_node *content_node)
 		return (false);
 	content_node->origin = ft_new_point_str(content_node->splited_args[1]);
 	content_node->normal = ft_new_vec_str(content_node->splited_args[2]);
-	content_node->color = ft_new_vec_str(content_node->splited_args[3]);
+	content_node->color = ft_new_vec_str(content_node->splited_args[3]);	
 	return (true);
 }
 

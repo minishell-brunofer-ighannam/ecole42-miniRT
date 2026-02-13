@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 12:52:59 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 20:36:39 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_ray			t_ray;
 typedef struct s_colision		t_colision;
 
 typedef struct s_polyhedron		t_polyhedron;
+typedef struct s_texture t_texture;
 typedef struct s_material		t_material;
 typedef struct s_plane			t_plane;
 typedef struct s_sphere			t_sphere;
@@ -59,6 +60,18 @@ struct s_checker
 	double tile;
 };
 
+struct s_texture
+{
+	void *img_texture;
+	int w;
+	int h;
+	unsigned char *data;
+	int             bpp;
+    int             line_len;
+    int             endian;
+};
+
+
 struct							s_material
 {
 	t_vector_3d	albedo;
@@ -70,6 +83,10 @@ struct							s_material
 	double		kr;	// coeficiente de reflexão - entre 0 e 1
 	char		*pattern_name;
 	t_pattern	pattern;
+	bool has_texture_color;
+	bool has_texture_normal;
+	t_texture texture_color;
+	t_texture texture_normal;
 };
 
 struct							s_polyhedron
