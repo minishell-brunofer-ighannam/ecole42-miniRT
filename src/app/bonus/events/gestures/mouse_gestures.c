@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:21:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/12 17:05:31 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:27:24 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	lctrl_mouse_move_handler(
 	{
 		self->diff.y = y - self->last_pos.y;
 		calibrate_diff_y(&self->diff.y);
-		self->diff.y /= state->window.ratio;
+		// self->diff.y /= state->window.ratio;
 		self->last_pos.y = y;
 	}
 	
@@ -124,7 +124,6 @@ void	calibrate_diff_y(double *diff)
 {
 	if (*diff < 2 && *diff > -2)
 		*diff *= 0.05;
-	printf("self->diff.y: %f\n", *diff);
 	if (*diff > 50 || *diff < -50)
 	{
 		if (*diff > 0)
