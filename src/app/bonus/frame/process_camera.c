@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_tracer.c                                       :+:      :+:    :+:   */
+/*   process_camera.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/02 14:26:29 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:17:09 by brunofer         ###   ########.fr       */
+/*   Created: 2026/02/14 17:59:13 by brunofer          #+#    #+#             */
+/*   Updated: 2026/02/14 18:31:38 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray_tracer.h"
+#include "../context.h"
+#include "includes/frame_internal.h"
 
-
-t_point_3d	ft_ray_at(t_ray *restrict ray, double t)
+void	ft_handle_camera(t_camera *scene_cam, t_camera_state *state_cam)
 {
-	t_point_3d	point;
-	t_vector_3d	scaled;
-
-	scaled = ft_vec_mult(ray->vector, t);
-	point = ft_point_add_vect(ray->point, scaled);
-	return (point);
+	ft_process_camera_translation(
+		&scene_cam->origin, scene_cam->forward, state_cam);
+	ft_process_camera_rotation(
+		state_cam, &scene_cam->forward, &scene_cam->right, &scene_cam->up);
+	state_cam->has_changes = false;
 }

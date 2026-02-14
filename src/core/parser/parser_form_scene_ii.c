@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 14:05:17 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:17:09 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ void	ft_include_cylinder(t_scene *scene, t_parser_node *content, t_linkedlist *i
 	cy->radius_sqrd = cy->radius * cy->radius;
 	cy->height = content->height;
 	cap_top.normal = cy->axis;
-	cap_top.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, cy->height / 2.0));
-	cap_bot.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, -cy->height / 2.0));
-	cap_bot.normal = ft_vec_mult_scal(cy->axis, -1.0);
+	cap_top.point = ft_point_add_vect(cy->center, ft_vec_mult(cy->axis, cy->height / 2.0));
+	cap_bot.point = ft_point_add_vect(cy->center, ft_vec_mult(cy->axis, -cy->height / 2.0));
+	cap_bot.normal = ft_vec_mult(cy->axis, -1.0);
 	cy->cap_top = cap_top;
 	cy->cap_bot = cap_bot;
 	scene->polyhedron[scene->count_polyhedron].type = CYLINDER;

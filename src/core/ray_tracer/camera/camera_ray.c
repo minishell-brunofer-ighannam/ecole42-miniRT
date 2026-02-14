@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/13 17:58:15 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
 		screen_y = 1;
 	screen_x *= camera.aspect * camera.scale;
 	screen_y *= camera.scale;
-	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult_scal(camera.right,
-						screen_x), ft_vec_mult_scal(camera.up, screen_y)),
+	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult(camera.right,
+						screen_x), ft_vec_mult(camera.up, screen_y)),
 				camera.forward));
 	ray.point = camera.origin;
 	ray.vector = dir;
@@ -115,18 +115,18 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0
 		|| isnan(ft_vec_mod(ray.vector)) || isinf(ft_vec_mod(ray.vector)))
 		return (col.color_local);
-	if (ft_vector_dot_product(ray.vector, col.normal) > 0)
-		col.normal = ft_vec_mult_scal(col.normal, -1);
+	if (ft_vec_dot(ray.vector, col.normal) > 0)
+		col.normal = ft_vec_mult(col.normal, -1);
 	col.normal = ft_vec_norm(col.normal);
 	reflected_ray.vector = ft_vec_norm(ft_vec_sub(ray.vector,
-				ft_vec_mult_scal(col.normal, 2.0
-					* ft_vector_dot_product(ray.vector, col.normal))));
+				ft_vec_mult(col.normal, 2.0
+					* ft_vec_dot(ray.vector, col.normal))));
 	reflected_ray.point = ft_point_add_vect(col.colision_point,
-			ft_vec_mult_scal(col.normal, 1e-4));
+			ft_vec_mult(col.normal, 1e-4));
 	col.color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);
-	col.color_final = ft_vec_add(ft_vec_mult_scal(col.color_local, (1
+	col.color_final = ft_vec_add(ft_vec_mult(col.color_local, (1
 					- col.polyhedron.material.kr)),
-			ft_vec_mult_scal(col.color_reflexive, col.polyhedron.material.kr));
+			ft_vec_mult(col.color_reflexive, col.polyhedron.material.kr));
 	// if (col.polyhedron.type == CONE)
 	// {
 	// 	printf("color: %f %f %f\n", col.color_final.x, col.color_final.y, col.color_final.z);

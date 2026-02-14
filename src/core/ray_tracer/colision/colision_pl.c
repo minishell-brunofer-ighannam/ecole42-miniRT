@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_pl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 12:19:49 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ double	ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point, t_vector_
 	double		denom;
 	double		t;
 
-	denom = ft_vector_dot_product(normal, ray->vector);
+	denom = ft_vec_dot(normal, ray->vector);
 	if (fabs(denom) < EPS)
 		return (INFINITY);
 	oc = ft_sub_point(point, ray->point);
-	t = ft_vector_dot_product(oc, normal) / denom;
+	t = ft_vec_dot(oc, normal) / denom;
 	if (t > EPS)
 		return t;
 	return (INFINITY);
-	
+
 }
