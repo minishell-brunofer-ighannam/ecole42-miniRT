@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 15:22:31 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ double	ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray)
 	double		t;
 
 	oc = ft_sub_point(ray->point, cy->center);
-	d_perp = ft_vec_sub(ray->vector, ft_vec_mult_scal(cy->axis,
-				ft_vector_dot_product(ray->vector, cy->axis)));
-	oc_perp = ft_vec_sub(oc, ft_vec_mult_scal(cy->axis,
-				ft_vector_dot_product(oc, cy->axis)));
-	a = ft_vector_dot_product(d_perp, d_perp);
+	d_perp = ft_vec_sub(ray->vector, ft_vec_mult(cy->axis,
+				ft_vec_dot(ray->vector, cy->axis)));
+	oc_perp = ft_vec_sub(oc, ft_vec_mult(cy->axis,
+				ft_vec_dot(oc, cy->axis)));
+	a = ft_vec_dot(d_perp, d_perp);
 	if (a < EPS)
 		return (INFINITY);
-	t = ft_solve_quadratic_normalized(ft_vector_dot_product(oc_perp, d_perp)
-			/ a, (ft_vector_dot_product(oc_perp, oc_perp) - cy->radius
+	t = ft_solve_quadratic_normalized(ft_vec_dot(oc_perp, d_perp)
+			/ a, (ft_vec_dot(oc_perp, oc_perp) - cy->radius
 				* cy->radius) / a);
 	if (t < 0)
 		return (INFINITY);
-	a = ft_vector_dot_product(ft_sub_point(ft_ray_at(ray, t), cy->center),
+	a = ft_vec_dot(ft_sub_point(ft_ray_at(ray, t), cy->center),
 			cy->axis);
 	if (a < -cy->height / 2.0 || a > cy->height / 2.0)
 		return (INFINITY);
@@ -66,11 +66,11 @@ static double ft_check_cap(t_ray *ray, t_point_3d center, t_vector_3d axis, doub
 	t_point_3d	p;
 
 	t = ft_colision_plane_normal(ray, center,
-			ft_vec_mult_scal(axis, -1));
+			ft_vec_mult(axis, -1));
 	if (t > EPS)
 	{
 		p = ft_ray_at(ray, t);
-		if (ft_vector_dot_product(ft_sub_point(p, center), ft_sub_point(p,
+		if (ft_vec_dot(ft_sub_point(p, center), ft_sub_point(p,
 					center)) <= radius * radius)
 			return (t);
 	}

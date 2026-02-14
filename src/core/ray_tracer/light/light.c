@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
 /*   Updated: 2026/02/14 18:08:20 by ighannam         ###   ########.fr       */
@@ -98,9 +98,9 @@ t_vector_3d	ft_ambient_light(t_context *context, t_polyhedron *polyhedron)
 {
 	t_vector_3d	color;
 
-	color = ft_vec_mult_scal(context->scene->ambient.norm_color,
+	color = ft_vec_mult(context->scene->ambient.norm_color,
 			context->scene->ambient.intensity);
-	color = ft_vec_mult_scal(color, polyhedron->material.ka);
+	color = ft_vec_mult(color, polyhedron->material.ka);
 	return (color);
 }
 
@@ -113,7 +113,7 @@ t_vector_3d	ft_difuse_light(t_context *context, t_colision *col, int i)
 	double		light_dist;
 
 	ray.point = ft_point_add_vect(col->colision_point,
-			ft_vec_mult_scal(col->normal, EPS));
+			ft_vec_mult(col->normal, EPS));
 	while (++i < context->scene->num_light)
 	{
 		light_dir = ft_sub_point(context->scene->light[i].coord, ray.point);
@@ -128,7 +128,7 @@ t_vector_3d	ft_difuse_light(t_context *context, t_colision *col, int i)
 		if (fact < 0)
 			fact *= -1;
 		col->color_dif = ft_vec_add(col->color_dif,
-				ft_vec_mult_scal(ft_vec_mult_scal(ft_vec_mult_scal(context->scene->light[i].norm_color,
+				ft_vec_mult(ft_vec_mult(ft_vec_mult(context->scene->light[i].norm_color,
 							context->scene->light[i].intensity),
 						col->polyhedron.material.kd), fact));
 	}
@@ -170,7 +170,7 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col, int i)
 		fact = pow(fact, col->polyhedron.material.n);
 		I_l = context->scene->light[i].norm_color;
 		col->color_spec = ft_vec_add(col->color_spec,
-				ft_vec_mult_scal(ft_vec_mult_scal(I_l,
+				ft_vec_mult(ft_vec_mult(I_l,
 						col->polyhedron.material.ks), fact));
 	}
 	return (col->color_spec);

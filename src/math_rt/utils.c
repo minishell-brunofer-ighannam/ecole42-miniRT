@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:19:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 13:10:15 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ inline double	sqrdd(double num)
 
 inline double	sqrdvec(t_vector_3d vect)
 {
-	return (ft_vector_dot_product(vect, vect));
+	return (ft_vec_dot(vect, vect));
 }

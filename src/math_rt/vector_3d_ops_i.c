@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d_ops_i.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 02:58:13 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/11 16:26:21 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_vector_3d	ft_vec_add(t_vector_3d self, t_vector_3d other)
 	return (vector);
 }
 
-t_vector_3d	ft_vec_mult_scal(t_vector_3d self, double scalar)
+t_vector_3d	ft_vec_mult(t_vector_3d self, double scalar)
 {
 	t_vector_3d	vector;
 
@@ -61,7 +61,7 @@ double	ft_vector_cos_teta(t_vector_3d self, t_vector_3d other)
 	double module_self;
 	double module_other;
 
-	dot_product = ft_vector_dot_product(self, other);
+	dot_product = ft_vec_dot(self, other);
 	module_self = ft_vec_mod(self);
 	module_other = ft_vec_mod(other);
 	return (dot_product / (module_self * module_other));

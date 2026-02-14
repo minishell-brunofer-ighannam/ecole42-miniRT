@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d_ops_ii.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
 /*   Updated: 2026/02/14 15:05:28 by ighannam         ###   ########.fr       */
@@ -48,7 +48,7 @@ t_point_3d	ft_point_add_vect(t_point_3d p, t_vector_3d v)
 	return (res);
 }
 
-t_vector_3d	ft_cross_product(t_vector_3d v1, t_vector_3d v2)
+t_vector_3d	ft_cross(t_vector_3d v1, t_vector_3d v2)
 {
 	t_vector_3d	result;
 

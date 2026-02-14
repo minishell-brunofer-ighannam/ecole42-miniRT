@@ -50,7 +50,7 @@ src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_ne
 
 # **** MATH_RT ****
 MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
-src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c src/math_rt/vector_3d_ops_iii.c
 
 
 # **** PARSER ****
@@ -85,7 +85,8 @@ $(B_EV_DIR)/state/set_state_bonus.c $(B_EV_DIR)/state/state_bonus.c
 
 B_FRAME_DIR = src/app/bonus/frame
 BONUS_FRAME_FILES = $(B_FRAME_DIR)/frame.c $(B_FRAME_DIR)/draw_forms.c \
-$(B_FRAME_DIR)/process_state.c $(B_FRAME_DIR)/show_frame_info.c
+$(B_FRAME_DIR)/process_state.c $(B_FRAME_DIR)/show_frame_info.c $(B_FRAME_DIR)/process_camera.c \
+$(B_FRAME_DIR)/process_camera_translation.c $(B_FRAME_DIR)/process_camera_rotation.c
 
 B_THREAD_DIR = src/app/bonus/threads
 BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i.c $(B_THREAD_DIR)/context_callbacks_ii.c \

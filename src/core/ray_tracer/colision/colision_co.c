@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision_co.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 14:46:56 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ static double	ft_colision_cone_body(t_ray *restrict ray, t_cone *restrict cone)
 
 	cos_alpha_sqrd = sqrdd(cone->cos_alpha);
 	ov = ft_sub_point(ray->point, cone->vertex);
-	d_dot_a = ft_vector_dot_product(ray->vector, cone->axis);
-	ov_dot_a = ft_vector_dot_product(ov, cone->axis);
+	d_dot_a = ft_vec_dot(ray->vector, cone->axis);
+	ov_dot_a = ft_vec_dot(ov, cone->axis);
 	if (d_dot_a <= 0 && ov_dot_a < 0)
 		return (INFINITY);
 	half_b = ov_dot_a * d_dot_a
-		- ft_vector_dot_product(ov, ray->vector) * cos_alpha_sqrd;
+		- ft_vec_dot(ov, ray->vector) * cos_alpha_sqrd;
 	half_b = ft_cone_baskara(sqrdd(d_dot_a) - cos_alpha_sqrd, half_b,
 			sqrdd(ov_dot_a) - sqrdvec(ov) * cos_alpha_sqrd);
 	if (isinf(half_b) || half_b < -EPS)
 		return (INFINITY);
-	d_dot_a = ft_vector_dot_product(
+	d_dot_a = ft_vec_dot(
 			ft_sub_point(ft_ray_at(ray, half_b), cone->vertex), cone->axis);
 	if (d_dot_a > cone->height || d_dot_a < 0.0)
 		return (INFINITY);
@@ -94,8 +94,8 @@ static double	ft_colision_cone_base(t_ray *restrict ray, t_cone *restrict cone)
 	t_vector_3d	bp;
 
 	t = ft_colision_plane_normal(ray, cone->base.point, cone->base.normal);
-	bp = ft_sub_point(ft_point_add_vect(ray->point, ft_vec_mult_scal(ray->vector, t)), cone->base.point);
-	if (ft_vector_dot_product(bp, bp) <= sqrdd(cone->height * cone->tan_alpha))
+	bp = ft_sub_point(ft_point_add_vect(ray->point, ft_vec_mult(ray->vector, t)), cone->base.point);
+	if (ft_vec_dot(bp, bp) <= sqrdd(cone->height * cone->tan_alpha))
 	{
 		if (t < -EPS)
 			return (INFINITY);

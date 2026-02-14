@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 16:14:05 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col)
 
 	if (col->section == 0)
 	{
-		p_axis = ft_vector_dot_product(ft_sub_point(p, cy->center), cy->axis);
-		proj = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis, p_axis));
+		p_axis = ft_vec_dot(ft_sub_point(p, cy->center), cy->axis);
+		proj = ft_point_add_vect(cy->center, ft_vec_mult(cy->axis, p_axis));
 		col->normal = ft_vec_norm(ft_sub_point(p, proj));
 	}
 	else if (col->section == 1)
 		col->normal = cy->axis;
 	else if (col->section == 2)
-		col->normal = ft_vec_mult_scal(cy->axis, -1.0);	
+		col->normal = ft_vec_mult(cy->axis, -1.0);
 }
 
 void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
@@ -64,9 +64,9 @@ void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
 		return ;
 	}
 	vp = ft_sub_point(p, co->vertex);
-	axis_projection = ft_vec_mult_scal(
-			co->axis, ft_vector_dot_product(vp, co->axis));
+	axis_projection = ft_vec_mult(
+			co->axis, ft_vec_dot(vp, co->axis));
 	normal = ft_vec_sub(
-			ft_vec_mult_scal(vp, sqrdd(co->cos_alpha)), axis_projection);
+			ft_vec_mult(vp, sqrdd(co->cos_alpha)), axis_projection);
 	col->normal = ft_vec_norm(normal);
 }

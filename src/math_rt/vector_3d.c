@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 02:02:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/11 13:13:58 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vector_3d	ft_new_vector_3d(double x, double y, double z)
 	return (vector);
 }
 
-inline double	ft_vector_dot_product(t_vector_3d self, t_vector_3d other)
+inline double	ft_vec_dot(t_vector_3d self, t_vector_3d other)
 {
 	return ((self.x * other.x) + (self.y * other.y) + (self.z * other.z));
 }
