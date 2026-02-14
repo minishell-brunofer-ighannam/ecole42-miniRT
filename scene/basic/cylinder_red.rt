@@ -14,4 +14,4 @@ L   10,12,-5        1               255,0,0
 
 # Cylinder
 #   position        direction       radius          altura          color
-cy  0.6,0.7,0       0,1,0           0.5             4               200,200,200  0.3  1.0  0.2  32  0.5 checkers ./texture_map/cylinder_texture.xpm
+cy  0.6,0.7,0       0,1,0           0.5             4               200,200,200  0.3  1.0  0.2  32  0.5 checkers ./texture_map_color/cylinder_texture.xpm

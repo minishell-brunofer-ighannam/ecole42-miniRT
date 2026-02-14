@@ -1,0 +1,19 @@
+/* XPM */
+static char *normal_test_xpm[] = {
+/* width height colors chars-per-pixel */
+"8 8 4 1",
+/* colors */
+"a c #8080FF", /* flat normal */
+"b c #7070FF", /* slight tilt */
+"c c #9090FF", /* slight tilt opposite */
+"d c #8080F0", /* small variation */
+/* pixels */
+"aaaaaaaa",
+"abbbbbba",
+"abccccba",
+"abccccba",
+"abccccba",
+"abbbbbba",
+"aaaaaaaa",
+"aaaaaaaa"
+};

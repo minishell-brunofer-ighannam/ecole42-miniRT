@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:11:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 11:06:32 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 15:43:11 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_count_items_scene(t_linkedlist_node *node, char *type)
 			count++;
 		node = node->next;
 	}
+	printf("%s : %d\n", type, count);
 	return (count);
 }
 

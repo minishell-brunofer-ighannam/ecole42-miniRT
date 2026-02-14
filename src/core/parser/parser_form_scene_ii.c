@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/13 20:40:38 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 15:30:58 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list,
 	ft_include_pattern(input_list, &material);
 	if (content->file_texture_color)
 	{
-		
 		texture_color.img_texture = mlx_xpm_file_to_image(context->mlx.window.mlx_ref,
 				content->file_texture_color, &texture_color.w,
 				&texture_color.h);		
@@ -58,12 +57,11 @@ t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list,
 			texture_color.data = (unsigned char *)mlx_get_minilib_layer_addr(texture_color.img_texture,
 					&texture_color.bpp, &texture_color.line_len,
 					&material.texture_color.endian);
+			material.texture_color = texture_color;
 		}
-		material.texture_color = texture_color;
 	}
 	if (content->file_texture_normal)
 	{
-		
 		texture_normal.img_texture = mlx_xpm_file_to_image(context->mlx.window.mlx_ref,
 				content->file_texture_normal, &texture_normal.w,
 				&texture_normal.h);		
@@ -73,8 +71,9 @@ t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list,
 			texture_normal.data = (unsigned char *)mlx_get_minilib_layer_addr(texture_normal.img_texture,
 					&texture_normal.bpp, &texture_normal.line_len,
 					&material.texture_normal.endian);
+			material.texture_normal = texture_normal;
 		}
-		material.texture_normal = texture_normal;
+
 	}
 	return (material);
 }
