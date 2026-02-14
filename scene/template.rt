@@ -1,0 +1,92 @@
+############################################################
+# CAMERA (REQUIRED — exactly one)
+# Format:
+# C x,y,z   nx,ny,nz   fov
+############################################################
+C 0,0,0   0,0,-1   60
+
+############################################################
+# AMBIENT LIGHT (optional)
+# Format:
+# A ratio   R,G,B
+############################################################
+A 0.2   255,255,255
+
+############################################################
+# LIGHTS (optional)
+# Only ONE uppercase 'L' allowed
+# Additional lights must use lowercase 'l'
+#
+# Format:
+# L x,y,z   brightness   [R,G,B]
+############################################################
+L 10,10,10   0.8   255,255,255
+l -10,5,5    0.4   255,200,200
+
+############################################################
+# PATTERNS (optional — unique names required)
+# Format:
+# p name   CHECKER   R1,G1,B1   R2,G2,B2   tile
+############################################################
+p checker_floor   CHECKER   255,255,255   0,0,0   10
+p checker_red     CHECKER   255,0,0       0,0,0   8
+
+############################################################
+# SPHERE (optional — multiple allowed)
+#
+# Base format:
+# sp center   diameter   R,G,B
+#
+# Optional chained parameters (must follow order):
+# ka kd ks n kr pattern tex_color tex_normal
+############################################################
+
+# simple sphere
+sp 0,0,-5   2   255,0,0
+
+# full material sphere
+sp 2,0,-6   2   200,200,255   \
+   0.1 0.7 0.5 32 0.3         \
+   checker_red                 \
+   ./textures/earth.xpm        \
+   ./textures/earth_normal.xpm
+
+############################################################
+# PLANE
+# Format:
+# pl point   normal   R,G,B   [material...]
+############################################################
+
+# simple plane
+pl 0,-2,0   0,1,0   200,200,200
+
+# checker plane
+pl 0,-2,0   0,1,0   255,255,255 \
+   0.1 0.6 0.2 16 0.0           \
+   checker_floor                \
+   ./textures/floor.xpm         \
+   ./textures/floor_normal.xpm
+
+############################################################
+# CYLINDER
+# Format:
+# cy center axis diameter height color [material...]
+############################################################
+
+cy -3,0,-8   0,1,0   1.5   4   0,255,0 \
+   0.1 0.7 0.3 32 0.2                   \
+   checker_red                          \
+   ./textures/metal.xpm                 \
+   ./textures/metal_normal.xpm
+
+############################################################
+# CONE
+# Format:
+# cn apex axis angle height color [material...]
+############################################################
+
+cn 3,0,-8   0,1,0   20   4   255,200,0 \
+   0.1 0.7 0.5 64 0.4                   \
+   checker_red                          \
+   ./textures/cone.xpm                  \
+   ./textures/cone_normal.xpm

@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:31:05 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/12 15:23:53 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:25:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ struct				s_colision
 	t_vector_3d color_final;
 	double u;
 	double v;
+	double u_norm;
+	double v_norm;
 	t_vector_3d dir_u;
 	t_vector_3d dir_v;
 };

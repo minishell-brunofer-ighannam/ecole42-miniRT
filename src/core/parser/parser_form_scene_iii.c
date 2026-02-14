@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:36 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/09 17:20:22 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 16:54:03 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "polyhedron.h"
 #include "scene.h"
 
-void	ft_include_plane(t_scene *scene, t_parser_node *content, t_linkedlist *input_list)
+void	ft_include_plane(t_scene *scene, t_parser_node *content, t_linkedlist *input_list, t_context *context)
 {
 	t_plane	*pl;
 
@@ -25,7 +25,7 @@ void	ft_include_plane(t_scene *scene, t_parser_node *content, t_linkedlist *inpu
 	pl->normal = content->normal;
 	scene->polyhedron[scene->count_polyhedron].type = PLANE;
 	scene->polyhedron[scene->count_polyhedron].specs = pl;
-	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list);
+	scene->polyhedron[scene->count_polyhedron].material = ft_form_material(content, input_list, context);
 	scene->polyhedron[scene->count_polyhedron].id = scene->count_polyhedron;
 	scene->count_polyhedron++;
 }

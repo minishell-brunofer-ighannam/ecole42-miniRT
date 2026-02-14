@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_i.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/10 18:43:37 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/13 16:54:49 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "polyhedron.h"
 #include "scene.h"
 
-t_scene	*ft_form_scene(t_linkedlist *input_list)
+t_scene	*ft_form_scene(t_linkedlist *input_list, t_context *context)
 {
 	t_scene				*scene;
 	t_linkedlist_node	*node;
@@ -35,7 +35,7 @@ t_scene	*ft_form_scene(t_linkedlist *input_list)
 	node = input_list->first;
 	while (node)
 	{
-		ft_include_items_scene(node, scene, input_list);
+		ft_include_items_scene(node, scene, input_list, context);
 		node = node->next;
 	}
 	if (ft_count_items_scene(input_list->first, "B") == 0)
@@ -48,7 +48,7 @@ t_scene	*ft_form_scene(t_linkedlist *input_list)
 	return (scene);
 }
 
-void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene, t_linkedlist *input_list)
+void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene, t_linkedlist *input_list, t_context *context)
 {
 	t_parser_node	*content;
 
@@ -61,13 +61,13 @@ void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene, t_linkedlis
 		|| !ft_strcmp(content->splited_line[0], "l"))
 		ft_include_light(scene, content);
 	if (!ft_strcmp(content->splited_line[0], "sp"))
-		ft_include_sphere(scene, content, input_list);
+		ft_include_sphere(scene, content, input_list, context);
 	if (!ft_strcmp(content->splited_line[0], "cy"))
-		ft_include_cylinder(scene, content, input_list);
+		ft_include_cylinder(scene, content, input_list, context);
 	if (!ft_strcmp(content->splited_line[0], "pl"))
-		ft_include_plane(scene, content, input_list);
+		ft_include_plane(scene, content, input_list, context);
 	if (!ft_strcmp(content->splited_line[0], "cn"))
-		ft_include_cone(scene, content, input_list);
+		ft_include_cone(scene, content, input_list, context);
 	if (!ft_strcmp(content->splited_line[0], "B"))
 		ft_include_back_color(scene, content);
 }

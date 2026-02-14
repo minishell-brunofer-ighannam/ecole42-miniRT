@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:06:51 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/10 23:54:10 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/13 20:33:38 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "math_rt.h"
 # include "parser.h"
 # include "scene.h"
+#include "mlx.h"
+#include "context.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -53,6 +55,8 @@ struct							s_parser_node
 	double tan_half_apex_angle;
 	t_vector_3d plane_normal;
 	t_point_3d plane_point;
+	char *file_texture_color;
+	char *file_texture_normal;
 };
 
 int								ft_open_file(char *file);
@@ -65,7 +69,7 @@ bool							ft_verify_double_between(char *str,
 bool							ft_verify_int_between(char *str, int ref_one,
 									int ref_two);
 
-t_scene							*ft_form_scene(t_linkedlist *input_list);
+t_scene							*ft_form_scene(t_linkedlist *input_list, t_context *context);
 void							ft_include_camera(t_scene *scene,
 									t_parser_node *content);
 void							ft_include_light(t_scene *scene,
@@ -74,18 +78,18 @@ void							ft_include_ambient(t_scene *scene,
 									t_parser_node *content);
 void							ft_include_sphere(t_scene *scene,
 									t_parser_node *content,
-									t_linkedlist *input_list);
+									t_linkedlist *input_list, t_context *context);
 void							ft_include_cylinder(t_scene *scene,
 									t_parser_node *content,
-									t_linkedlist *input_list);
+									t_linkedlist *input_list, t_context *context);
 void							ft_include_cone(t_scene *scene,
 									t_parser_node *content,
-									t_linkedlist *input_list);
+									t_linkedlist *input_list, t_context *context);
 t_material						ft_form_material(t_parser_node *content,
-									t_linkedlist *input_list);
+									t_linkedlist *input_list, t_context *context);
 void							ft_include_plane(t_scene *scene,
 									t_parser_node *content,
-									t_linkedlist *input_list);
+									t_linkedlist *input_list, t_context *context);
 
 bool							ft_verify_line(char *line,
 									t_linkedlist **input_list);
@@ -106,7 +110,7 @@ char							*ft_remove_newline(char *line);
 bool							ft_verify_optional_double(char **arg,
 									double min, double max);
 void							ft_include_items_scene(t_linkedlist_node *node,
-									t_scene *scene, t_linkedlist *input_list);
+									t_scene *scene, t_linkedlist *input_list, t_context *context);
 void							ft_material_values(t_parser_node *content,
 									t_material *material);
 void							ft_include_back_color(t_scene *scene,
@@ -120,7 +124,7 @@ int								ft_verify_opt_item_phong(t_parser_node *content,
 bool							ft_verify_mat_opt(t_parser_node *content,
 									int pos_file);
 bool							ft_verify_duplicated_patterns(t_linkedlist *input_list);
-t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list);
+t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list, t_context *context);
 void ft_include_pattern(t_linkedlist *input_list, t_material *material);
 t_pattern ft_form_pattern(t_parser_node *content);
 

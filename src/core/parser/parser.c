@@ -6,14 +6,14 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 06:07:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 18:51:19 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:28:23 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "parser_internal.h"
 
-t_scene	*ft_parser(char *file)
+t_scene	*ft_parser(char *file, t_context *context)
 {
 	t_scene			*scene;
 	int				fd;
@@ -25,7 +25,7 @@ t_scene	*ft_parser(char *file)
 	input_list = ft_read_file(fd);
 	if (!input_list || !ft_verify_list_scene(input_list))
 		return (NULL);
-	scene = ft_form_scene(input_list);
+	scene = ft_form_scene(input_list, context);
 	if (!scene)
 		return (NULL);
 	return (scene);

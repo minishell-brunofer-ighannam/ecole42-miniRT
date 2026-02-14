@@ -6,32 +6,33 @@ A                            0.1         255,255,255
 
 # Camera
 # <coordinates of camera position: x,y,z> <camera view: x,y,z> <pov:x,y,z>
-# C   0,1.5,-6         0,0,1   70
+C   0,1.5,-6         0,0,1   70
 # perto do cone lado esqerdo da ponta
 # C   5,1.5,-1         -0.6,0,1   70
 # perto do cone lado direito  da ponta
 # C   1.9598,1.5,-1         0.6,0,1   70
 # C    0,1.5,5        0.3,0,-1   70
 
-C   2,7.5,-2         0,-0.9,1   70
+#C   2,7.5,-2         0,-0.9,1   70
 
 # Light
 # <coordinates: x,y,z> <brightness: 0-1> <color:red,green,blue>
 L  -10,10,-10                0.5         255,255,255
 l   10,10,-10                0.5         255,255,255
 l   0,10,-10                 0.5         255,255,255
+
 # l   0,1.5,5                  0.5         255,255,255
 
 # Pattern
 #   name            type            color_a         color_b         scale           rotation        translation
-p   checkers       CHECKER          0,0,0        255,255,255       0.5
-p   checkers2       CHECKER          255,0,0        0,255,0       8
+p   checkers       CHECKER          0,0,0        255,255,255       5
+p   checkers2       CHECKER          255,0,0        0,255,0       5
 
 # Sphere
 # <coordinates: x,y,z> <diameter> <color:red,green,blue>
-sp  1.5,0.5,-0.5             1           128,255,26 0.3  1.0  0.2  32  0.5 checkers
-sp  -1,1,0.5               2           26,255,128 0.3  1.0  0.2  32  0.5 checkers
-sp  -1.5,0.33,-0.75          0.6         255,204,26 0.3  1.0  0.2  32  0.0 checkers
+sp  1.5,0.5,-0.5             1           128,255,26 0.3  1.0  0.2  32  0 sddfg texture_map_color/earthmap1k.xpm texture_map_normal/earthbump1k.xpm
+sp  -1,1,0.5               2           26,255,128 0.3  1.0  0.2  32  0 checkers texture_map_color/earthmap1k.xpm texture_map_normal/earthbump1k.xpm
+sp  -1.5,0.33,-0.75          0.6         255,204,26 0.3  1.0  0.2  32  0.0 checkers texture_map_color/earthmap1k.xpm texture_map_normal/earthbump1k.xpm
 
 # Cone
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
@@ -39,18 +40,17 @@ cn  3,1.0,1        0.0,0,1  60  1.5   40,220,55 0.3  1.0  0.2  32  0.5
 
 # Cylinder
 # <coordinates: x,y,z>  <orientation: x,y,z> <diameter: >= 0> <height: >= 0> <color:red,green,blue>
-cy  0.8,0.7,0        0,1,0   0.5   4     200,200,200 0.3  1.0  0.2  32  0.5      checkers
-cy  -4,0.6,1.6       0,0,1   1.2   2     122,23,230 0.3  1.0  0.2  32  0.0      checkers2
+cy  0.8,0.7,0        0,1,0   0.5   4     200,200,200 0.3  1.0  0.2  32  0.0      checkers texture_map_color/earthmap1k.xpm texture_map_normal/earthbump1k.xpm
+cy  -4,0.6,1.6       0,0,1   1.2   2     122,23,230 0.3  1.0  0.2  32  0.0      dfgdfg texture_map_color/earthmap1k.xpm texture_map_normal/earthbump1k.xpm
 
 # Plane
 # <coordinates: x,y,z> <origin:x,y,z> <color:red,green,blue>
 # Optional parameters: <pattern_type: checkered, striped_at> <origin: x,y,z> <color:red,green,blue>
 
 # Floor
-pl  0,0,0            0,1,0               0,0,0  0.3  1.0  0.2  32  0      checkers
-# Right wall
-pl  10,0,0           1,0,0               0,0,0   0.3  1.0  0.2  32  0     checkers
+pl  0,0,0            0,1,0               255,0,0  0.3  1.0  0.2  32  0    -   fgjb texture_map_normal/earthbump1k.xpm
+pl  10,0,0           -1,0,0               255,0,0   0.3  1.0  0.2  32  0     chgfheckers 
 # Left wall
-pl  -10,0,0          1,0,0               0,0,0    0.3  1.0  0.2  32  0    checkers
+pl  -10,0,0          1,0,0               0,0,0    0.3  1.0  0.2  32  0    checkers 
 # Backdrop
-pl  0,0,30           0,0,1               0,0,0    0.3  1.0  0.2  32  0    checkers
+pl  0,0,30           0,0,1               0,0,0    0.3  1.0  0.2  32  0    checkers 
