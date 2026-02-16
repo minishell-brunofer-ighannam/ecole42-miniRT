@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../threads/includes/threads_bonus.h"
-#include "../gestures/includes/gestures_bonus.h"
-#include "includes/state_internal_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
+#include "includes/camera_state_internal_bonus.h"
 
 t_set_movement	ft_new_camera_rotation(void)
 {

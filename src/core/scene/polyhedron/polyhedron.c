@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:03:24 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	ft_sp_normal(t_sphere *sp, t_point_3d pt, t_colision *col);
 static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col);
 void		ft_co_normal(t_cone *co, t_point_3d p, t_colision *col);
 
-void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col)
+void	ft_normal_polyhedron(
+			t_point_3d pt, t_polyhedron polyhedron, t_colision *col)
 {
 	if (polyhedron.type == SPHERE)
 		ft_sp_normal((t_sphere *)polyhedron.specs, pt, col);

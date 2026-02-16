@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_camera_translation_i.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 08:18:56 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 17:50:04 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:45:36 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../threads/includes/threads_bonus.h"
-#include "../gestures/includes/gestures_bonus.h"
-#include "includes/state_internal_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
+#include "includes/camera_state_internal_bonus.h"
 
 t_set_movement	ft_new_camera_translation(void)
 {

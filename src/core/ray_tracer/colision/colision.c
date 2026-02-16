@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colision.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:30:25 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/13 18:15:04 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:24:12 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static void	ft_form_colision(t_polyhedron polyhedron, t_ray *restrict ray,
 		col->colision_point = ft_ray_at(ray, col->t);
 		col->ray = *ray;
 		ft_normal_polyhedron(col->colision_point, polyhedron, col);
-		if (ft_vector_dot_product(col->normal, ray->vector) > 0)
-    		col->normal = ft_vec_mult_scal(col->normal, -1);
+		if (ft_vec_dot(col->normal, ray->vector) > 0)
+    		col->normal = ft_vec_mult(col->normal, -1);
 		col->color_dif = ft_new_vector_3d(0.0, 0.0, 0.0);
 		col->color_spec = ft_new_vector_3d(0.0, 0.0, 0.0);
 

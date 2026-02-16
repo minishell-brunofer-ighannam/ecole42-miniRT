@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/13 20:36:39 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 16:15:52 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ struct s_pattern
 
 struct s_checker
 {
-	t_vector_3d color_one;
-	t_vector_3d norm_color_one;
-	t_vector_3d color_two;
-	t_vector_3d norm_color_two;
-	double tile;
+	t_vector_3d	color_one;
+	t_vector_3d	norm_color_one;
+	t_vector_3d	color_two;
+	t_vector_3d	norm_color_two;
+	double		tile;
 };
 
 struct s_texture
 {
-	void *img_texture;
-	int w;
-	int h;
-	unsigned char *data;
-	int             bpp;
-    int             line_len;
-    int             endian;
+	void			*img_texture;
+	int				w;
+	int				h;
+	unsigned char	*data;
+	int				bpp;
+	int				line_len;
+	int				endian;
 };
 
 
@@ -83,10 +83,10 @@ struct							s_material
 	double		kr;	// coeficiente de reflexão - entre 0 e 1
 	char		*pattern_name;
 	t_pattern	pattern;
-	bool has_texture_color;
-	bool has_texture_normal;
-	t_texture texture_color;
-	t_texture texture_normal;
+	bool		has_texture_color;
+	bool		has_texture_normal;
+	t_texture	texture_color;
+	t_texture	texture_normal;
 };
 
 struct							s_polyhedron
@@ -133,6 +133,7 @@ struct							s_cone
 	double		sin_alpha;
 };
 
-void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
+t_polyhedron	*ft_find_polyhedron(t_scene *scene, int id);
+void			ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
 
 #endif

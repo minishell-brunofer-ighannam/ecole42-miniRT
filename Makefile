@@ -35,6 +35,9 @@ INCLUDES = \
 	-I src/core/ray_tracer/camera/includes \
 	-I src/app/bonus \
 	-I src/app/bonus/threads/includes \
+	-I src/app/bonus/frame \
+	-I src/app/bonus/events/gestures/includes \
+	-I src/minilibx/includes \
 	-I lib/minilibx
 CC = cc
 CFLAGS := -Wall -Werror -Wextra -O3 -march=native -flto -funroll-loops $(INCLUDES)
@@ -79,8 +82,8 @@ B_EV_DIR= src/app/bonus/events
 BONUS_EVENTS_FILES = $(B_EV_DIR)/events_bonus.c $(B_EV_DIR)/callbacks/keyboard_callbacks_bonus.c \
 $(B_EV_DIR)/callbacks/mouse_callbacks_bonus.c $(B_EV_DIR)/callbacks/window_callbacks_bonus.c \
 $(B_EV_DIR)/callbacks/callbacks.c $(B_EV_DIR)/gestures/gestures.c $(B_EV_DIR)/gestures/mouse_gestures.c \
-$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/state/set_camera_rotation_i.c $(B_EV_DIR)/state/set_camera_rotation_ii.c \
-$(B_EV_DIR)/state/set_camera_translation_i.c $(B_EV_DIR)/state/set_camera_translation_ii.c \
+$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/state/camera/set_camera_rotation_i.c $(B_EV_DIR)/state/camera/set_camera_rotation_ii.c \
+$(B_EV_DIR)/state/camera/set_camera_translation_i.c $(B_EV_DIR)/state/camera/set_camera_translation_ii.c \
 $(B_EV_DIR)/state/set_state_bonus.c $(B_EV_DIR)/state/state_bonus.c
 
 B_FRAME_DIR = src/app/bonus/frame

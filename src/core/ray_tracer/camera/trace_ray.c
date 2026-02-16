@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_internal_bonus.h                            :+:      :+:    :+:   */
+/*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 07:55:21 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/15 11:40:54 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/15 11:47:19 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATE_INTERNAL_BONUS_H
-# define STATE_INTERNAL_BONUS_H
+#include "camera_ray.h"
+#include "camera_ray_internal.h"
+#include "light.h"
 
-# include "state_bonus.h"
-# include "../camera/includes/camera_state_bonus.h"
-# include "../polyhedron/includes/state_polyhedron_bonus.h"
+t_colision	ft_trace_ray(t_scene *scene, t_mlx *mlx, int x, int y)
+{
+	t_ray	ray;
 
-t_set_state	ft_new_set_state(void);
-
-#endif
+	ray = ft_camera_ray(&mlx, &scene->camera, x, y);
+	return (ft_closest_colision(scene, &ray));
+}

@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 17:32:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 19:32:26 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/15 14:40:03 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ struct s_spatial_gesture
 	bool				active;
 	t_spatial_position	last_pos;
 	t_spatial_position	diff;
-	void				(*handler)(t_spatial_gesture *self, t_state *state, int x, int y);
-	void				(*state_setter)(t_state *state, t_spatial_gesture *gesture);
+	void				(*handler)(t_spatial_gesture *self,
+			t_state *state, int x, int y);
+	void				(*state_setter)(t_state *state,
+			t_spatial_gesture *gesture);
 };
 
 typedef struct s_gestures			t_gestures;

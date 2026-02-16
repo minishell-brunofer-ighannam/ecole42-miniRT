@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_form_scene_ii.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:28:00 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 15:30:58 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:23:42 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list,
 	{
 		texture_color.img_texture = mlx_xpm_file_to_image(context->mlx.window.mlx_ref,
 				content->file_texture_color, &texture_color.w,
-				&texture_color.h);		
+				&texture_color.h);
 		if (texture_color.img_texture)
 		{
 			material.has_texture_color = true;
@@ -64,7 +64,7 @@ t_material	ft_form_material(t_parser_node *content, t_linkedlist *input_list,
 	{
 		texture_normal.img_texture = mlx_xpm_file_to_image(context->mlx.window.mlx_ref,
 				content->file_texture_normal, &texture_normal.w,
-				&texture_normal.h);		
+				&texture_normal.h);
 		if (texture_normal.img_texture)
 		{
 			material.has_texture_normal = true;
@@ -169,11 +169,11 @@ void	ft_include_cylinder(t_scene *scene, t_parser_node *content,
 	cy->radius_sqrd = cy->radius * cy->radius;
 	cy->height = content->height;
 	cap_top.normal = cy->axis;
-	cap_top.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis,
+	cap_top.point = ft_point_add_vect(cy->center, ft_vec_mult(cy->axis,
 				cy->height / 2.0));
-	cap_bot.point = ft_point_add_vect(cy->center, ft_vec_mult_scal(cy->axis,
+	cap_bot.point = ft_point_add_vect(cy->center, ft_vec_mult(cy->axis,
 				-cy->height / 2.0));
-	cap_bot.normal = ft_vec_mult_scal(cy->axis, -1.0);
+	cap_bot.normal = ft_vec_mult(cy->axis, -1.0);
 	cy->cap_top = cap_top;
 	cy->cap_bot = cap_bot;
 	scene->polyhedron[scene->count_polyhedron].type = CYLINDER;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pattern.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 18:00:55 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 15:15:44 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:24:09 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void ft_calc_u_v_pl(t_colision *col)
     t_plane *pl;
 
     pl = col->polyhedron.specs;
-    P = ft_sub_point(col->colision_point, pl->point); 
-    col->u = ft_vector_dot_product(P, col->dir_u);
-    col->v = ft_vector_dot_product(P, col->dir_v);
+    P = ft_sub_point(col->colision_point, pl->point);
+    col->u = ft_vec_dot(P, col->dir_u);
+    col->v = ft_vec_dot(P, col->dir_v);
     col->u_norm = fmod(col->u, 1.0);
     col->v_norm = fmod(col->v, 1.0);
     if (col->u_norm < 0) col->u_norm += 1.0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 17:49:48 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/15 11:22:16 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "scene.h"
 
 typedef struct s_context			t_context;
-typedef struct s_scene			t_scene;
+typedef struct s_scene				t_scene;
 
 typedef struct s_context_callbacks	t_context_callbacks;
 struct s_context_callbacks

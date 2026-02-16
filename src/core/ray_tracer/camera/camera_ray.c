@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/15 11:31:31 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "camera_ray_internal.h"
 #include "light.h"
 
-static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x,
-					int y);
 static bool		color_pixel(t_context *context, int x, int y, int color);
 int				ft_vector_to_int_color(t_vector_3d color);
 t_vector_3d		ft_reflexion(t_context *context, int depth, t_ray ray);
@@ -36,8 +34,8 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 		{
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
-			vect_color = ft_reflexion(context, 0, ft_camera_ray(context,
-						context->scene->camera, i, j));
+			vect_color = ft_reflexion(context, 0, ft_camera_ray(&context->mlx,
+						&context->scene->camera, i, j));
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
 			color = ft_vector_to_int_color(vect_color);
@@ -48,27 +46,28 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 	return (NULL);
 }
 
-static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
+t_ray	ft_camera_ray(t_mlx *restrict mlx,
+			t_camera *restrict camera, int x, int y)
 {
 	double		screen_x;
 	double		screen_y;
 	t_vector_3d	dir;
 	t_ray		ray;
 
-	if (context->mlx.window.width > 0)
-		screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
+	if (mlx->window.width > 0)
+		screen_x = (2 * (x + 0.5) / mlx->window.width) - 1;
 	else
 		screen_x = 1;
-	if (context->mlx.window.height > 0)
-		screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
+	if (mlx->window.height > 0)
+		screen_y = 1 - 2 * ((y + 0.5) / mlx->window.height);
 	else
 		screen_y = 1;
-	screen_x *= camera.aspect * camera.scale;
-	screen_y *= camera.scale;
-	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult(camera.right,
-						screen_x), ft_vec_mult(camera.up, screen_y)),
-				camera.forward));
-	ray.point = camera.origin;
+	screen_x *= camera->aspect * camera->scale;
+	screen_y *= camera->scale;
+	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult(camera->right,
+						screen_x), ft_vec_mult(camera->up, screen_y)),
+				camera->forward));
+	ray.point = camera->origin;
 	ray.vector = dir;
 	return (ray);
 }
@@ -101,17 +100,9 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (context->callbacks.is_process_stopped(context))
 		return (ft_new_vector_3d(0, 0, 0));
 	col = ft_closest_colision(context->scene, &ray);
-
-	if (col.colision)
-	{
-		col.color_local = ft_local_color(context, col);
-		// if (col.polyhedron.type == CONE)
-		// {
-		// 	printf("color: %f %f %f\n", col.color_local.x, col.color_local.y, col.color_local.z);
-		// }
-	}
-	else
+	if (!col.colision)
 		return (context->scene->norm_color_back);
+	col.color_local = ft_local_color(context, col);
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0
 		|| isnan(ft_vec_mod(ray.vector)) || isinf(ft_vec_mod(ray.vector)))
 		return (col.color_local);
@@ -127,9 +118,5 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	col.color_final = ft_vec_add(ft_vec_mult(col.color_local, (1
 					- col.polyhedron.material.kr)),
 			ft_vec_mult(col.color_reflexive, col.polyhedron.material.kr));
-	// if (col.polyhedron.type == CONE)
-	// {
-	// 	printf("color: %f %f %f\n", col.color_final.x, col.color_final.y, col.color_final.z);
-	// }
 	return (col.color_final);
 }

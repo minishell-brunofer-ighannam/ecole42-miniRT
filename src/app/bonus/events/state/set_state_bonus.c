@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 19:14:42 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 21:36:52 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../threads/includes/threads_bonus.h"
-#include "../gestures/includes/gestures_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
 #include "includes/state_internal_bonus.h"
 
 static void	set_window(t_state *self, int width, int height);
@@ -23,6 +23,12 @@ t_set_state	ft_new_set_state(void)
 
 	setter.camera_rotation = ft_new_camera_rotation();
 	setter.camera_translation = ft_new_camera_translation();
+	setter.polyhedron_rotation = ft_new_polyhedron_rotation();
+	setter.polyhedron_translation = ft_new_polyhedron_translation();
+	setter.unselect_polyhedron = ft_unselect_polyhedron;
+	setter.select_polyhedron = ft_select_polyhedron;
+	setter.polyhedron_material = ft_polyhedron_material;
+	setter.polyhedron_component = ft_polyhedron_component;
 	setter.window = set_window;
 	setter.keys = set_keys;
 	return (setter);

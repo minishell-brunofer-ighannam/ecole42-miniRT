@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:46:41 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 18:08:20 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 09:24:27 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void	ft_update_normal(t_colision *col, int x, int y)
 	nm = ft_new_vector_3d((double)(pixel[2] / 255.0) * 2.0 - 1,
 			(double)(pixel[1] / 255.0) * 2.0 - 1, (double)(pixel[0] / 255.0)
 			* 2.0 - 1);
-	T = ft_cross_product(ft_new_vector_3d(0, 1, 0), col->normal);
+	T = ft_cross(ft_new_vector_3d(0, 1, 0), col->normal);
 	if (ft_vec_mod(T) < 1e-6)
 		T = ft_new_vector_3d(1, 0, 0);
 	else
 		T = ft_vec_norm(T);
-	B = ft_cross_product(col->normal, T);
+	B = ft_cross(col->normal, T);
 	world_nm.x = T.x * nm.x + B.x * nm.y + col->normal.x * nm.z;
 	world_nm.y = T.y * nm.x + B.y * nm.y + col->normal.y * nm.z;
 	world_nm.z = T.z * nm.x + B.z * nm.y + col->normal.z * nm.z;
@@ -124,7 +124,7 @@ t_vector_3d	ft_difuse_light(t_context *context, t_colision *col, int i)
 			&& light_col.section != col->section && light_col.t > EPS
 			&& light_col.t < light_dist)
 			continue ;
-		fact = ft_vector_dot_product(col->normal, ray.vector);
+		fact = ft_vec_dot(col->normal, ray.vector);
 		if (fact < 0)
 			fact *= -1;
 		col->color_dif = ft_vec_add(col->color_dif,
@@ -150,7 +150,7 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col, int i)
 	V = ft_vec_norm(ft_sub_point(context->scene->camera.origin,
 				col->colision_point));
 	ray.point = ft_point_add_vect(col->colision_point,
-			ft_vec_mult_scal(col->normal, EPS));
+			ft_vec_mult(col->normal, EPS));
 	while (++i < context->scene->num_light)
 	{
 		light_dir = ft_sub_point(context->scene->light[i].coord, ray.point);
@@ -162,9 +162,9 @@ t_vector_3d	ft_specular_light(t_context *context, t_colision *col, int i)
 			&& light_col.t < light_dist)
 			continue ;
 		L = ray.vector;
-		R = ft_vec_sub(ft_vec_mult_scal(col->normal, 2
-					* ft_vector_dot_product(col->normal, L)), L);
-		fact = ft_vector_dot_product(R, V);
+		R = ft_vec_sub(ft_vec_mult(col->normal, 2
+					* ft_vec_dot(col->normal, L)), L);
+		fact = ft_vec_dot(R, V);
 		if (fact < 0)
 			fact *= -1;
 		fact = pow(fact, col->polyhedron.material.n);

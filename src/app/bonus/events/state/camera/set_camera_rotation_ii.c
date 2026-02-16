@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_camera_rotation_ii.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 08:18:56 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/12 17:03:20 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:45:30 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../threads/includes/threads_bonus.h"
-#include "../gestures/includes/gestures_bonus.h"
-#include "includes/state_internal_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
+#include "includes/camera_state_internal_bonus.h"
 
 void	set_camera_rotation_spatial(t_state *self, t_spatial_gesture *gesture)
 {

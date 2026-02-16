@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_internal_bonus.h                            :+:      :+:    :+:   */
+/*   camera_state_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 07:55:21 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/15 15:18:07 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/15 15:39:06 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STATE_INTERNAL_BONUS_H
-# define STATE_INTERNAL_BONUS_H
+#ifndef CAMERA_STATE_BONUS_H
+# define CAMERA_STATE_BONUS_H
 
-# include "state_bonus.h"
-# include "../camera/includes/camera_state_bonus.h"
-# include "../polyhedron/includes/state_polyhedron_bonus.h"
+# include <stdio.h>
+# include "libft.h"
+# include "minilibx.h"
 
-t_set_state	ft_new_set_state(void);
+typedef struct s_set_movement	t_set_movement;
+
+t_set_movement	ft_new_camera_translation(void);
+t_set_movement	ft_new_camera_rotation(void);
 
 #endif
