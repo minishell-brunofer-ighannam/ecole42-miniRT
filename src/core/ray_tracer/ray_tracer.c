@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:26:29 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:17:09 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:11:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray_tracer.h"
-
 
 t_point_3d	ft_ray_at(t_ray *restrict ray, double t)
 {

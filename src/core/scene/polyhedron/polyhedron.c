@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:12:27 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "colision.h"
 #include "polyhedron.h"
 #include "polyhedron_internal.h"
-#include "colision.h"
 
 static void	ft_sp_normal(t_sphere *sp, t_point_3d pt, t_colision *col);
 static void	ft_cy_normal(t_cylinder *cy, t_point_3d p, t_colision *col);
 void		ft_co_normal(t_cone *co, t_point_3d p, t_colision *col);
 
-void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col)
+void	ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron,
+		t_colision *col)
 {
 	if (polyhedron.type == SPHERE)
 		ft_sp_normal((t_sphere *)polyhedron.specs, pt, col);
@@ -60,13 +61,11 @@ void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
 
 	if (col->section == 0)
 	{
-		col->normal = co->base.normal;
+		col->normal = ft_vec_norm(co->base.normal);
 		return ;
 	}
 	vp = ft_sub_point(p, co->vertex);
-	axis_projection = ft_vec_mult(
-			co->axis, ft_vec_dot(vp, co->axis));
-	normal = ft_vec_sub(
-			ft_vec_mult(vp, sqrdd(co->cos_alpha)), axis_projection);
+	axis_projection = ft_vec_mult(co->axis, ft_vec_dot(vp, co->axis));
+	normal = ft_vec_sub(ft_vec_mult(vp, sqrdd(co->cos_alpha)), axis_projection);
 	col->normal = ft_vec_norm(normal);
 }

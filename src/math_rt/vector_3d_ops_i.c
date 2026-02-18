@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d_ops_i.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 02:58:13 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 17:46:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_rt_internal.h"
 #include "math_rt.h"
+#include "math_rt_internal.h"
 
 t_vector_3d	ft_vec_sub(t_vector_3d self, t_vector_3d other)
 {
@@ -58,8 +58,8 @@ t_vector_3d	ft_vector_div_scalar(t_vector_3d self, double scalar)
 double	ft_vector_cos_teta(t_vector_3d self, t_vector_3d other)
 {
 	double	dot_product;
-	double module_self;
-	double module_other;
+	double	module_self;
+	double	module_other;
 
 	dot_product = ft_vec_dot(self, other);
 	module_self = ft_vec_mod(self);

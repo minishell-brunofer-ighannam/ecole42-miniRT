@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:22:20 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/11 14:15:05 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 15:02:18 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "math_rt.h"
 # include "ray.h"
 # include "scene.h"
-
-
 
 t_point_3d	ft_ray_at(t_ray *restrict ray, double t);
 

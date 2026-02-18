@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/13 17:23:57 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:24:24 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 
 	scene = ft_parser(argv[1], &context);
 	if (!scene)
-		return (0);
+		return (1);
 	// ft_print_scene(scene);
 
 	ft_camera_init(&scene->camera, &context);
@@ -80,5 +80,6 @@ int	main(int argc, char **argv)
 	mlx->loop(*mlx);
 	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
+	scene->destroy(scene);
 	return (0);
 }

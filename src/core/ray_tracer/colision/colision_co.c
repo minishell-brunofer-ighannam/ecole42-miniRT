@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   colision_co.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:14:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
+#include "colision_internal.h"
 
-static double			ft_colision_cone_body(t_ray *restrict ray, t_cone *restrict cone);
-static double			ft_colision_cone_base(t_ray *restrict ray, t_cone *restrict cone);
-static double			ft_cone_baskara(double a, double half_b, double c);
+static double	ft_colision_cone_body(t_ray *restrict ray,
+					t_cone *restrict cone);
+static double	ft_colision_cone_base(t_ray *restrict ray,
+					t_cone *restrict cone);
+static double	ft_cone_baskara(double a, double half_b, double c);
 
-void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col)
+void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray,
+		t_colision *restrict col)
 {
 	t_cone	*co;
 	double	colision_body;
@@ -30,12 +34,7 @@ void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_co
 		col->t = colision_base;
 		col->section = 0;
 	}
-	else if (isinf(colision_base))
-	{
-		col->t = colision_body;
-		col->section = 1;
-	}
-	else if (colision_body < colision_base)
+	else if (isinf(colision_base) || colision_body < colision_base)
 	{
 		col->t = colision_body;
 		col->section = 1;
@@ -54,7 +53,8 @@ void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_co
  * to understand the calculus, see
  * https://www.notion.so/Intersec-o-Raio-Cone-2febcec584a680c198c4e276cdbd34cd#6f7fb6da39af4706b245e6b3e5abe94b
  */
-static double	ft_colision_cone_body(t_ray *restrict ray, t_cone *restrict cone)
+static double	ft_colision_cone_body(t_ray *restrict ray,
+		t_cone *restrict cone)
 {
 	double		half_b;
 	t_vector_3d	ov;
@@ -68,14 +68,13 @@ static double	ft_colision_cone_body(t_ray *restrict ray, t_cone *restrict cone)
 	ov_dot_a = ft_vec_dot(ov, cone->axis);
 	if (d_dot_a <= 0 && ov_dot_a < 0)
 		return (INFINITY);
-	half_b = ov_dot_a * d_dot_a
-		- ft_vec_dot(ov, ray->vector) * cos_alpha_sqrd;
+	half_b = ov_dot_a * d_dot_a - ft_vec_dot(ov, ray->vector) * cos_alpha_sqrd;
 	half_b = ft_cone_baskara(sqrdd(d_dot_a) - cos_alpha_sqrd, half_b,
 			sqrdd(ov_dot_a) - sqrdvec(ov) * cos_alpha_sqrd);
 	if (isinf(half_b) || half_b < -EPS)
 		return (INFINITY);
-	d_dot_a = ft_vec_dot(
-			ft_sub_point(ft_ray_at(ray, half_b), cone->vertex), cone->axis);
+	d_dot_a = ft_vec_dot(ft_sub_point(ft_ray_at(ray, half_b), cone->vertex),
+			cone->axis);
 	if (d_dot_a > cone->height || d_dot_a < 0.0)
 		return (INFINITY);
 	return (half_b);
@@ -86,15 +85,18 @@ static double	ft_colision_cone_body(t_ray *restrict ray, t_cone *restrict cone)
  * # Cone Base Colision
  *
  * to understand the calculus, see
- * https://www.notion.so/Intersec-o-Raio-Cone-2febcec584a680c198c4e276cdbd34cd#302bcec584a680408b8ccc576ceb4f4d
+
+	* https://www.notion.so/Intersec-o-Raio-Cone-2febcec584a680c198c4e276cdbd34cd#302bcec584a680408b8ccc576ceb4f4d
  */
-static double	ft_colision_cone_base(t_ray *restrict ray, t_cone *restrict cone)
+static double	ft_colision_cone_base(t_ray *restrict ray,
+		t_cone *restrict cone)
 {
 	double		t;
 	t_vector_3d	bp;
 
 	t = ft_colision_plane_normal(ray, cone->base.point, cone->base.normal);
-	bp = ft_sub_point(ft_point_add_vect(ray->point, ft_vec_mult(ray->vector, t)), cone->base.point);
+	bp = ft_sub_point(ft_point_add_vect(ray->point, ft_vec_mult(ray->vector,
+					t)), cone->base.point);
 	if (ft_vec_dot(bp, bp) <= sqrdd(cone->height * cone->tan_alpha))
 	{
 		if (t < -EPS)
