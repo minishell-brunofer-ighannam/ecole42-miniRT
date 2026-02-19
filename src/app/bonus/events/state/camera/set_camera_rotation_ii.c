@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 08:18:56 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 15:45:30 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/16 11:21:45 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,49 @@
 #include "gestures_bonus.h"
 #include "includes/camera_state_internal_bonus.h"
 
-void	set_camera_rotation_spatial(t_state *self, t_spatial_gesture *gesture)
+void	set_camera_rotation_spatial(t_context *context, t_spatial_gesture *gesture)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_camera_changed_flag(self);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_camera_changed_flag(state);
 	if (gesture->diff.y)
-		self->scene.camera.rotate_x += gesture->diff.y;
+		state->scene.camera.rotate_x += gesture->diff.y;
 	if (gesture->diff.x)
-		self->scene.camera.rotate_y += gesture->diff.x;
+		state->scene.camera.rotate_y += gesture->diff.x;
 	if (gesture->diff.z)
-		self->scene.camera.rotate_z += gesture->diff.z;
-	printf("camera::rotation[%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+		state->scene.camera.rotate_z += gesture->diff.z;
+	printf("camera::rotation[%.0f, %.0f, %.0f]\n", state->scene.camera.rotate_x, state->scene.camera.rotate_y, state->scene.camera.rotate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-void	set_camera_rotation_diag_right(t_state *self)
+void	set_camera_rotation_diag_right(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_camera_changed_flag(self);
-	self->scene.camera.translate_z += CAMERA_ROTATION_INTENSITY;
-	printf("camera::rotation->diagonal_right [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_camera_changed_flag(state);
+	state->scene.camera.translate_z += CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->diagonal_right [%.0f, %.0f, %.0f]\n", state->scene.camera.rotate_x, state->scene.camera.rotate_y, state->scene.camera.rotate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-void	set_camera_rotation_diag_left(t_state *self)
+void	set_camera_rotation_diag_left(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_camera_changed_flag(self);
-	self->scene.camera.translate_z -= CAMERA_ROTATION_INTENSITY;
-	printf("camera::rotation->diagonal_left [%.0f, %.0f, %.0f]\n", self->scene.camera.rotate_x, self->scene.camera.rotate_y, self->scene.camera.rotate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_camera_changed_flag(state);
+	state->scene.camera.translate_z -= CAMERA_ROTATION_INTENSITY;
+	printf("camera::rotation->diagonal_left [%.0f, %.0f, %.0f]\n", state->scene.camera.rotate_x, state->scene.camera.rotate_y, state->scene.camera.rotate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }

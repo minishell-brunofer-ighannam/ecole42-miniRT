@@ -17,7 +17,10 @@
 # include <stdbool.h>
 # include "math_rt.h"
 
-typedef struct s_context					t_context;;
+# include "../camera/includes/camera_state_bonus.h"
+# include "../polyhedron/includes/state_polyhedron_bonus.h"
+
+typedef struct s_context					t_context;
 typedef struct s_polyhedron					t_polyhedron;
 typedef struct s_parallel					t_parallel;
 typedef struct s_spatial_gesture			t_spatial_gesture;
@@ -108,35 +111,31 @@ struct s_window_state
 typedef struct s_set_mov_discrete			t_set_mov_discrete;
 struct s_set_mov_discrete
 {
-	void	(*up)(t_state *self);
-	void	(*down)(t_state *self);
-	void	(*front)(t_state *self);
-	void	(*back)(t_state *self);
-	void	(*left)(t_state *self);
-	void	(*right)(t_state *self);
+	void	(*up)(t_context *context);
+	void	(*down)(t_context *context);
+	void	(*front)(t_context *context);
+	void	(*back)(t_context *context);
+	void	(*left)(t_context *context);
+	void	(*right)(t_context *context);
 };
 
 typedef struct s_set_movement				t_set_movement;
 struct s_set_movement
 {
 	t_set_mov_discrete	discrete;
-	void				(*spatial)(t_state *self, t_spatial_gesture *gesture);
+	void				(*spatial)(t_context *context, t_spatial_gesture *gesture);
 };
 
 struct s_set_state
 {
-	void			(*window)(t_state *self, int width, int height);
-	void			(*keys)(t_state *self, int key, bool value);
+	void			(*window)(t_context *context, int width, int height);
+	void			(*keys)(t_context *context, int key, bool value);
 	t_set_movement	camera_translation;
 	t_set_movement	camera_rotation;
-	void			(*select_polyhedron)(
-			t_state *self, t_context *context, int x, int y);
-	void			(*unselect_polyhedron)(t_state *self);
+	void			(*select_polyhedron)(t_context *context, int x, int y);
+	void			(*unselect_polyhedron)(t_context *context);
 	t_set_movement	polyhedron_translation;
 	t_set_movement	polyhedron_rotation;
-	void			(*polyhedron_material)(t_state *state, int *prop, bool add);
-	void			(*polyhedron_component)(t_state *state,
-			t_polyhedron_state_component *component, bool add);
 };
 
 struct s_state
@@ -148,7 +147,7 @@ struct s_state
 	t_window_state	window;
 	t_set_state		set;
 	t_parallel		*parallel;
-	void			*(*destroy)(t_state *self);
+	void			*(*destroy)(t_context	*context);
 };
 
 t_state	ft_new_state(void);

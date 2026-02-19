@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 10:59:44 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 21:38:33 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 23:02:56 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_set_cylinder_state_components(
 static void	ft_set_sphere_state_components(
 				t_polyhedron_state_component **components, int *n_components);
 
-void	ft_select_polyhedron(t_state *self, t_context *context, int x, int y)
+void	ft_select_polyhedron(t_context *context, int x, int y)
 {
 	t_polyhedron_state				*state_poly;
 	t_colision						col;
@@ -31,57 +31,70 @@ void	ft_select_polyhedron(t_state *self, t_context *context, int x, int y)
 	t_polyhedron_state_component	**comps;
 	int								*n_comps;
 
-	if (!self || !context)
-		return (NULL);
-	scene = &context->scene;
+	if (!context || x < 0 || y < 0)
+		return ;
+	scene = context->scene;
 	col = ft_trace_ray(scene, &context->mlx, x, y);
-	comps = &state_poly->components;
-	n_comps = &state_poly->n_components;
 	if (!col.colision)
 		return ;
-	state_poly = &self->scene.polyhedron;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
+	state_poly = &context->events.state.scene.polyhedron;
+	comps = &state_poly->components;
+	n_comps = &state_poly->n_components;
+	pthread_mutex_lock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
+	printf("selecting on [%d, %d]\n", x, y);
+	if (state_poly->selected)
+	{
+		pthread_mutex_unlock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
+		ft_unselect_polyhedron(context);
+	}
 	state_poly->selected = ft_find_polyhedron(scene, col.polyhedron.id);
+	state_poly->has_changes = true;
 	if (state_poly->selected->type == CONE)
 		ft_set_cone_state_components(comps, n_comps);
 	else if (state_poly->selected->type == CYLINDER)
 		ft_set_cylinder_state_components(comps, n_comps);
-	else
+	else if (state_poly->selected->type == SPHERE)
 		ft_set_sphere_state_components(comps, n_comps);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	printf("selected [%s]: %d\n", state_poly->selected->type == PLANE ? "plane" : state_poly->selected->type == SPHERE ? "sphere" : state_poly->selected->type == CYLINDER ? "cylinder" : "cone", state_poly->selected->id);
+	if (state_poly->n_components)
+		printf("1st component = {'%s': %f}\n", state_poly->components[0].name, state_poly->components[0].value);
+	pthread_mutex_unlock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
 }
 
-void	ft_unselect_polyhedron(t_state *self)
+void	ft_unselect_polyhedron(t_context *context)
 {
 	int					i;
 	t_polyhedron_state	*polyhedron;
+	t_state				*state;
 
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	if (!self->scene.polyhedron.components)
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	if (!state->scene.polyhedron.selected)
 	{
-		pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+		pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 		return ;
 	}
-	polyhedron = &self->scene.polyhedron;
+	set_polyhedron_changed_flag(state);
+	polyhedron = &state->scene.polyhedron;
+	polyhedron->selected = NULL;
 	i = -1;
-	while (++i < polyhedron->n_components)
+	while (state->scene.polyhedron.components && ++i < polyhedron->n_components)
 		free(polyhedron->components[i].name);
 	free(polyhedron->components);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	polyhedron->components = NULL;
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
 static void	ft_set_cone_state_components(
 				t_polyhedron_state_component **components, int *n_components)
 {
-	*n_components = 3;
+	*n_components = 2;
 	(*components) = ft_calloc(*n_components,
 			sizeof(t_polyhedron_state_component));
-	(*components)[0].name = ft_strdup("Vertex");
-	(*components)[0].variation_size = 1.0;
-	(*components)[1].name = ft_strdup("Apex Angle");
+	(*components)[0].name = ft_strdup("Apex Angle");
+	(*components)[0].variation_size = 0.5;
+	(*components)[1].name = ft_strdup("Height");
 	(*components)[1].variation_size = 1.0;
-	(*components)[2].name = ft_strdup("Height");
-	(*components)[2].variation_size = 1.0;
 }
 
 static void	ft_set_cylinder_state_components(
@@ -103,5 +116,5 @@ static void	ft_set_sphere_state_components(
 	(*components) = ft_calloc(*n_components,
 			sizeof(t_polyhedron_state_component));
 	(*components)[0].name = ft_strdup("Radius");
-	(*components)[0].variation_size = 1.0;
+	(*components)[0].variation_size = 0.05;
 }

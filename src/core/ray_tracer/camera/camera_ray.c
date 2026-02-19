@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/15 11:31:31 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/19 00:35:56 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "light.h"
 
 static bool		color_pixel(t_context *context, int x, int y, int color);
-int				ft_vector_to_int_color(t_vector_3d color);
 t_vector_3d		ft_reflexion(t_context *context, int depth, t_ray ray);
 
 void	*ft_camera_ray_loop(t_context *context, int start, int end)

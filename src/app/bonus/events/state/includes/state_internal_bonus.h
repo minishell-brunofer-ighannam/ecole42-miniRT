@@ -14,8 +14,6 @@
 # define STATE_INTERNAL_BONUS_H
 
 # include "state_bonus.h"
-# include "../camera/includes/camera_state_bonus.h"
-# include "../polyhedron/includes/state_polyhedron_bonus.h"
 
 t_set_state	ft_new_set_state(void);
 

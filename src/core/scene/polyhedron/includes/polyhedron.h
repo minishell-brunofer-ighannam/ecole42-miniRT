@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/15 16:15:52 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 22:51:09 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_ray			t_ray;
 typedef struct s_colision		t_colision;
+typedef struct s_scene			t_scene;
 
 typedef struct s_polyhedron		t_polyhedron;
 typedef struct s_texture t_texture;
@@ -114,10 +115,10 @@ struct							s_cylinder
 	t_point_3d	center;
 	t_vector_3d	axis;
 	double		radius;
-	double radius_sqrd;
+	double		radius_sqrd;
 	double		height;
-	t_plane	cap_top;
-	t_plane cap_bot;
+	t_plane		cap_top;
+	t_plane		cap_bot;
 };
 
 struct							s_cone
@@ -125,7 +126,7 @@ struct							s_cone
 	t_plane		base;
 	t_point_3d	vertex;
 	t_vector_3d	axis;
-	double radius;
+	double		radius;
 	double		height;
 	double		half_apex_angle;
 	double		cos_alpha;
@@ -134,6 +135,7 @@ struct							s_cone
 };
 
 t_polyhedron	*ft_find_polyhedron(t_scene *scene, int id);
+void			ft_cone_recalculate(t_cone *cone);
 void			ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
 
 #endif

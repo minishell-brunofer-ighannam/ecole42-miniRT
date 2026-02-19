@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 21:31:02 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 19:11:46 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	main(int argc, char **argv)
 
 	parallel = ft_parallelize(&context, ft_camera_ray_loop);
 	mlx->loop(*mlx);
+	events->state.destroy(&context);
 	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
-	events->state.destroy(events->state);
 	return (0);
 }

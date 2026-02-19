@@ -28,59 +28,67 @@ t_set_movement	ft_new_polyhedron_rotation(void)
 	return (mov);
 }
 
-void	set_polyhedron_rotation_up(t_state *self)
+void	set_polyhedron_rotation_up(t_context *context)
 {
 	pthread_mutex_t	*mutex_set_state;
+	t_state			*state;
 
-	if (!self)
+	if (!context)
 		return ;
-	mutex_set_state = &self->parallel->flow_ctrl->mutex_set_state;
+	state = &context->events.state;
+	mutex_set_state = &state->parallel->flow_ctrl->mutex_set_state;
 	pthread_mutex_lock(mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.rotate_x += POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->up [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.rotate_x, self->scene.polyhedron.rotate_y, self->scene.polyhedron.rotate_z);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.rotate_x += POLYHEDRON_ROTATION_INTENSITY;
+	printf("polyhedron::rotation->up [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
-void	set_polyhedron_rotation_down(t_state *self)
+void	set_polyhedron_rotation_down(t_context *context)
 {
 	pthread_mutex_t	*mutex_set_state;
+	t_state			*state;
 
-	if (!self)
+	if (!context)
 		return ;
-	mutex_set_state = &self->parallel->flow_ctrl->mutex_set_state;
+	state = &context->events.state;
+	mutex_set_state = &state->parallel->flow_ctrl->mutex_set_state;
 	pthread_mutex_lock(mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.rotate_x -= POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->down [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.rotate_x, self->scene.polyhedron.rotate_y, self->scene.polyhedron.rotate_z);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.rotate_x -= POLYHEDRON_ROTATION_INTENSITY;
+	printf("polyhedron::rotation->down [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
-void	set_polyhedron_rotation_left(t_state *self)
+void	set_polyhedron_rotation_left(t_context *context)
 {
 	pthread_mutex_t	*mutex_set_state;
+	t_state			*state;
 
-	if (!self)
+	if (!context)
 		return ;
-	mutex_set_state = &self->parallel->flow_ctrl->mutex_set_state;
+	state = &context->events.state;
+	mutex_set_state = &state->parallel->flow_ctrl->mutex_set_state;
 	pthread_mutex_lock(mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.rotate_y -= POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->left [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.rotate_x, self->scene.polyhedron.rotate_y, self->scene.polyhedron.rotate_z);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.rotate_y -= POLYHEDRON_ROTATION_INTENSITY;
+	printf("polyhedron::rotation->left [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
-void	set_polyhedron_rotation_right(t_state *self)
+void	set_polyhedron_rotation_right(t_context *context)
 {
 	pthread_mutex_t	*mutex_set_state;
+	t_state			*state;
 
-	if (!self)
+	if (!context)
 		return ;
-	mutex_set_state = &self->parallel->flow_ctrl->mutex_set_state;
+	state = &context->events.state;
+	mutex_set_state = &state->parallel->flow_ctrl->mutex_set_state;
 	pthread_mutex_lock(mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.rotate_y += POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->right [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.rotate_x, self->scene.polyhedron.rotate_y, self->scene.polyhedron.rotate_z);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.rotate_y += POLYHEDRON_ROTATION_INTENSITY;
+	printf("polyhedron::rotation->right [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 
 }

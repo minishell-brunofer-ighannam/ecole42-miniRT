@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/15 16:03:24 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 22:50:53 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
 	normal = ft_vec_sub(
 			ft_vec_mult(vp, sqrdd(co->cos_alpha)), axis_projection);
 	col->normal = ft_vec_norm(normal);
+}
+
+void	ft_cone_recalculate(t_cone *cone)
+{
+	double	scalar;
+
+	scalar = M_PI / 180;
+	cone->cos_alpha = cos(cone->half_apex_angle * scalar);
+	cone->sin_alpha = sin(cone->half_apex_angle * scalar);
+	cone->tan_alpha = tan(cone->half_apex_angle * scalar);
+	cone->base.normal = cone->axis;
+	cone->base.point = ft_point_add_vect(cone->vertex,
+			ft_vec_mult(cone->axis, cone->height));
 }

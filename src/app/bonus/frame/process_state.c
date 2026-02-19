@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/14 18:00:22 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 20:26:47 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ bool	ft_process_state(t_context *context)
 	state = &context->events.state;
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (state->scene.camera.has_changes)
-	{
 		ft_handle_camera(&context->scene->camera, &state->scene.camera);
-	}
+	if (state->scene.polyhedron.has_changes)
+		ft_handle_polyhedron(&state->scene.polyhedron);
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_render_allowed);
 }

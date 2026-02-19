@@ -6,13 +6,13 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 21:38:46 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 19:10:05 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/state_internal_bonus.h"
 
-static void	*ft_destroy_state(t_state	*state);
+static void	*ft_destroy_state(t_context	*context);
 
 t_state	ft_new_state(void)
 {
@@ -24,8 +24,8 @@ t_state	ft_new_state(void)
 	return (state);
 }
 
-static void	*ft_destroy_state(t_state	*state)
+static void	*ft_destroy_state(t_context	*context)
 {
-	ft_unselect_polyhedron(state);
+	ft_unselect_polyhedron(context);
 	return (NULL);
 }

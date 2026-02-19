@@ -62,12 +62,12 @@ src/core/parser/parser_form_scene_iii.c src/core/parser/parser_verify_i.c src/co
 src/core/parser/parser_verify_iv.c src/core/parser/parser.c
 
 # **** SCENE ****
-SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/camera/camera_init.c
+SCENE_FILES = src/core/scene/scene.c src/core/scene/polyhedron/polyhedron.c src/core/scene/polyhedron/find_polyhedron.c src/core/scene/camera/camera_init.c
 
 # **** RAY_TRACER ****
 RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision/colision.c src/core/ray_tracer/colision/colision_pl.c \
 src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
-src/core/ray_tracer/colision/colision_co.c \
+src/core/ray_tracer/colision/colision_co.c src/core/ray_tracer/camera/trace_ray.c \
 src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c src/core/ray_tracer/pattern/pattern.c src/core/ray_tracer/pattern/checker.c
 
 
@@ -82,14 +82,19 @@ B_EV_DIR= src/app/bonus/events
 BONUS_EVENTS_FILES = $(B_EV_DIR)/events_bonus.c $(B_EV_DIR)/callbacks/keyboard_callbacks_bonus.c \
 $(B_EV_DIR)/callbacks/mouse_callbacks_bonus.c $(B_EV_DIR)/callbacks/window_callbacks_bonus.c \
 $(B_EV_DIR)/callbacks/callbacks.c $(B_EV_DIR)/gestures/gestures.c $(B_EV_DIR)/gestures/mouse_gestures.c \
-$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/state/camera/set_camera_rotation_i.c $(B_EV_DIR)/state/camera/set_camera_rotation_ii.c \
+$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/gestures/number_gestures.c $(B_EV_DIR)/gestures/rgb_gestures.c \
+$(B_EV_DIR)/gestures/select_gestures.c  $(B_EV_DIR)/state/camera/set_camera.c $(B_EV_DIR)/state/camera/set_camera_rotation_i.c $(B_EV_DIR)/state/camera/set_camera_rotation_ii.c \
 $(B_EV_DIR)/state/camera/set_camera_translation_i.c $(B_EV_DIR)/state/camera/set_camera_translation_ii.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_i.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_ii.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_select.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_i.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_ii.c $(B_EV_DIR)/state/polyhedron/set_polyhedron.c \
 $(B_EV_DIR)/state/set_state_bonus.c $(B_EV_DIR)/state/state_bonus.c
 
 B_FRAME_DIR = src/app/bonus/frame
 BONUS_FRAME_FILES = $(B_FRAME_DIR)/frame.c $(B_FRAME_DIR)/draw_forms.c \
 $(B_FRAME_DIR)/process_state.c $(B_FRAME_DIR)/show_frame_info.c $(B_FRAME_DIR)/process_camera.c \
-$(B_FRAME_DIR)/process_camera_translation.c $(B_FRAME_DIR)/process_camera_rotation.c
+$(B_FRAME_DIR)/process_camera_translation.c $(B_FRAME_DIR)/process_camera_rotation.c $(B_FRAME_DIR)/process_polyhedron.c \
+$(B_FRAME_DIR)/show_selected_polyedron_ui.c
 
 B_THREAD_DIR = src/app/bonus/threads
 BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i.c $(B_THREAD_DIR)/context_callbacks_ii.c \

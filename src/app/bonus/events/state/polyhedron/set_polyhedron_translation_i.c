@@ -28,46 +28,58 @@ t_set_movement	ft_new_polyhedron_translation(void)
 	return (mov);
 }
 
-void	set_polyhedron_translation_up(t_state *self)
+void	set_polyhedron_translation_up(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.translate_y += POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->up [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.translate_x, self->scene.polyhedron.translate_y, self->scene.polyhedron.translate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.translate_y += POLYHEDRON_TRANSLATION_INTENSITY;
+	printf("polyhedron::translation->up [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-void	set_polyhedron_translation_down(t_state *self)
+void	set_polyhedron_translation_down(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.translate_y -= POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->down [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.translate_x, self->scene.polyhedron.translate_y, self->scene.polyhedron.translate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.translate_y -= POLYHEDRON_TRANSLATION_INTENSITY;
+	printf("polyhedron::translation->down [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-void	set_polyhedron_translation_left(t_state *self)
+void	set_polyhedron_translation_left(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.translate_x -= POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->left [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.translate_x, self->scene.polyhedron.translate_y, self->scene.polyhedron.translate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.translate_x -= POLYHEDRON_TRANSLATION_INTENSITY;
+	printf("polyhedron::translation->left [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-void	set_polyhedron_translation_right(t_state *self)
+void	set_polyhedron_translation_right(t_context *context)
 {
-	if (!self)
+	t_state	*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	set_polyhedron_changed_flag(self);
-	self->scene.polyhedron.translate_x += POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->right [%.0f, %.0f, %.0f]\n", self->scene.polyhedron.translate_x, self->scene.polyhedron.translate_y, self->scene.polyhedron.translate_z);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	set_polyhedron_changed_flag(state);
+	state->scene.polyhedron.translate_x += POLYHEDRON_TRANSLATION_INTENSITY;
+	printf("polyhedron::translation->right [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }

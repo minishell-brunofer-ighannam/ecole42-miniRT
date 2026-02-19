@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trace_ray.c                                        :+:      :+:    :+:   */
+/*   set_camera.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/15 11:40:54 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 18:30:39 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/16 11:27:24 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/16 11:27:37 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera_ray.h"
-#include "camera_ray_internal.h"
-#include "light.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
+#include "includes/camera_state_internal_bonus.h"
 
-t_colision	ft_trace_ray(t_scene *scene, t_mlx *mlx, int x, int y)
+void	set_camera_changed_flag(t_state *self)
 {
-	t_ray	ray;
-
-	ray = ft_camera_ray(mlx, &scene->camera, x, y);
-	return (ft_closest_colision(scene, &ray));
+	if (!self->scene.camera.has_changes)
+	{
+		if (!self->scene.has_changes)
+		{
+			self->has_changes = true;
+			self->scene.has_changes = true;
+		}
+		else if (!self->has_changes)
+			self->has_changes = true;
+		self->scene.camera.has_changes = true;
+	}
 }

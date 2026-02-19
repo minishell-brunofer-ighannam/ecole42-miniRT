@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 20:25:29 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 20:46:17 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/18 20:42:26 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "gestures_bonus.h"
 #include "includes/state_polyhedron_internal_bonus.h"
 
-void	ft_polyhedron_material(t_state *state, int *prop, bool add)
+void	ft_polyhedron_material(t_state *state, double *prop, bool add)
 {
 	pthread_mutex_t		*mutex_set_state;
 
@@ -27,10 +27,11 @@ void	ft_polyhedron_material(t_state *state, int *prop, bool add)
 		pthread_mutex_unlock(mutex_set_state);
 		return ;
 	}
+	set_polyhedron_changed_flag(state);
 	if (add)
-		*prop += 1;
+		*prop += 0.1;
 	else
-		*prop -= 1;
+		*prop -= 0.1;
 	pthread_mutex_unlock(mutex_set_state);
 }
 
@@ -46,9 +47,25 @@ void	ft_polyhedron_component(t_state *state,
 		pthread_mutex_unlock(mutex_set_state);
 		return ;
 	}
+	set_polyhedron_changed_flag(state);
 	if (add)
 		component->value += component->variation_size;
 	else
 		component->value -= component->variation_size;
 	pthread_mutex_unlock(mutex_set_state);
+}
+
+void	set_polyhedron_changed_flag(t_state *self)
+{
+	if (!self->scene.polyhedron.has_changes)
+	{
+		if (!self->scene.has_changes)
+		{
+			self->has_changes = true;
+			self->scene.has_changes = true;
+		}
+		else if (!self->has_changes)
+			self->has_changes = true;
+		self->scene.polyhedron.has_changes = true;
+	}
 }
