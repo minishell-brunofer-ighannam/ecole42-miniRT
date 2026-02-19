@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 23:07:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/19 00:31:19 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/19 13:18:56 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_sow_selected_polyedron_ui(t_context *context)
 
 	parallel = context->parallel;
 	state = &context->events.state;
+
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (state->window.height > 300 && state->window.width > 300
 		&& state->scene.polyhedron.selected)

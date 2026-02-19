@@ -45,8 +45,8 @@ static void	ft_render_frame(t_context *context)
 	{
 		context->mlx.display_image(context->mlx);
 		ft_process_state(context);
-		ft_show_frame_info(context);
 		ft_sow_selected_polyedron_ui(context);
+		ft_show_frame_info(context);
 		context->callbacks.set_frame_ready(context, false);
 	}
 }

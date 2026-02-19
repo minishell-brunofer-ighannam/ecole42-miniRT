@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:50:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 12:57:36 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/19 13:10:19 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static unsigned int	***ft_mlx_create_pixel_mapper(t_mlx self)
 	int				width;
 	int				height;
 
+	printf("recalculating frame_buffer...\n");
 	mapper = ft_calloc(self.window.width + 1, sizeof(char **));
 	if (!mapper)
 		return (NULL);
