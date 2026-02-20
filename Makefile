@@ -41,7 +41,7 @@ INCLUDES = \
 	-I lib/minilibx
 CC = cc
 CFLAGS := -Wall -Werror -Wextra -O3 -march=native -flto -funroll-loops $(INCLUDES)
-CFLAGS_DEBUG := -Wall -Werror -Wextra -g3 $(INCLUDES)
+CFLAGS_DEBUG := -Wall -Werror -Wextra -g $(INCLUDES)
 CFLAGS_USED := $(CFLAGS)
 
 # ============== SRC FILES =================

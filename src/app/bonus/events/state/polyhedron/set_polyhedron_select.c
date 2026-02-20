@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_polyhedron_select.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 10:59:44 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 23:02:56 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/20 15:25:48 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_select_polyhedron(t_context *context, int x, int y)
 	col = ft_trace_ray(scene, &context->mlx, x, y);
 	if (!col.colision)
 		return ;
+	set_polyhedron_changed_flag(&context->events.state);
 	state_poly = &context->events.state.scene.polyhedron;
 	comps = &state_poly->components;
 	n_comps = &state_poly->n_components;
@@ -46,18 +47,20 @@ void	ft_select_polyhedron(t_context *context, int x, int y)
 	{
 		pthread_mutex_unlock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
 		ft_unselect_polyhedron(context);
+		pthread_mutex_lock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
 	}
 	state_poly->selected = ft_find_polyhedron(scene, col.polyhedron.id);
-	state_poly->has_changes = true;
 	if (state_poly->selected->type == CONE)
 		ft_set_cone_state_components(comps, n_comps);
 	else if (state_poly->selected->type == CYLINDER)
 		ft_set_cylinder_state_components(comps, n_comps);
 	else if (state_poly->selected->type == SPHERE)
 		ft_set_sphere_state_components(comps, n_comps);
+	else
+		state_poly->n_components = 0;
 	printf("selected [%s]: %d\n", state_poly->selected->type == PLANE ? "plane" : state_poly->selected->type == SPHERE ? "sphere" : state_poly->selected->type == CYLINDER ? "cylinder" : "cone", state_poly->selected->id);
-	if (state_poly->n_components)
-		printf("1st component = {'%s': %f}\n", state_poly->components[0].name, state_poly->components[0].value);
+	// if (state_poly->n_components)
+	// 	printf("1st component = {'%s': %f}\n", state_poly->components[0].name, state_poly->components[0].value);
 	pthread_mutex_unlock(&context->events.state.parallel->flow_ctrl->mutex_set_state);
 }
 
@@ -78,10 +81,13 @@ void	ft_unselect_polyhedron(t_context *context)
 	polyhedron = &state->scene.polyhedron;
 	polyhedron->selected = NULL;
 	i = -1;
-	while (state->scene.polyhedron.components && ++i < polyhedron->n_components)
-		free(polyhedron->components[i].name);
-	free(polyhedron->components);
-	polyhedron->components = NULL;
+	if (state->scene.polyhedron.components)
+	{
+		while (++i < polyhedron->n_components)
+			free(polyhedron->components[i].name);
+		free(polyhedron->components);
+		polyhedron->components = NULL;
+	}
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 

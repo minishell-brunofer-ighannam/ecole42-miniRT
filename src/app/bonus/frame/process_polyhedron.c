@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_polyhedron.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:18:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 23:03:20 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/20 15:04:58 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron, t_
 	sphere = polyhedron->specs;
 	cylinder = polyhedron->specs;
 	cone = polyhedron->specs;
+	printf("ft_handle_components::n_components: %d\n", state_polyhedron->n_components);
 	if (state_polyhedron->n_components)
 	{
 		if (polyhedron->type == SPHERE)
@@ -86,9 +87,9 @@ static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron, t_
 			cylinder->height += state_polyhedron->components[1].value;
 		else if (polyhedron->type == CONE)
 			cone->height += state_polyhedron->components[1].value;
+		state_polyhedron->components[0].value = 0;
+		state_polyhedron->components[1].value = 0;
 	}
-	state_polyhedron->components[0].value = 0;
-	state_polyhedron->components[1].value = 0;
 	if (polyhedron->type == CONE)
 		ft_cone_recalculate(cone);
 }

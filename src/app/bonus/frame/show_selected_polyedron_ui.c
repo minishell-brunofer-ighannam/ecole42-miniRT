@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_selected_polyedron_ui.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 23:07:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/19 13:18:56 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/20 13:58:52 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
