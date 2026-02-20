@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_polyhedron_select.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 10:59:44 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/20 15:25:48 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/20 15:55:20 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_select_polyhedron(t_context *context, int x, int y)
 	if (!context || x < 0 || y < 0)
 		return ;
 	scene = context->scene;
-	col = ft_trace_ray(scene, &context->mlx, x, y);
+	col = ft_trace_ray(context, x, y);
 	if (!col.colision)
 		return ;
 	set_polyhedron_changed_flag(&context->events.state);

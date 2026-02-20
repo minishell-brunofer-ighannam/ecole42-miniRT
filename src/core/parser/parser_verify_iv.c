@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:11:24 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 15:43:11 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/19 09:05:44 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,28 @@ int	ft_count_items_scene(t_linkedlist_node *node, char *type)
 			count++;
 		node = node->next;
 	}
-	printf("%s : %d\n", type, count);
 	return (count);
 }
 
-bool	ft_verify_duplicated_patterns(t_linkedlist *input_list)
+bool	ft_verify_duplicated_patterns(t_linkedlist *input_list,
+		t_linkedlist_node *node_one, t_linkedlist_node *node_two)
 {
-	t_linkedlist_node	*node_one;
-	t_linkedlist_node	*node_two;
+	t_parser_node	*p_node_one;
+	t_parser_node	*p_node_two;
 
 	if (!input_list || !input_list->first || !input_list->first->next)
 		return (false);
-	node_one = input_list->first;
-	node_two = input_list->first->next;
 	while (node_one && node_two)
 	{
 		while (node_two)
 		{
-			if (!ft_strcmp(((t_parser_node *)node_one->content)->splited_line[0],
-					"p")
-				&& !ft_strcmp(((t_parser_node *)node_two->content)->splited_line[0],
-					"p"))
+			p_node_one = (t_parser_node *)node_one->content;
+			p_node_two = (t_parser_node *)node_two->content;
+			if (!ft_strcmp(p_node_one->splited_line[0], "p")
+				&& !ft_strcmp(p_node_two->splited_line[0], "p"))
 			{
-				if (!ft_strcmp(((t_parser_node *)node_one->content)->pattern_name,
-						((t_parser_node *)node_two->content)->pattern_name))
+				if (!ft_strcmp(p_node_one->pattern_name,
+						p_node_two->pattern_name))
 					return (false);
 			}
 			node_two = node_two->next;

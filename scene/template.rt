@@ -1,92 +1,121 @@
 ############################################################
-# CAMERA (REQUIRED — exactly one)
-# Format:
-# C x,y,z   nx,ny,nz   fov
-############################################################
-C 0,0,0   0,0,-1   60
-
-############################################################
-# AMBIENT LIGHT (optional)
-# Format:
-# A ratio   R,G,B
-############################################################
-A 0.2   255,255,255
-
-############################################################
-# LIGHTS (optional)
-# Only ONE uppercase 'L' allowed
-# Additional lights must use lowercase 'l'
+# 🧩 miniRT Scene Template (Visual & Space-Separated)
+# Replace values to build your scene
 #
-# Format:
-# L x,y,z   brightness   [R,G,B]
+# ⚠️ IMPORTANT:
+# • Headers use tabs for visual alignment
+# • DATA LINES use SPACES ONLY (no tabs)
 ############################################################
-L 10,10,10   0.8   255,255,255
-l -10,5,5    0.4   255,200,200
 
 ############################################################
-# PATTERNS (optional — unique names required)
-# Format:
-# p name   CHECKER   R1,G1,B1   R2,G2,B2   tile
-############################################################
-p checker_floor   CHECKER   255,255,255   0,0,0   10
-p checker_red     CHECKER   255,0,0       0,0,0   8
-
-############################################################
-# SPHERE (optional — multiple allowed)
+# 🎨 BACKGROUND (optional)
 #
-# Base format:
-# sp center   diameter   R,G,B
+# identifier          color
+#     B              <R,G,B>
 #
-# Optional chained parameters (must follow order):
-# ka kd ks n kr pattern tex_color tex_normal
+# Example:
+# B 30,35,45
 ############################################################
 
-# simple sphere
-sp 0,0,-5   2   255,0,0
-
-# full material sphere
-sp 2,0,-6   2   200,200,255   \
-   0.1 0.7 0.5 32 0.3         \
-   checker_red                 \
-   ./textures/earth.xpm        \
-   ./textures/earth_normal.xpm
-
 ############################################################
-# PLANE
-# Format:
-# pl point   normal   R,G,B   [material...]
+# 🎥 CAMERA (REQUIRED — exactly one)
+#
+#      position               orientation         fov
+# C <cam_x,cam_y,cam_z>  <dir_x,dir_y,dir_z>     <fov>
+#
+# Example:
+# C 0,0,0 0,0,-1 60
 ############################################################
 
-# simple plane
-pl 0,-2,0   0,1,0   200,200,200
-
-# checker plane
-pl 0,-2,0   0,1,0   255,255,255 \
-   0.1 0.6 0.2 16 0.0           \
-   checker_floor                \
-   ./textures/floor.xpm         \
-   ./textures/floor_normal.xpm
-
 ############################################################
-# CYLINDER
-# Format:
-# cy center axis diameter height color [material...]
+# 🌫️ AMBIENT LIGHT (optional)
+#
+#        ratio            color
+# A <ambient_ratio>      <R,G,B>
+#
+# Example:
+# A 0.2 255,255,255
 ############################################################
 
-cy -3,0,-8   0,1,0   1.5   4   0,255,0 \
-   0.1 0.7 0.3 32 0.2                   \
-   checker_red                          \
-   ./textures/metal.xpm                 \
-   ./textures/metal_normal.xpm
-
 ############################################################
-# CONE
-# Format:
-# cn apex axis angle height color [material...]
+# 💡 MAIN LIGHT (only ONE uppercase L allowed)
+#
+#           position             brightness           color
+# L <light_x,light_y,light_z>   <brightness>         <R,G,B>
 ############################################################
 
-cn 3,0,-8   0,1,0   20   4   255,200,0 \
-   0.1 0.7 0.5 64 0.4                   \
-   checker_red                          \
-   ./textures/cone.xpm                  \
-   ./textures/cone_normal.xpm
+############################################################
+# 💡 EXTRA LIGHTS (use lowercase l)
+#
+#           position              brightness           color
+# l <light_x,light_y,light_z>    <brightness>          <R,G,B>
+############################################################
+
+############################################################
+# 🎨 PATTERN (unique names required)
+# Currently supported: CHECKER
+#
+#        name           type         color1      color2        tile
+# p <pattern_name>     CHECKER     <R1,G1,B1>  <R2,G2,B2>     <tile>
+#
+# Example:
+# p checker_floor CHECKER 255,255,255 0,0,0 10
+############################################################
+
+############################################################
+# 🔴 SPHERE (multiple allowed)
+#
+# BASIC:
+#                center           diameter   color
+# sp <center_x,center_y,center_z> <diameter> <R,G,B>
+#
+# FULL MATERIAL CHAIN (strict order):
+#                                                      ka  kd   ks   n   kr     pattern        tex_color           tex_normal
+# sp <center_x,center_y,center_z> <diameter> <R,G,B>  <ka> <kd> <ks> <n> <kr> <pattern_name> <texture_color.xpm> <texture_normal.xpm>
+############################################################
+
+############################################################
+# 🟦 PLANE
+#
+# BASIC:
+#              point                 normal            color
+# pl <point_x,point_y,point_z> <norm_x,norm_y,norm_z> <R,G,B>
+#
+# FULL:
+# pl <point_x,point_y,point_z> <norm_x,norm_y,norm_z> <R,G,B>  <ka> <kd> <ks> <n> <kr> <pattern_name> <texture_color.xpm> <texture_normal.xpm>
+############################################################
+
+############################################################
+# 🟩 CYLINDER
+#
+# BASIC:
+#               center                    axis            diameter   height   color
+# cy <center_x,center_y,center_z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>
+#
+# FULL:
+# cy <center_x,center_y,center_z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>  <ka> <kd> <ks> <n> <kr> <pattern_name> <texture_color.xpm> <texture_normal.xpm>
+############################################################
+
+############################################################
+# 🔺 CONE
+#
+# BASIC:
+#             apex                  axis              angle     height   color
+# cn <apex_x,apex_y,apex_z> <axis_x,axis_y,axis_z> <angle_deg> <height> <R,G,B>
+#
+# FULL:
+# cn <apex_x,apex_y,apex_z> <axis_x,axis_y,axis_z> <angle_deg> <height> <R,G,B>  <ka> <kd> <ks> <n> <kr> <pattern_name> <texture_color.xpm> <texture_normal.xpm>
+############################################################
+
+############################################################
+# ✅ QUICK RULES
+############################################################
+# • Exactly ONE camera
+# • Only one uppercase L
+# • Orientation vectors must be normalized
+# • Brightness ∈ [0.0, 1.0]
+# • Colors ∈ [0–255]
+# • Material chain must NOT skip order
+# • Pattern names must be unique
+# • Missing textures/patterns → warning only
+############################################################

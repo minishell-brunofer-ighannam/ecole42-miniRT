@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_camera_translation.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 18:08:51 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/14 18:33:19 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:58:45 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_process_camera_translation(
 	origin->x += (forward.x * state_cam->translate_z);
 	origin->y += (forward.y * state_cam->translate_z);
 	origin->z += (forward.z * state_cam->translate_z);
+	printf("origin(%f, %f, %f) = %f \n", origin->x, origin->y, origin->z, sqrt(origin->x * origin->x + origin->y * origin->y + origin->z + origin->z));
 	if (ft_is_x_inverse(forward))
 		origin->x -= state_cam->translate_x;
 	else

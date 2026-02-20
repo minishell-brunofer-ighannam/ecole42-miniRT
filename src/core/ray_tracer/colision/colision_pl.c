@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   colision_pl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:16:51 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
+#include "colision_internal.h"
 
-void	ft_colision_pl(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col)
+void	ft_colision_pl(t_polyhedron *restrict polyhedron, t_ray *restrict ray,
+		t_colision *restrict col)
 {
-	t_plane	*restrict pl;
+	t_plane	*restrict	pl;
 
 	pl = polyhedron->specs;
 	col->t = ft_colision_plane_normal(ray, pl->point, pl->normal);
 }
 
-double	ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point, t_vector_3d normal)
+double	ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point,
+		t_vector_3d normal)
 {
 	t_vector_3d	oc;
 	double		denom;
@@ -32,7 +35,6 @@ double	ft_colision_plane_normal(t_ray *restrict ray, t_point_3d point, t_vector_
 	oc = ft_sub_point(point, ray->point);
 	t = ft_vec_dot(oc, normal) / denom;
 	if (t > EPS)
-		return t;
+		return (t);
 	return (INFINITY);
-
 }

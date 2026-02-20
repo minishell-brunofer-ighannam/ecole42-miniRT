@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vector_3d_ops_ii.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 05:17:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/14 15:05:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/18 17:46:30 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_rt_internal.h"
 #include "math_rt.h"
+#include "math_rt_internal.h"
 
 t_vector_3d	ft_vec_norm(t_vector_3d self)
 {

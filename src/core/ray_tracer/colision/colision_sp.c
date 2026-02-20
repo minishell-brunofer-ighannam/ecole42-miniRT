@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   colision_sp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:31:43 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:51:33 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
+#include "colision_internal.h"
 
-void	ft_colision_sp(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col)
+void	ft_colision_sp(t_polyhedron *restrict polyhedron, t_ray *restrict ray,
+		t_colision *restrict col)
 {
-	t_sphere	*restrict	sp;
 	t_vector_3d				oc;
 	double					half_b;
 	double					c;
+	t_sphere	*restrict	sp;
 
 	sp = polyhedron->specs;
 	oc = ft_sub_point(ray->point, sp->center);

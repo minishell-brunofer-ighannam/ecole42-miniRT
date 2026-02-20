@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 19:11:46 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/20 15:38:50 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int	main(int argc, char **argv)
 
 	scene = ft_parser(argv[1], &context);
 	if (!scene)
-		return (0);
-	// ft_print_scene(scene);
+		return (1);
 
 	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
@@ -81,5 +80,6 @@ int	main(int argc, char **argv)
 	events->state.destroy(&context);
 	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
+	scene->destroy(scene);
 	return (0);
 }

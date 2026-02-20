@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:31:01 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 15:47:27 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:51:16 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	ft_verify_optional_double(char **arg, double min, double max)
 	return (ft_verify_double_between(arg[0], min, max, 1e-6));
 }
 
-int ft_verify_opt_item_phong(t_parser_node *content, int pos_file, int item)
+int	ft_verify_opt_item_phong(t_parser_node *content, int pos_file, int item)
 {
 	if (!content->splited_args[pos_file])
 		return (0);
@@ -40,12 +40,10 @@ int ft_verify_opt_item_phong(t_parser_node *content, int pos_file, int item)
 	return (2);
 }
 
-bool	ft_verify_mat_opt(t_parser_node *content, int pos_file)
+bool	ft_verify_mat_opt(t_parser_node *content, int pos_file, int item)
 {
-	int item;
-	int verify;
+	int	verify;
 
-	item = 0;
 	while (item < 5)
 	{
 		verify = ft_verify_opt_item_phong(content, pos_file, item);
@@ -61,13 +59,16 @@ bool	ft_verify_mat_opt(t_parser_node *content, int pos_file)
 		content->pattern_name = content->splited_args[pos_file][0];
 		if (content->splited_args[pos_file + 1])
 		{
-			content->file_texture_color = content->splited_args[pos_file + 1][0];
+			content->file_texture_color = content->splited_args[pos_file
+				+ 1][0];
 			if (content->splited_args[pos_file + 2])
-				content->file_texture_normal = content->splited_args[pos_file + 2][0];	
+				content->file_texture_normal = content->splited_args[pos_file
+					+ 2][0];
 		}
 	}
 	return (true);
 }
+
 bool	ft_verify_list_scene(t_linkedlist *input_list)
 {
 	t_linkedlist_node	*first_node;
@@ -82,11 +83,22 @@ bool	ft_verify_list_scene(t_linkedlist *input_list)
 		input_list->destroy(&input_list, ft_free_content_parser_node);
 		return (false);
 	}
-	if (!ft_verify_duplicated_patterns(input_list))
+	if (input_list->first && input_list->first->next
+		&& !ft_verify_duplicated_patterns(input_list, input_list->first,
+			input_list->first->next))
 	{
 		printf("Error\nError: duplicated patterns identified\n");
 		input_list->destroy(&input_list, ft_free_content_parser_node);
 		return (false);
 	}
+	return (true);
+}
+
+bool	ft_verify_back_color(t_parser_node *content_node)
+{
+	if (content_node->num_args_line < 2
+		|| !ft_verify_color(content_node->splited_args[1]))
+		return (false);
+	content_node->color_back = ft_new_vec_str(content_node->splited_args[1]);
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 11:40:54 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 18:30:39 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/20 15:54:54 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "camera_ray_internal.h"
 #include "light.h"
 
-t_colision	ft_trace_ray(t_scene *scene, t_mlx *mlx, int x, int y)
+t_colision	ft_trace_ray(t_context *context, int x, int y)
 {
 	t_ray	ray;
 
-	ray = ft_camera_ray(mlx, &scene->camera, x, y);
-	return (ft_closest_colision(scene, &ray));
+	ray = ft_camera_ray(context, x, y, 0.5);
+	return (ft_closest_colision(context->scene, &ray));
 }

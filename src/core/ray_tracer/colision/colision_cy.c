@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   colision_cy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:34:03 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/14 10:20:23 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:14:37 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "colision.h"
+#include "colision_internal.h"
 
-void	ft_colision_cy(t_polyhedron *restrict polyhedron, t_ray *restrict ray, t_colision *restrict col)
+void	ft_colision_cy(t_polyhedron *restrict polyhedron, t_ray *restrict ray,
+		t_colision *restrict col)
 {
 	t_cylinder	*cy;
 	double		t_body;
@@ -43,30 +45,27 @@ double	ft_colision_cy_body(t_cylinder *restrict cy, t_ray *restrict ray)
 	oc = ft_sub_point(ray->point, cy->center);
 	d_perp = ft_vec_sub(ray->vector, ft_vec_mult(cy->axis,
 				ft_vec_dot(ray->vector, cy->axis)));
-	oc_perp = ft_vec_sub(oc, ft_vec_mult(cy->axis,
-				ft_vec_dot(oc, cy->axis)));
+	oc_perp = ft_vec_sub(oc, ft_vec_mult(cy->axis, ft_vec_dot(oc, cy->axis)));
 	a = ft_vec_dot(d_perp, d_perp);
 	if (a < EPS)
 		return (INFINITY);
-	t = ft_solve_quadratic_normalized(ft_vec_dot(oc_perp, d_perp)
-			/ a, (ft_vec_dot(oc_perp, oc_perp) - cy->radius
-				* cy->radius) / a);
+	t = ft_solve_quadratic_normalized(ft_vec_dot(oc_perp, d_perp) / a,
+			(ft_vec_dot(oc_perp, oc_perp) - cy->radius * cy->radius) / a);
 	if (t < 0)
 		return (INFINITY);
-	a = ft_vec_dot(ft_sub_point(ft_ray_at(ray, t), cy->center),
-			cy->axis);
+	a = ft_vec_dot(ft_sub_point(ft_ray_at(ray, t), cy->center), cy->axis);
 	if (a < -cy->height / 2.0 || a > cy->height / 2.0)
 		return (INFINITY);
 	return (t);
 }
 
-static double ft_check_cap(t_ray *ray, t_point_3d center, t_vector_3d axis, double radius)
+static double	ft_check_cap(t_ray *ray, t_point_3d center, t_vector_3d axis,
+		double radius)
 {
 	double		t;
 	t_point_3d	p;
 
-	t = ft_colision_plane_normal(ray, center,
-			ft_vec_mult(axis, -1));
+	t = ft_colision_plane_normal(ray, center, ft_vec_mult(axis, -1));
 	if (t > EPS)
 	{
 		p = ft_ray_at(ray, t);
@@ -79,22 +78,22 @@ static double ft_check_cap(t_ray *ray, t_point_3d center, t_vector_3d axis, doub
 
 double	ft_colision_cy_caps(t_cylinder *cy, t_ray *ray, t_colision *col)
 {
-	double		t1;
-	double		t2;
+	double	t1;
+	double	t2;
 
 	t1 = ft_check_cap(ray, cy->cap_top.point, cy->cap_top.normal, cy->radius);
-	t2 = ft_check_cap(ray,cy->cap_bot.point, cy->cap_bot.normal, cy->radius);
+	t2 = ft_check_cap(ray, cy->cap_bot.point, cy->cap_bot.normal, cy->radius);
 	if (isinf(t1) && isinf(t2))
-        return (INFINITY);
+		return (INFINITY);
 	if (!isinf(t1) && t1 > EPS && (isinf(t2) || t1 < t2))
 	{
 		col->section = 1;
-        return (t1);
+		return (t1);
 	}
 	if (t2 > EPS)
 	{
 		col->section = 2;
-        return (t2);
+		return (t2);
 	}
 	return (INFINITY);
 }

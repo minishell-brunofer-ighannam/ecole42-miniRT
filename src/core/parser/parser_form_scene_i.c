@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:26:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/13 16:54:49 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:47:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ t_scene	*ft_form_scene(t_linkedlist *input_list, t_context *context)
 	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
 		return (NULL);
-	scene->num_light = ft_count_items_scene(input_list->first, "L")
-		+ ft_count_items_scene(input_list->first, "l");
-	scene->light = ft_calloc(scene->num_light + 1, sizeof(t_light));
-	scene->num_polyhedron = ft_count_items_scene(input_list->first, "sp")
-		+ ft_count_items_scene(input_list->first, "cy")
-		+ ft_count_items_scene(input_list->first, "pl") + ft_count_items_scene(input_list->first, "cn");
-	scene->polyhedron = ft_calloc(scene->num_polyhedron + 1,
-			sizeof(t_polyhedron));
+	ft_include_numbers_scene(scene, input_list);
 	node = input_list->first;
 	while (node)
 	{
@@ -40,15 +33,32 @@ t_scene	*ft_form_scene(t_linkedlist *input_list, t_context *context)
 	}
 	if (ft_count_items_scene(input_list->first, "B") == 0)
 	{
-		scene->color_back = ft_new_vector_3d(BACK_COLOR);
-		scene->norm_color_back = ft_new_vector_3d((double)scene->color_back.x / 255.0, (double)scene->color_back.y / 255.0, (double)scene->color_back.z / 255.0);
+		scene->color_back = ft_new_vector_3d((BACK_COLOR >> 16) & 0xFF,
+				(BACK_COLOR >> 8) & 0xFF, BACK_COLOR & 0xFF);
+		scene->norm_color_back = ft_new_vector_3d((double)scene->color_back.x
+				/ 255.0, (double)scene->color_back.y / 255.0,
+				(double)scene->color_back.z / 255.0);
 	}
 	input_list->destroy(&(input_list), ft_free_content_parser_node);
 	scene->destroy = ft_destroy_scene;
 	return (scene);
 }
 
-void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene, t_linkedlist *input_list, t_context *context)
+void	ft_include_numbers_scene(t_scene *scene, t_linkedlist *input_list)
+{
+	scene->num_light = ft_count_items_scene(input_list->first, "L")
+		+ ft_count_items_scene(input_list->first, "l");
+	scene->light = ft_calloc(scene->num_light + 1, sizeof(t_light));
+	scene->num_polyhedron = ft_count_items_scene(input_list->first, "sp")
+		+ ft_count_items_scene(input_list->first, "cy")
+		+ ft_count_items_scene(input_list->first, "pl")
+		+ ft_count_items_scene(input_list->first, "cn");
+	scene->polyhedron = ft_calloc(scene->num_polyhedron + 1,
+			sizeof(t_polyhedron));
+}
+
+void	ft_include_items_scene(t_linkedlist_node *node, t_scene *scene,
+		t_linkedlist *input_list, t_context *context)
 {
 	t_parser_node	*content;
 
@@ -84,15 +94,8 @@ void	ft_include_light(t_scene *scene, t_parser_node *content)
 	scene->light[scene->count_light].intensity = content->intensity;
 	scene->light[scene->count_light].coord = content->origin;
 	scene->light[scene->count_light].color = content->color;
-	scene->light[scene->count_light].norm_color = ft_new_vector_3d(content->color.x
+	scene->light[scene->count_light].norm_color = ft_new_vector_3d(
+			content->color.x
 			/ 255.0, content->color.y / 255.0, content->color.z / 255.0);
 	scene->count_light++;
-}
-
-void	ft_include_ambient(t_scene *scene, t_parser_node *content)
-{
-	scene->ambient.intensity = content->intensity;
-	scene->ambient.color = content->color;
-	scene->ambient.norm_color = ft_new_vector_3d(content->color.x / 255.0,
-			content->color.y / 255.0, content->color.z / 255.0);
 }
