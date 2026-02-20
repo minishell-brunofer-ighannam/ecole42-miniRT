@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:55 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 15:15:36 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:02:52 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "camera.h"
 # include "polyhedron.h"
+# include "stdlib.h"
 
 # define WIDTH 500
 # define HEIGHT 500

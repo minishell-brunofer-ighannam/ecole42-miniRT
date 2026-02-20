@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 15:25:56 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 11:14:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:36:36 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_colision_co(t_polyhedron *restrict polyhedron, t_ray *restrict ray,
  * # Cone Body Colision
  *
  * to understand the calculus, see
- * https://www.notion.so/Intersec-o-Raio-Cone-2febcec584a680c198c4e276cdbd34cd#6f7fb6da39af4706b245e6b3e5abe94b
+ * https://shorturl.at/rtIMX
  */
 static double	ft_colision_cone_body(t_ray *restrict ray,
 		t_cone *restrict cone)
@@ -85,8 +85,7 @@ static double	ft_colision_cone_body(t_ray *restrict ray,
  * # Cone Base Colision
  *
  * to understand the calculus, see
-
-	* https://www.notion.so/Intersec-o-Raio-Cone-2febcec584a680c198c4e276cdbd34cd#302bcec584a680408b8ccc576ceb4f4d
+ * https://shorturl.at/CCUEi
  */
 static double	ft_colision_cone_base(t_ray *restrict ray,
 		t_cone *restrict cone)

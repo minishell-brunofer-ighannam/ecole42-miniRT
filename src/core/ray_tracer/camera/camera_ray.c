@@ -6,18 +6,12 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 10:41:37 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:39:26 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera_ray.h"
 #include "camera_ray_internal.h"
-
-static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x,
-					int y);
-static bool		color_pixel(t_context *context, int x, int y, int color);
-int				ft_vector_to_int_color(t_vector_3d color);
-t_vector_3d		ft_reflexion(t_context *context, int depth, t_ray ray);
 
 void	*ft_camera_ray_loop(t_context *context, int start, int end)
 {
@@ -35,8 +29,7 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 		{
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
-			vect_color = ft_reflexion(context, 0, ft_camera_ray(context,
-						context->scene->camera, i, j));
+			vect_color = ft_antialiasing(context, i, j);
 			if (context->callbacks.is_process_stopped(context))
 				return (NULL);
 			color = ft_vector_to_int_color(vect_color);
@@ -47,32 +40,33 @@ void	*ft_camera_ray_loop(t_context *context, int start, int end)
 	return (NULL);
 }
 
-static t_ray	ft_camera_ray(t_context *context, t_camera camera, int x, int y)
+t_ray	ft_camera_ray(t_context *context, int x, int y, double aa)
 {
 	double		screen_x;
 	double		screen_y;
 	t_vector_3d	dir;
 	t_ray		ray;
+	t_camera	camera;
 
+	camera = context->scene->camera;
 	if (context->mlx.window.width > 0)
-		screen_x = (2 * (x + 0.5) / context->mlx.window.width) - 1;
+		screen_x = ((2 * (x + aa)) / context->mlx.window.width) - 1;
 	else
 		screen_x = 1;
 	if (context->mlx.window.height > 0)
-		screen_y = 1 - 2 * ((y + 0.5) / context->mlx.window.height);
+		screen_y = 1 - 2 * ((y + aa) / context->mlx.window.height);
 	else
 		screen_y = 1;
 	screen_x *= camera.aspect * camera.scale;
 	screen_y *= camera.scale;
-	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult(camera.right,
-						screen_x), ft_vec_mult(camera.up, screen_y)),
-				camera.forward));
+	dir = ft_vec_norm(ft_vec_add(ft_vec_add(ft_vec_mult(camera.right, screen_x),
+					ft_vec_mult(camera.up, screen_y)), camera.forward));
 	ray.point = camera.origin;
 	ray.vector = dir;
 	return (ray);
 }
 
-static bool	color_pixel(t_context *context, int x, int y, int color)
+bool	color_pixel(t_context *context, int x, int y, int color)
 {
 	if (context->callbacks.is_process_stopped(context))
 		return (true);
@@ -110,8 +104,8 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (ft_vec_dot(ray.vector, col.normal) > 0)
 		col.normal = ft_vec_mult(col.normal, -1);
 	reflected_ray.vector = ft_vec_norm(ft_vec_sub(ray.vector,
-				ft_vec_mult(col.normal, 2.0
-					* ft_vec_dot(ray.vector, col.normal))));
+				ft_vec_mult(col.normal, 2.0 * ft_vec_dot(ray.vector,
+						col.normal))));
 	reflected_ray.point = ft_point_add_vect(col.colision_point,
 			ft_vec_mult(col.normal, EPS));
 	col.color_reflexive = ft_reflexion(context, depth + 1, reflected_ray);

@@ -6,12 +6,14 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:52 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 14:59:40 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:21:32 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_RAY_H
 # define CAMERA_RAY_H
+
+# define AA 1
 
 # include "colision.h"
 # include "context.h"

@@ -65,7 +65,7 @@ RAY_TRACER_FILES = src/core/ray_tracer/ray_tracer.c src/core/ray_tracer/colision
 src/core/ray_tracer/colision/colision_cy.c src/core/ray_tracer/colision/colision_sp.c src/core/ray_tracer/colision/colision_polyhedron.c \
 src/core/ray_tracer/colision/colision_co.c \
 src/core/ray_tracer/camera/camera_ray.c src/core/ray_tracer/light/light.c src/core/ray_tracer/light/calc_u_v_i.c src/core/ray_tracer/light/calc_u_v_ii.c \
-src/core/ray_tracer/light/norm_and_color_map.c
+src/core/ray_tracer/light/norm_and_color_map.c src/core/ray_tracer/camera/anti_aliasing.c
 
 
 # **** DATA_STRUCTURES ****
