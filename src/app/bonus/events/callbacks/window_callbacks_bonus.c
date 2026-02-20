@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_callbacks_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 08:37:28 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 11:34:18 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:39:18 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_window_resize(void *param, XEvent *event)
 	events = &context->events;
 	width = event->xconfigure.width;
 	height = event->xconfigure.height;
-	events->state.set.window(&events->state, width, height);
+	events->state.set.window(context, width, height);
 	// printf("new width: %d, new height: %d\n", width, height);
 	return (1);
 }

@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_bonus.c                                      :+:      :+:    :+:   */
+/*   find_polyhedron.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 19:10:05 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/15 16:03:50 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/15 16:12:25 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/state_internal_bonus.h"
+#include "polyhedron_internal.h"
 
-static void	*ft_destroy_state(t_context	*context);
-
-t_state	ft_new_state(void)
+t_polyhedron	*ft_find_polyhedron(t_scene *scene, int id)
 {
-	t_state	state;
+	t_polyhedron	*polyhedrons;
+	int				start;
+	int				end;
 
-	ft_bzero(&state, sizeof(t_state));
-	state.set = ft_new_set_state();
-	state.destroy = ft_destroy_state;
-	return (state);
-}
-
-static void	*ft_destroy_state(t_context	*context)
-{
-	ft_unselect_polyhedron(context);
+	polyhedrons = scene->polyhedron;
+	start = -1;
+	end = scene->num_polyhedron;
+	while (++start <= --end)
+	{
+		if (polyhedrons[start].id == id)
+			return (&polyhedrons[start]);
+		if (polyhedrons[end].id == id)
+			return (&polyhedrons[end]);
+	}
 	return (NULL);
 }

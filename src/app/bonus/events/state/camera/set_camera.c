@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_bonus.c                                      :+:      :+:    :+:   */
+/*   set_camera.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 19:10:05 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/16 11:27:24 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/16 11:27:37 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/state_internal_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
+#include "includes/camera_state_internal_bonus.h"
 
-static void	*ft_destroy_state(t_context	*context);
-
-t_state	ft_new_state(void)
+void	set_camera_changed_flag(t_state *self)
 {
-	t_state	state;
-
-	ft_bzero(&state, sizeof(t_state));
-	state.set = ft_new_set_state();
-	state.destroy = ft_destroy_state;
-	return (state);
-}
-
-static void	*ft_destroy_state(t_context	*context)
-{
-	ft_unselect_polyhedron(context);
-	return (NULL);
+	if (!self->scene.camera.has_changes)
+	{
+		if (!self->scene.has_changes)
+		{
+			self->has_changes = true;
+			self->scene.has_changes = true;
+		}
+		else if (!self->has_changes)
+			self->has_changes = true;
+		self->scene.camera.has_changes = true;
+	}
 }

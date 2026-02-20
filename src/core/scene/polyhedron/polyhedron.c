@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 14:34:21 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 15:12:27 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:12:11 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ void	ft_co_normal(t_cone *co, t_point_3d p, t_colision *col)
 	axis_projection = ft_vec_mult(co->axis, ft_vec_dot(vp, co->axis));
 	normal = ft_vec_sub(ft_vec_mult(vp, sqrdd(co->cos_alpha)), axis_projection);
 	col->normal = ft_vec_norm(normal);
+}
+
+void	ft_cone_recalculate(t_cone *cone)
+{
+	double	scalar;
+
+	scalar = M_PI / 180;
+	cone->cos_alpha = cos(cone->half_apex_angle * scalar);
+	cone->sin_alpha = sin(cone->half_apex_angle * scalar);
+	cone->tan_alpha = tan(cone->half_apex_angle * scalar);
+	cone->base.normal = cone->axis;
+	cone->base.point = ft_point_add_vect(cone->vertex,
+			ft_vec_mult(cone->axis, cone->height));
 }

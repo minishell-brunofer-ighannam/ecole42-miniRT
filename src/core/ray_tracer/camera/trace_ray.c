@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera_ray_internal.h                              :+:      :+:    :+:   */
+/*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 17:38:08 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/20 18:08:35 by brunofer         ###   ########.fr       */
+/*   Created: 2026/02/15 11:40:54 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/20 18:08:17 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_RAY_INTERNAL_H
-# define CAMERA_RAY_INTERNAL_H
+#include "camera_ray.h"
+#include "camera_ray_internal.h"
+#include "light.h"
 
-# include "camera_ray.h"
+t_colision	ft_trace_ray(t_context *context, int x, int y)
+{
+	t_ray	ray;
 
-t_vector_3d	ft_antialiasing(t_context *context, int x, int y);
-int			ft_vector_to_int_color(t_vector_3d color);
-t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray);
-t_ray		ft_camera_ray(t_context *context, int x, int y, double aa);
-bool		color_pixel(t_context *context, int x, int y, int color);
-
-#endif
+	ray = ft_camera_ray(context, x, y, 0.5);
+	return (ft_closest_colision(context->scene, &ray));
+}

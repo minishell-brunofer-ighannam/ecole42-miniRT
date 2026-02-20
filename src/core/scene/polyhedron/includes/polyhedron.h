@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   polyhedron.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 09:08:26 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/18 15:13:17 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:11:52 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_ray			t_ray;
 typedef struct s_colision		t_colision;
+typedef struct s_scene			t_scene;
 
 typedef struct s_polyhedron		t_polyhedron;
 typedef struct s_texture		t_texture;
@@ -121,18 +122,19 @@ struct							s_cylinder
 
 struct							s_cone
 {
-	t_plane						base;
-	t_point_3d					vertex;
-	t_vector_3d					axis;
-	double						radius;
-	double						height;
-	double						half_apex_angle;
-	double						cos_alpha;
-	double						tan_alpha;
-	double						sin_alpha;
+	t_plane		base;
+	t_point_3d	vertex;
+	t_vector_3d	axis;
+	double		radius;
+	double		height;
+	double		half_apex_angle;
+	double		cos_alpha;
+	double		tan_alpha;
+	double		sin_alpha;
 };
 
-void							ft_normal_polyhedron(t_point_3d pt,
-									t_polyhedron polyhedron, t_colision *col);
+t_polyhedron	*ft_find_polyhedron(t_scene *scene, int id);
+void			ft_cone_recalculate(t_cone *cone);
+void			ft_normal_polyhedron(t_point_3d pt, t_polyhedron polyhedron, t_colision *col);
 
 #endif

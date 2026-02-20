@@ -6,13 +6,14 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 05:22:09 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/27 14:52:31 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/15 21:55:47 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_CALLBACKS_INTERNAL_BONUS_H
 # define EVENTS_CALLBACKS_INTERNAL_BONUS_H
 
+# include "libft.h"
 # include "mlx.h"
 # include "events_callbacks_bonus.h"
 

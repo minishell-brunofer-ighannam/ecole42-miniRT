@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/19 09:35:24 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:05:48 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int argc, char **argv)
 
 	parallel = ft_parallelize(&context, ft_camera_ray_loop);
 	mlx->loop(*mlx);
+	events->state.destroy(&context);
 	parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
 	scene->destroy(scene);

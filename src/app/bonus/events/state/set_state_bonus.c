@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 19:14:42 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/18 23:39:39 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../threads/includes/threads_bonus.h"
-#include "../gestures/includes/gestures_bonus.h"
+#include "threads_bonus.h"
+#include "gestures_bonus.h"
 #include "includes/state_internal_bonus.h"
 
-static void	set_window(t_state *self, int width, int height);
-static void	set_keys(t_state *self, int key, bool value);
+static void	set_window(t_context *context, int width, int height);
+static void	set_keys(t_context *context, int key, bool value);
 
 t_set_state	ft_new_set_state(void)
 {
@@ -23,43 +23,53 @@ t_set_state	ft_new_set_state(void)
 
 	setter.camera_rotation = ft_new_camera_rotation();
 	setter.camera_translation = ft_new_camera_translation();
+	setter.polyhedron_rotation = ft_new_polyhedron_rotation();
+	setter.polyhedron_translation = ft_new_polyhedron_translation();
+	setter.unselect_polyhedron = ft_unselect_polyhedron;
+	setter.select_polyhedron = ft_select_polyhedron;
 	setter.window = set_window;
 	setter.keys = set_keys;
 	return (setter);
 }
 
-static void	set_window(t_state *self, int width, int height)
+static void	set_window(t_context *context, int width, int height)
 {
-	if (!self)
+	t_state			*state;
+
+	if (!context)
 		return ;
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	if (self->window.width == width && self->window.height == height)
-	{
-		pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
-		return ;
-	}
-	if (!self->window.has_changes)
-	{
-		if (!self->has_changes)
-			self->has_changes = true;
-		self->window.has_changes = true;
-	}
-	if (self->window.width != width)
-		self->window.width = width;
-	if (self->window.height != height)
-		self->window.height = height;
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
 	printf("window::resize[%d, %d]\n", width, height);
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
+	if (state->window.width == width && state->window.height == height)
+	{
+		pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
+		return ;
+	}
+	if (!state->window.has_changes)
+	{
+		if (!state->has_changes)
+			state->has_changes = true;
+		state->window.has_changes = true;
+	}
+	if (state->window.width != width)
+		state->window.width = width;
+	if (state->window.height != height)
+		state->window.height = height;
+	printf("window::resize[%d, %d]\n", width, height);
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
-static void	set_keys(t_state *self, int key, bool value)
+static void	set_keys(t_context *context, int key, bool value)
 {
 	t_pressed_keys	*keys;
+	t_state			*state;
 
-	pthread_mutex_lock(&self->parallel->flow_ctrl->mutex_set_state);
-	keys = &self->pressed_keys;
-	if (!self->has_changes)
-		self->has_changes = true;
+	state = &context->events.state;
+	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
+	keys = &state->pressed_keys;
+	if (!state->has_changes)
+		state->has_changes = true;
 	if (!keys->has_changes)
 		keys->has_changes = true;
 	if (key == KEYBOARD_LEFT_ALT && keys->left_alt != value)
@@ -80,20 +90,5 @@ static void	set_keys(t_state *self, int key, bool value)
 		keys->right_mouse_btn = value;
 	else if (key == MOUSE_MIDDLE_BUTTON && keys->middle_mouse_btn != value)
 		keys->middle_mouse_btn = value;
-	pthread_mutex_unlock(&self->parallel->flow_ctrl->mutex_set_state);
-}
-
-void	set_camera_changed_flag(t_state *self)
-{
-	if (!self->scene.camera.has_changes)
-	{
-		if (!self->scene.has_changes)
-		{
-			self->has_changes = true;
-			self->scene.has_changes = true;
-		}
-		else if (!self->has_changes)
-			self->has_changes = true;
-		self->scene.camera.has_changes = true;
-	}
+	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }

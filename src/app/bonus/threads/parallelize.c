@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parallelize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 09:52:38 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/08 12:10:38 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:13:32 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_parallel	*ft_parallelize(t_context *context,
 		return (ft_destroy_parallelize(&parallel));
 	context->parallel = parallel;
 	context->events.state.parallel = parallel;
-	parallel->n_threads = sysconf(_SC_NPROCESSORS_ONLN) / 2;
+	parallel->n_threads = sysconf(_SC_NPROCESSORS_ONLN);
 	parallel->ray_tracing = ray_tracing;
 	parallel->destroy = ft_destroy_parallelize;
 	if (!ft_init_threads(parallel, context))

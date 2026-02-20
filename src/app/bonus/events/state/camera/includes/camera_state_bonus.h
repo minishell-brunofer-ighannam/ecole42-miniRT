@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   state_bonus.c                                      :+:      :+:    :+:   */
+/*   camera_state_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 07:54:40 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 19:10:05 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/15 15:18:07 by bruno-valer       #+#    #+#             */
+/*   Updated: 2026/02/15 15:39:06 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/state_internal_bonus.h"
+#ifndef CAMERA_STATE_BONUS_H
+# define CAMERA_STATE_BONUS_H
 
-static void	*ft_destroy_state(t_context	*context);
+# include <stdio.h>
+# include "libft.h"
+# include "minilibx.h"
 
-t_state	ft_new_state(void)
-{
-	t_state	state;
+typedef struct s_set_movement	t_set_movement;
 
-	ft_bzero(&state, sizeof(t_state));
-	state.set = ft_new_set_state();
-	state.destroy = ft_destroy_state;
-	return (state);
-}
+t_set_movement	ft_new_camera_translation(void);
+t_set_movement	ft_new_camera_rotation(void);
 
-static void	*ft_destroy_state(t_context	*context)
-{
-	ft_unselect_polyhedron(context);
-	return (NULL);
-}
+#endif
