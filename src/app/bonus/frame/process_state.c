@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/20 14:35:48 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:17:45 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../context.h"
+#include "context.h"
 #include "includes/frame_internal.h"
 
 bool	ft_process_state(t_context *context)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   show_frame_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 08:41:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 12:28:17 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:17:53 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../context.h"
+#include "context.h"
 #include "includes/frame_internal.h"
 
 static void	ft_track_fps(t_context *context);

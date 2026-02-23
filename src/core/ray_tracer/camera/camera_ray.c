@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/20 15:42:23 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:38:17 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ bool	color_pixel(t_context *context, int x, int y, int color)
 {
 	if (context->callbacks.is_process_stopped(context))
 		return (true);
+	// printf("wrintting[%d, %d]\n", x, y);
 	*context->mlx.frame_buffer[x][y] = color;
 	return (false);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../context.h"
+#include "context.h"
 #include "includes/frame_internal.h"
 
 static int	ft_run_frame(t_context *context);

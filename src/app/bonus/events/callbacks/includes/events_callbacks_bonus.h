@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_callbacks_bonus.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 05:21:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/04 11:01:43 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:02:48 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define EVENTS_CALLBACKS_BONUS_H
 
 # include <stdio.h>
-# include "../../../../../minilibx/includes/minilibx.h"
+# include "minilibx.h"
 
 typedef struct s_context			t_context;
 

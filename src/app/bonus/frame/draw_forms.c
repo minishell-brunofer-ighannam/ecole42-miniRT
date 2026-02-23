@@ -6,11 +6,11 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 11:19:03 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/31 13:01:44 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/23 14:17:32 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../context.h"
+#include "context.h"
 #include "includes/frame_internal.h"
 
 void	ft_draw_square(t_context *context, int width, int height)

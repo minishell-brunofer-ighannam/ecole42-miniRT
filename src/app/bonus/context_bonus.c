@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   context.c                                          :+:      :+:    :+:   */
+/*   context_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:13:13 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/01 09:03:37 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/23 12:13:44 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "context.h"
+#include "context_bonus.h"
 
 t_context	ft_new_context(
 				t_window_info window, void *scene,

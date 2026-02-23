@@ -33,8 +33,11 @@ INCLUDES = \
 	-I src/core/ray_tracer/colision/includes \
 	-I src/core/ray_tracer/camera/includes \
 	-I src/app/bonus \
+	-I src/app/mandatory \
+	-I src/app/bonus/events/includes \
+	-I src/core \
 	-I src/app/bonus/threads/includes \
-	-I src/app/bonus/frame \
+	-I src/app/bonus/frame/includes \
 	-I src/app/bonus/events/gestures/includes \
 	-I src/minilibx/includes \
 	-I lib/minilibx
@@ -100,9 +103,13 @@ B_THREAD_DIR = src/app/bonus/threads
 BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i.c $(B_THREAD_DIR)/context_callbacks_ii.c \
 $(B_THREAD_DIR)/flow_control.c $(B_THREAD_DIR)/parallelize.c $(B_THREAD_DIR)/threads_bonus.c $(B_THREAD_DIR)/threads_routine.c
 
-BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context.c src/app/bonus/ray_tracing.c
+BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context_bonus.c src/app/bonus/ray_tracing.c
 
-SRC_BONUS_FILES = $(MLX_FILES) $(BONUS_FILES) $(PARSER_FILES) $(DATA_STRUCTURES) $(SCENE_FILES) $(RAY_TRACER_FILES) $(MATH_RT_FILES)
+SRC_SUPPORT_FILES = $(MLX_FILES) $(PARSER_FILES) $(DATA_STRUCTURES) $(SCENE_FILES) $(RAY_TRACER_FILES) $(MATH_RT_FILES)
+
+SRC_BONUS_FILES = $(SRC_SUPPORT_FILES) $(BONUS_FILES)
+
+SRC_MANDATORY_FILES = $(SRC_SUPPORT_FILES) src/app/mandatory/context_mandatory.c
 
 # ============== PROGRAM FILES =================
 MAIN_PROGRAM = src/app/mandatory/main.c
@@ -116,13 +123,13 @@ DEPENDENCIES = -lm -pthread $(MLX_DEPENDENCIES)
 # ============== COMPILATION =================
 COMPILATION_DEPENDENCIES = $(LIBFT) $(MLX)
 
-OBJS = $(SRC_FILES:%.c=%.o)
+OBJS = $(SRC_MANDATORY_FILES:%.c=%.o)
 OBJS_BONUS = $(SRC_BONUS_FILES:%.c=%.o)
 OBJ_MAIN_PROGRAM = $(MAIN_PROGRAM:%.c=%.o)
 OBJ_MAIN_BONUS_PROGRAM = $(MAIN_BONUS_PROGRAM:%.c=%.o)
 OBJ_TEST_PROGRAM = $(TEST_PROGRAM:%.c=%.o)
 
-TEST_PROGRAMS = 
+TEST_PROGRAMS =
 
 # ============== CUSTOM SLEEP =================
 SLEEP = 0.07
@@ -135,6 +142,7 @@ SLEEP = 0.07
 # ***************************************************************************************************
 
 all: $(NAME)
+bonus: CFLAGS_USED += -DBONUS
 
 debug:
 	@$(MAKE) -s fclean
@@ -171,9 +179,9 @@ stats:
 	@printf "\n - Conclusion:$(BOLD) "
 	@printf "%s\n$(RESET)" "Best miniRT Ever"
 
-$(NAME): $(COMPILATION_DEPENDENCIES) $(OBJS_BONUS) $(MAIN_BONUS_PROGRAM)
+$(NAME): $(COMPILATION_DEPENDENCIES) $(OBJS) $(MAIN_PROGRAM)
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
-	@$(CC) $(CFLAGS_USED) $(OBJS_BONUS) $(MAIN_BONUS_PROGRAM) $(COMPILATION_DEPENDENCIES)  -o $@ $(DEPENDENCIES)
+	@$(CC) $(CFLAGS_USED) $(OBJS) $(MAIN_PROGRAM) $(COMPILATION_DEPENDENCIES) -o $@ $(DEPENDENCIES)
 
 $(LIBFT):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)

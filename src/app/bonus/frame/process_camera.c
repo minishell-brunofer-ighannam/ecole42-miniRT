@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process_camera.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 17:59:13 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/14 18:31:38 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:18:00 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../context.h"
+#include "context.h"
 #include "includes/frame_internal.h"
 
 void	ft_handle_camera(t_camera *scene_cam, t_camera_state *state_cam)
