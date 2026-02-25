@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   context_callbacks_i.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/08 17:51:25 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:22:23 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/threads_internal_bonus.h"
-
 
 bool	ft_is_app_running(t_context *self)
 {

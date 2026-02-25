@@ -7,11 +7,13 @@ LIGHT_CYAN=\033[96m
 
 # ============== MAIN INFO =================
 NAME = miniRT
+NAME_BONUS = miniRT_bonus
 
 # ============== LIBFT COMMANDS =================
 LIBFT_DIR = lib/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-LIBFT_INCLUDES = -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/dependency_includes
+LIBFT_INCLUDES = -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/dependency_includes -I $(LIBFT_DIR)/src/lists/stack/includes \
+	-I $(LIBFT_DIR)/src/libstr/includes -I $(LIBFT_DIR)/src/libgnl/includes
 
 # ============== MLX COMMANDS =================
 MLX_DIR = lib/minilibx
@@ -123,13 +125,13 @@ DEPENDENCIES = -lm -pthread $(MLX_DEPENDENCIES)
 # ============== COMPILATION =================
 COMPILATION_DEPENDENCIES = $(LIBFT) $(MLX)
 
-OBJS = $(SRC_MANDATORY_FILES:%.c=%.o)
-OBJS_BONUS = $(SRC_BONUS_FILES:%.c=%.o)
-OBJ_MAIN_PROGRAM = $(MAIN_PROGRAM:%.c=%.o)
-OBJ_MAIN_BONUS_PROGRAM = $(MAIN_BONUS_PROGRAM:%.c=%.o)
-OBJ_TEST_PROGRAM = $(TEST_PROGRAM:%.c=%.o)
+OBJ_DIR_MANDATORY = build/mandatory
+OBJ_DIR_BONUS = build/bonus
+OBJS = $(addprefix $(OBJ_DIR_MANDATORY)/, $(SRC_MANDATORY_FILES:.c=.o))
+OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS)/, $(SRC_BONUS_FILES:.c=.o))
+OBJ_MAIN_PROGRAM = $(addprefix $(OBJ_DIR_MANDATORY)/, $(MAIN_PROGRAM:.c=.o))
+OBJ_MAIN_BONUS_PROGRAM = $(addprefix $(OBJ_DIR_BONUS)/, $(MAIN_BONUS_PROGRAM:.c=.o))
 
-TEST_PROGRAMS =
 
 # ============== CUSTOM SLEEP =================
 SLEEP = 0.07
@@ -143,6 +145,7 @@ SLEEP = 0.07
 
 all: $(NAME)
 bonus: CFLAGS_USED += -DBONUS
+bonus: $(NAME_BONUS)
 
 debug:
 	@$(MAKE) -s fclean
@@ -179,9 +182,13 @@ stats:
 	@printf "\n - Conclusion:$(BOLD) "
 	@printf "%s\n$(RESET)" "Best miniRT Ever"
 
-$(NAME): $(COMPILATION_DEPENDENCIES) $(OBJS) $(MAIN_PROGRAM)
+$(NAME): $(COMPILATION_DEPENDENCIES) $(OBJS) $(OBJ_MAIN_PROGRAM)
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
-	@$(CC) $(CFLAGS_USED) $(OBJS) $(MAIN_PROGRAM) $(COMPILATION_DEPENDENCIES) -o $@ $(DEPENDENCIES)
+	@$(CC) $(CFLAGS_USED) $(OBJS) $(OBJ_MAIN_PROGRAM) $(COMPILATION_DEPENDENCIES) -o $@ $(DEPENDENCIES)
+
+$(NAME_BONUS): $(COMPILATION_DEPENDENCIES) $(OBJS_BONUS) $(OBJ_MAIN_BONUS_PROGRAM)
+	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
+	@$(CC) $(CFLAGS_USED) $(OBJS_BONUS) $(OBJ_MAIN_BONUS_PROGRAM) $(COMPILATION_DEPENDENCIES) -o $@ $(DEPENDENCIES)
 
 $(LIBFT):
 	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$@$(RESET)..." && sleep $(SLEEP)
@@ -194,16 +201,27 @@ $(MLX):
 run_valgrind: $(NAME)
 	@valgrind -q --track-origins=yes --show-leak-kinds=all --track-fds=yes --leak-check=full ./$(NAME)
 
-%.o: %.c
-	@echo "$(LIGHT_GREEN)>> $(BOLD)compiling$(RESET) $(LIGHT_CYAN)./$<$(RESET)..." && sleep $(SLEEP)
+run_valgrind_bonus: $(NAME_BONUS)
+	@valgrind -q --track-origins=yes --show-leak-kinds=all --track-fds=yes --leak-check=full ./$(NAME_BONUS)
+
+$(OBJ_DIR_MANDATORY)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "$(LIGHT_GREEN)>> compiling mandatory $<..."
 	@$(CC) $(CFLAGS_USED) -c $< -o $@
 
+$(OBJ_DIR_BONUS)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@echo "$(LIGHT_GREEN)>> compiling bonus $<..."
+	@$(CC) $(CFLAGS_USED) -DBONUS -c $< -o $@
 
 clean:
 	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./src$(RESET)..." && sleep $(SLEEP)
-	@rm -rf $(OBJS) $(OBJS_BONUS) $(OBJ_MAIN_PROGRAM) $(OBJ_MAIN_BONUS_PROGRAM) $(OBJ_TEST_PROGRAM)
+	@rm -rf $(OBJ_MAIN_PROGRAM) $(OBJ_MAIN_BONUS_PROGRAM)
+	@rm -rf build
 	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./$(LIBFT_DIR)$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(LIBFT_DIR) clean
+	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)
+	@make -s -C $(MLX_DIR) clean
 
 fclean: clean
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(LIBFT_DIR)$(RESET)..." && sleep $(SLEEP)
@@ -214,10 +232,12 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)./$(BONUS)$(RESET)..." && sleep $(SLEEP)
 	@rm -rf $(BONUS)
-	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(TEST_PROGRAMS)$(RESET)..." && sleep $(SLEEP)
-	@rm -rf $(TEST_PROGRAMS)
+	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(NAME_BONUS)$(RESET)..." && sleep $(SLEEP)
+	@rm -rf $(NAME_BONUS)
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(OBJ_MAIN_PROGRAM)$(RESET)..." && sleep $(SLEEP)
 	@rm -rf $(OBJ_MAIN_PROGRAM)
+	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)
+	@make -s -C $(MLX_DIR) clean
 
 
 re: fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 17:37:02 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/23 16:38:17 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 10:25:04 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ bool	color_pixel(t_context *context, int x, int y, int color)
 {
 	if (context->callbacks.is_process_stopped(context))
 		return (true);
-	// printf("wrintting[%d, %d]\n", x, y);
 	*context->mlx.frame_buffer[x][y] = color;
 	return (false);
 }
@@ -95,9 +94,7 @@ t_vector_3d	ft_reflexion(t_context *context, int depth, t_ray ray)
 	if (context->callbacks.is_process_stopped(context))
 		return (ft_new_vector_3d(0, 0, 0));
 	col = ft_closest_colision(context->scene, &ray);
-	if (col.colision)
-		col.color_local = ft_local_color(context, col);
-	else
+	if (!col.colision)
 		return (context->scene->norm_color_back);
 	col.color_local = ft_local_color(context, col);
 	if (depth > 10 || col.polyhedron.material.kr <= 0.0

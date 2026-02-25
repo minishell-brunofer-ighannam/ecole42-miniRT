@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:28:33 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/12 12:46:01 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:22:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/threads_internal_bonus.h"
 
-void	*ft_thread_destroy(t_thread **self_ref);
+void		*ft_thread_destroy(t_thread **self_ref);
 
-t_thread	*ft_new_thread(t_context *context, t_flow_ctrl *flow_ctrl, int id, int n_threads)
+t_thread	*ft_new_thread(t_context *context, t_flow_ctrl *flow_ctrl, int id,
+		int n_threads)
 {
 	t_thread	*thread;
 	int			chunck;
@@ -33,14 +34,15 @@ t_thread	*ft_new_thread(t_context *context, t_flow_ctrl *flow_ctrl, int id, int 
 	else
 		thread->range_end = thread->range_start + chunck - 1;
 	thread->destroy = ft_thread_destroy;
-	thread->error = pthread_create(&thread->thread, NULL, (void *(*)())ft_thread_routine, thread);
+	thread->error = pthread_create(&thread->thread, NULL,
+			(void *(*)())ft_thread_routine, thread);
 	if (thread->error)
 		return (thread->destroy(&thread));
 	return (thread);
 }
 
-bool	ft_recalculate_thread_chunck(
-			t_thread *thread, t_mlx *mlx, t_parallel *parallel)
+bool	ft_recalculate_thread_chunck(t_thread *thread, t_mlx *mlx,
+		t_parallel *parallel)
 {
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (mlx->window.height <= (int)parallel->n_threads)
@@ -52,9 +54,8 @@ bool	ft_recalculate_thread_chunck(
 		thread->range_end = mlx->window.height - 1;
 	else
 		thread->range_end = thread->range_start + thread->chunck - 1;
-	if ((mlx->window.height < (int)parallel->n_threads
-			&& thread->id + 1 > mlx->window.height)
-		|| mlx->window.width < 2)
+	if ((mlx->window.height < (int)parallel->n_threads && thread->id
+			+ 1 > mlx->window.height) || mlx->window.width < 2)
 	{
 		pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 		return (true);

@@ -29,13 +29,9 @@ static int	ft_run_frame(t_context *context)
 	bool	is_render_allowed;
 
 	gettimeofday(&context->frame.frame_start, NULL);
-	// if (!context->events.state.window.has_changes)
-	// 	ft_draw_square(context, 100, 100);
 	is_render_allowed = ft_process_resize_image(context);
 	if (is_render_allowed)
 		ft_render_frame(context);
-	// else
-		// printf("nao renerizou!");
 	return (1);
 }
 

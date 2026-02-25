@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 23:39:39 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:00:27 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	set_window(t_context *context, int width, int height)
 		return ;
 	state = &context->events.state;
 	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
-	printf("window::resize[%d, %d]\n", width, height);
 	if (state->window.width == width && state->window.height == height)
 	{
 		pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
@@ -56,7 +55,6 @@ static void	set_window(t_context *context, int width, int height)
 		state->window.width = width;
 	if (state->window.height != height)
 		state->window.height = height;
-	printf("window::resize[%d, %d]\n", width, height);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 

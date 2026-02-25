@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "threads_bonus.h"
 #include "gestures_bonus.h"
 #include "includes/state_polyhedron_internal_bonus.h"
+#include "threads_bonus.h"
 
 t_set_movement	ft_new_polyhedron_rotation(void)
 {
@@ -40,7 +40,6 @@ void	set_polyhedron_rotation_up(t_context *context)
 	pthread_mutex_lock(mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.rotate_x += POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->up [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
@@ -56,7 +55,6 @@ void	set_polyhedron_rotation_down(t_context *context)
 	pthread_mutex_lock(mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.rotate_x -= POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->down [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
@@ -72,7 +70,6 @@ void	set_polyhedron_rotation_left(t_context *context)
 	pthread_mutex_lock(mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.rotate_y -= POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->left [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
 }
 
@@ -88,7 +85,5 @@ void	set_polyhedron_rotation_right(t_context *context)
 	pthread_mutex_lock(mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.rotate_y += POLYHEDRON_ROTATION_INTENSITY;
-	printf("polyhedron::rotation->right [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.rotate_x, state->scene.polyhedron.rotate_y, state->scene.polyhedron.rotate_z);
 	pthread_mutex_unlock(mutex_set_state);
-
 }

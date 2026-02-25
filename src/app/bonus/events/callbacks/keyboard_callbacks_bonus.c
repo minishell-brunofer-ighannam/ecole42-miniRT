@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard_callbacks_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 07:00:39 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/23 14:06:07 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 10:18:34 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	ft_key_press(int key, void *param)
 	context->events.state.set.keys(context, key, true);
 	ft_update_discrete_gestures(&events->gestures, context, key, pos);
 	free(pos);
-	// printf("keyboard[%d] pressed - Verify ALT key_code -> update mlx\n", key);
 	return (1);
 }
 
@@ -53,7 +52,6 @@ static int	ft_key_release(int key, void *param)
 
 	context = param;
 	context->events.state.set.keys(context, key, false);
-	// printf("keyboard[%d] released\n", key);
 	return (1);
 }
 

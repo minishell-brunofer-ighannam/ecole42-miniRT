@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   process_polyhedron.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:18:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/20 15:04:58 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:23:07 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
 #include "includes/frame_internal.h"
 
-static inline double	ft_add_clamp(
-							double n1, double n2, double min, double max)
+static inline double	ft_add_clamp(double n1, double n2, double min,
+		double max)
 {
 	double	result;
 
@@ -28,8 +28,7 @@ static inline double	ft_add_clamp(
 	return (result);
 }
 
-static inline double	ft_clamp(
-							double number, double min, double max)
+static inline double	ft_clamp(double number, double min, double max)
 {
 	if (number < min)
 		return (min);
@@ -38,9 +37,8 @@ static inline double	ft_clamp(
 	return (number);
 }
 
-static inline void	ft_handle_material(
-						t_material *mat_poly,
-						t_polyhedron_state_material *mat_state)
+static inline void	ft_handle_material(t_material *mat_poly,
+		t_polyhedron_state_material *mat_state)
 {
 	t_vector_3d	*albedo_poly;
 	t_vector_3d	*albedo_state;
@@ -58,28 +56,28 @@ static inline void	ft_handle_material(
 	mat_poly->norm_albedo.y = albedo_poly->y / 255;
 	albedo_poly->z = ft_clamp(albedo_poly->z + albedo_state->z * 10, 0, 255);
 	mat_poly->norm_albedo.z = albedo_poly->z / 255;
-	printf("rgb[%f, %f, %f]\n", albedo_poly->x, albedo_poly->y, albedo_poly->z);
-	printf("rgb_norm[%f, %f, %f]\n", mat_poly->norm_albedo.x, mat_poly->norm_albedo.y, mat_poly->norm_albedo.z);
 }
 
-static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron, t_polyhedron	*polyhedron)
+static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron,
+		t_polyhedron *polyhedron)
 {
-	t_sphere		*sphere;
-	t_cylinder		*cylinder;
-	t_cone			*cone;
+	t_sphere	*sphere;
+	t_cylinder	*cylinder;
+	t_cone		*cone;
 
 	sphere = polyhedron->specs;
 	cylinder = polyhedron->specs;
 	cone = polyhedron->specs;
-	printf("ft_handle_components::n_components: %d\n", state_polyhedron->n_components);
 	if (state_polyhedron->n_components)
 	{
 		if (polyhedron->type == SPHERE)
-			sphere->radius = ft_add_clamp(sphere->radius, state_polyhedron->components[0].value, 0.1, 200);
+			sphere->radius = ft_add_clamp(sphere->radius,
+					state_polyhedron->components[0].value, 0.1, 200);
 		else if (polyhedron->type == CYLINDER)
 			cylinder->radius += state_polyhedron->components[0].value;
 		else if (polyhedron->type == CONE)
-			cone->half_apex_angle = ft_add_clamp(cone->half_apex_angle, state_polyhedron->components[0].value, 1, 70);
+			cone->half_apex_angle = ft_add_clamp(cone->half_apex_angle,
+					state_polyhedron->components[0].value, 1, 70);
 	}
 	if (state_polyhedron->n_components > 1)
 	{
