@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_state_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 07:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 11:00:27 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:27:01 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ static void	set_window(t_context *context, int width, int height)
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
+static void	set_left_keys(t_pressed_keys *keys, int key, bool value)
+{
+	if (key == KEYBOARD_LEFT_ALT && keys->left_alt != value)
+		keys->left_alt = value;
+	else if (key == KEYBOARD_LEFT_CTRL && keys->left_ctrl != value)
+		keys->left_ctrl = value;
+	else if (key == KEYBOARD_LEFT_SIFT && keys->left_shift != value)
+		keys->left_shift = value;
+	else if (key == MOUSE_LEFT_BUTTON && keys->left_mouse_btn != value)
+		keys->left_mouse_btn = value;
+}
+
 static void	set_keys(t_context *context, int key, bool value)
 {
 	t_pressed_keys	*keys;
@@ -70,23 +82,17 @@ static void	set_keys(t_context *context, int key, bool value)
 		state->has_changes = true;
 	if (!keys->has_changes)
 		keys->has_changes = true;
-	if (key == KEYBOARD_LEFT_ALT && keys->left_alt != value)
-		keys->left_alt = value;
-	else if (key == KEYBOARD_RIGHT_ALT && keys->right_alt != value)
+	if (key == KEYBOARD_RIGHT_ALT && keys->right_alt != value)
 		keys->right_alt = value;
-	else if (key == KEYBOARD_LEFT_CTRL && keys->left_ctrl != value)
-		keys->left_ctrl = value;
 	else if (key == KEYBOARD_RIGHT_CTRL && keys->right_ctrl != value)
 		keys->right_ctrl = value;
-	else if (key == KEYBOARD_LEFT_SIFT && keys->left_shift != value)
-		keys->left_shift = value;
 	else if (key == KEYBOARD_RIGHT_SIFT && keys->right_shift != value)
 		keys->right_shift = value;
-	else if (key == MOUSE_LEFT_BUTTON && keys->left_mouse_btn != value)
-		keys->left_mouse_btn = value;
 	else if (key == MOUSE_RIGHT_BUTTON && keys->right_mouse_btn != value)
 		keys->right_mouse_btn = value;
 	else if (key == MOUSE_MIDDLE_BUTTON && keys->middle_mouse_btn != value)
 		keys->middle_mouse_btn = value;
+	else
+		set_left_keys(keys, key, value);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }

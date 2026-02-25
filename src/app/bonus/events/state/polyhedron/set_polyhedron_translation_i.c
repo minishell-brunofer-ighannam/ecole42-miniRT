@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_polyhedron_translation_i.c                         :+:      :+:    :+:   */
+/*   set_polyhedron_translation_i.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 08:18:56 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/15 15:45:36 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/25 12:30:46 by brunofer          #+#    #+#             */
+/*   Updated: 2026/02/25 12:30:48 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	set_polyhedron_translation_up(t_context *context)
 	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.translate_y += POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->up [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
@@ -52,7 +51,6 @@ void	set_polyhedron_translation_down(t_context *context)
 	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.translate_y -= POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->down [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
@@ -66,7 +64,6 @@ void	set_polyhedron_translation_left(t_context *context)
 	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.translate_x -= POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->left [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }
 
@@ -80,6 +77,5 @@ void	set_polyhedron_translation_right(t_context *context)
 	pthread_mutex_lock(&state->parallel->flow_ctrl->mutex_set_state);
 	set_polyhedron_changed_flag(state);
 	state->scene.polyhedron.translate_x += POLYHEDRON_TRANSLATION_INTENSITY;
-	printf("polyhedron::translation->right [%.0f, %.0f, %.0f]\n", state->scene.polyhedron.translate_x, state->scene.polyhedron.translate_y, state->scene.polyhedron.translate_z);
 	pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 }

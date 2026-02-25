@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/23 16:15:09 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:11:10 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ static void	ft_destroy_app(t_context *context)
 	parallel = context->parallel;
 	scene = context->scene;
 	events->state.destroy(context);
-	parallel->destroy(&parallel);
+	if (parallel)
+		parallel->destroy(&parallel);
 	mlx->destroy(*mlx);
-	scene->destroy(scene);
+	if (scene)
+		scene->destroy(scene);
 }
 
 int	main(int argc, char **argv)
@@ -80,7 +82,10 @@ int	main(int argc, char **argv)
 	ft_setup_mlx_events(&context);
 	scene = ft_parser(argv[1], &context);
 	if (!scene)
+	{
+		ft_destroy_app(&context);
 		return (1);
+	}
 	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 	ft_parallelize(&context, ft_camera_ray_loop);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_mandatory.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:29:18 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:01:56 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_scene				t_scene;
 typedef struct s_context_callbacks	t_context_callbacks;
 struct								s_context_callbacks
 {
-	bool							(*is_process_stopped)(t_context *self);
-	bool							(*is_app_running)(t_context *self);
+	bool							(*is_process_stopped)(t_context * self);
+	bool							(*is_app_running)(t_context * self);
 	void							(*stop_app)(t_context *self);
 };
 
@@ -46,13 +46,13 @@ struct								s_window_info
 	const char						*name;
 };
 
-t_window_info						ft_new_window_info(int width, int height,
-										const char *name);
-t_context							ft_new_context(t_window_info window,
-										void *scene,
-										void *(*create_callbacks)(t_context *context));
-bool								ft_is_app_running(t_context *self);
-void								ft_stop_app(t_context *self);
-bool								ft_is_process_stopped(t_context *self);
+t_window_info	ft_new_window_info(int width, int height,
+					const char *name);
+t_context		ft_new_context(t_window_info window,
+					void *scene,
+					void *(*create_callbacks)(t_context *context));
+bool			ft_is_app_running(t_context *self);
+void			ft_stop_app(t_context *self);
+bool			ft_is_process_stopped(t_context *self);
 
 #endif

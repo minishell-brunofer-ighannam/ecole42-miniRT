@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   events_callbacks_bonus.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 05:21:31 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/23 14:02:48 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 11:12:50 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef EVENTS_CALLBACKS_BONUS_H
 # define EVENTS_CALLBACKS_BONUS_H

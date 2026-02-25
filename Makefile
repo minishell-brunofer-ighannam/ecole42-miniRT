@@ -57,7 +57,8 @@ src/minilibx/minilibx.c src/minilibx/resize_image.c src/minilibx/resize_image_ne
 
 # **** MATH_RT ****
 MATH_RT_FILES = src/math_rt/is_between.c src/math_rt/point_3d.c src/math_rt/vector_3d.c \
-src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c src/math_rt/vector_3d_ops_iii.c
+src/math_rt/vector_3d_ops_i.c src/math_rt/vector_3d_ops_ii.c src/math_rt/utils.c src/math_rt/vector_3d_ops_iii.c \
+src/math_rt/clamp.c
 
 
 # **** PARSER ****

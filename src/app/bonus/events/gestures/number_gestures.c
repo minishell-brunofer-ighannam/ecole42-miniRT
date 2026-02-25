@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:33:43 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/20 11:57:59 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:21:41 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,17 @@ static void	lshift_num_0_9(
 		|| keys.right_shift)
 		return ;
 	state = &context->events.state;
-	printf("polyhedron.components: %d\n", state->scene.polyhedron.n_components);
 	material = &state->scene.polyhedron.material;
 	if (key == KEYBOARD_1)
-	{
 		ft_polyhedron_material(state, &material->ka, true);
-		printf("add_material::ka[%f]\n", material->ka);
-	}
 	else if (key == KEYBOARD_2)
-	{
 		ft_polyhedron_material(state, &material->kd, true);
-		printf("add_material::kd[%f]\n", material->kd);
-	}
 	else if (key == KEYBOARD_3)
-	{
 		ft_polyhedron_material(state, &material->ks, true);
-		printf("add_material::ks[%f]\n", material->ks);
-	}
 	else if (key == KEYBOARD_4)
-	{
 		ft_polyhedron_material(state, &material->n, true);
-		printf("add_material::n[%f]\n", material->n);
-	}
 	else if (key == KEYBOARD_5)
-	{
 		ft_polyhedron_material(state, &material->kr, true);
-		printf("add_material::kr[%f]\n", material->kr);
-	}
 	else
 		ft_handle_components(key, state, true);
 }
@@ -93,30 +77,15 @@ static void	lshift_lalt_num_0_9(
 	state = &context->events.state;
 	material = &state->scene.polyhedron.material;
 	if (key == KEYBOARD_1)
-	{
 		ft_polyhedron_material(state, &material->ka, false);
-		printf("remove_material::ka[%f]\n", material->ka);
-	}
 	else if (key == KEYBOARD_2)
-	{
 		ft_polyhedron_material(state, &material->kd, false);
-		printf("remove_material::kd[%f]\n", material->kd);
-	}
 	else if (key == KEYBOARD_3)
-	{
 		ft_polyhedron_material(state, &material->ks, false);
-		printf("remove_material::ks[%f]\n", material->ks);
-	}
 	else if (key == KEYBOARD_4)
-	{
 		ft_polyhedron_material(state, &material->n, false);
-		printf("remove_material::n[%f]\n", material->n);
-	}
 	else if (key == KEYBOARD_5)
-	{
 		ft_polyhedron_material(state, &material->kr, false);
-		printf("remove_material::kr[%f]\n", material->kr);
-	}
 	else
 		ft_handle_components(key, state, false);
 }
@@ -127,18 +96,9 @@ static void	ft_handle_components(int key, t_state *state, bool add)
 
 	poly_state = &state->scene.polyhedron;
 	if (key == KEYBOARD_6 && poly_state->n_components > 0)
-	{
 		ft_polyhedron_component(state, &poly_state->components[0], add);
-		printf("%s: %f\n", poly_state->components[0].name, poly_state->components[0].value);
-	}
 	else if (key == KEYBOARD_7 && poly_state->n_components > 1)
-	{
 		ft_polyhedron_component(state, &poly_state->components[1], add);
-		printf("%s: %f\n", poly_state->components[1].name, poly_state->components[1].value);
-	}
 	else if (key == KEYBOARD_8 && poly_state->n_components > 2)
-	{
 		ft_polyhedron_component(state, &poly_state->components[2], add);
-		printf("%s: %f\n", poly_state->components[2].name, poly_state->components[2].value);
-	}
 }

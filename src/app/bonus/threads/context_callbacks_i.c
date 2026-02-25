@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_callbacks_i.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 13:44:53 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:22:23 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:32:00 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ bool	ft_is_frame_ready(t_context *self)
 
 	parallel = self->parallel;
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
-	is_frame_ready = parallel->flow_ctrl->frame_parts_ready == parallel->n_threads;
+	is_frame_ready = parallel->flow_ctrl->frame_parts_ready
+		== parallel->n_threads;
 	pthread_mutex_unlock(&parallel->flow_ctrl->mutex_set_state);
 	return (is_frame_ready);
 }

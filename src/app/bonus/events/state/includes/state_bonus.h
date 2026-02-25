@@ -121,20 +121,21 @@ struct										s_set_movement
 {
 	t_set_mov_discrete						discrete;
 	void									(*spatial)(t_context *context,
-										t_spatial_gesture *gesture);
+			t_spatial_gesture *gesture);
 };
 
 struct										s_set_state
 {
 	void									(*window)(t_context *context,
-											int width, int height);
+			int width, int height);
 	void									(*keys)(t_context *context, int key,
-											bool value);
+			bool value);
 	t_set_movement							camera_translation;
 	t_set_movement							camera_rotation;
-	void									(*select_polyhedron)(t_context *context,
-											int x, int y);
-	void									(*unselect_polyhedron)(t_context *context);
+	void									(*select_polyhedron)(
+			t_context *context, t_scene *scene, int x, int y);
+	void									(*unselect_polyhedron)(
+			t_context *context);
 	t_set_movement							polyhedron_translation;
 	t_set_movement							polyhedron_rotation;
 };

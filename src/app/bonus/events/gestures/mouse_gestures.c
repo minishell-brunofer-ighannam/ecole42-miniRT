@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_gestures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 11:21:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:25:56 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:18:36 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/gestures_internal_bonus.h"
 #include "context.h"
 
-void		ft_low_pass_filter(t_spatial_gesture *self, int x, int y);
-void		calibrate_diff_y(double *diff);
 static void	lalt_ldrag_handler(
 				t_spatial_gesture *self, t_context *context, int x, int y);
 static void	lctrl_mouse_move_handler(
@@ -47,18 +45,15 @@ static void	lctrl_mouse_move_handler(
 	if (self->last_pos.x != x)
 	{
 		self->diff.x = x - self->last_pos.x;
-		calibrate_diff(&self->diff.x);
-		// self->diff.x /= state->window.ratio;
+		calibrate_diff(&self->diff.x, true);
 		self->last_pos.x = x;
 	}
 	if (self->last_pos.y != y)
 	{
 		self->diff.y = y - self->last_pos.y;
-		calibrate_diff_y(&self->diff.y);
-		// self->diff.y /= state->window.ratio;
+		calibrate_diff(&self->diff.y, false);
 		self->last_pos.y = y;
 	}
-
 	self->state_setter(context, self);
 }
 
@@ -73,7 +68,7 @@ static void	lctrl_ldrag_handler(
 		|| keys.right_shift || keys.right_mouse_btn || keys.middle_mouse_btn)
 		return ;
 	self->diff.z = x + y - self->last_pos.z;
-	calibrate_diff(&self->diff.z);
+	calibrate_diff(&self->diff.z, true);
 	self->last_pos.z = x + y;
 	self->state_setter(context, self);
 }
@@ -93,36 +88,33 @@ static void	lalt_ldrag_handler(
 	if (self->last_pos.x != x)
 	{
 		self->diff.x = (double)x - self->last_pos.x;
-		calibrate_diff(&self->diff.x);
+		calibrate_diff(&self->diff.x, true);
 		self->last_pos.x = x;
 	}
 	if (self->last_pos.y != y)
 	{
 		self->diff.y = (double)y - self->last_pos.y;
-		calibrate_diff_y(&self->diff.y);
+		calibrate_diff(&self->diff.y, false);
 		self->last_pos.y = y;
 	}
-	// ft_low_pass_filter(self, x, y);
-	// calibrate_diff(&self->diff.x);
-	// calibrate_diff_y(&self->diff.y);
 	self->state_setter(context, self);
 }
 
-void	calibrate_diff(double *diff)
+void	calibrate_diff(double *diff, bool is_x)
 {
-	if (*diff < 2 && *diff > -2)
-		*diff *= 0.5;
-	if (*diff > 50 || *diff < -50)
+	if (is_x)
 	{
-		if (*diff > 0)
-			*diff = 1;
-		else
-			*diff = -1;
+		if (*diff < 2 && *diff > -2)
+			*diff *= 0.5;
+		if (*diff > 50 || *diff < -50)
+		{
+			if (*diff > 0)
+				*diff = 1;
+			else
+				*diff = -1;
+		}
+		return ;
 	}
-}
-
-void	calibrate_diff_y(double *diff)
-{
 	if (*diff < 2 && *diff > -2)
 		*diff *= 0.05;
 	if (*diff > 50 || *diff < -50)
@@ -132,27 +124,4 @@ void	calibrate_diff_y(double *diff)
 		else
 			*diff = -1;
 	}
-}
-
-
-void	ft_low_pass_filter(t_spatial_gesture *self, int x, int y)
-{
-	double	delta_x;
-	double	delta_y;
-	double	alpha;
-
-	alpha = 0.05;
-	delta_x = self->last_pos.x - (double)x;
-	delta_y = self->last_pos.y - (double)y;
-
-	if (fabs(delta_x) > fabs(delta_y))
-		delta_y = 0;
-	else
-		delta_x = 0;
-
-	self->diff.x += alpha * (delta_x - self->diff.x);
-	self->diff.y += alpha * (delta_y - self->diff.y);
-
-	self->last_pos.x = x;
-	self->last_pos.y = y;
 }

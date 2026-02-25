@@ -3,39 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   process_polyhedron.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 19:18:47 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:23:07 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:44:47 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
 #include "includes/frame_internal.h"
-
-static inline double	ft_add_clamp(double n1, double n2, double min,
-		double max)
-{
-	double	result;
-
-	if (!n2)
-		return (n1);
-	result = n1 + n2;
-	if (result < min)
-		return (min);
-	if (result > max)
-		return (max);
-	return (result);
-}
-
-static inline double	ft_clamp(double number, double min, double max)
-{
-	if (number < min)
-		return (min);
-	if (number > max)
-		return (max);
-	return (number);
-}
 
 static inline void	ft_handle_material(t_material *mat_poly,
 		t_polyhedron_state_material *mat_state)
@@ -58,8 +34,9 @@ static inline void	ft_handle_material(t_material *mat_poly,
 	mat_poly->norm_albedo.z = albedo_poly->z / 255;
 }
 
-static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron,
-		t_polyhedron *polyhedron)
+static inline void	ft_handle_1component_polyhdron(
+						t_polyhedron_state *state_polyhedron,
+						t_polyhedron *polyhedron)
 {
 	t_sphere	*sphere;
 	t_cylinder	*cylinder;
@@ -68,24 +45,33 @@ static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron,
 	sphere = polyhedron->specs;
 	cylinder = polyhedron->specs;
 	cone = polyhedron->specs;
+	if (polyhedron->type == SPHERE)
+		sphere->radius = ft_add_clamp(sphere->radius,
+				state_polyhedron->components[0].value, 0.1, 200);
+	else if (polyhedron->type == CYLINDER)
+		cylinder->radius += state_polyhedron->components[0].value;
+	else if (polyhedron->type == CONE)
+		cone->half_apex_angle = ft_add_clamp(cone->half_apex_angle,
+				state_polyhedron->components[0].value, 1, 70);
+	state_polyhedron->components[0].value = 0;
+}
+
+static inline void	ft_handle_components(t_polyhedron_state *state_polyhedron,
+		t_polyhedron *polyhedron)
+{
+	t_cylinder	*cylinder;
+	t_cone		*cone;
+
+	cylinder = polyhedron->specs;
+	cone = polyhedron->specs;
 	if (state_polyhedron->n_components)
-	{
-		if (polyhedron->type == SPHERE)
-			sphere->radius = ft_add_clamp(sphere->radius,
-					state_polyhedron->components[0].value, 0.1, 200);
-		else if (polyhedron->type == CYLINDER)
-			cylinder->radius += state_polyhedron->components[0].value;
-		else if (polyhedron->type == CONE)
-			cone->half_apex_angle = ft_add_clamp(cone->half_apex_angle,
-					state_polyhedron->components[0].value, 1, 70);
-	}
+		ft_handle_1component_polyhdron(state_polyhedron, polyhedron);
 	if (state_polyhedron->n_components > 1)
 	{
 		if (polyhedron->type == CYLINDER)
 			cylinder->height += state_polyhedron->components[1].value;
 		else if (polyhedron->type == CONE)
 			cone->height += state_polyhedron->components[1].value;
-		state_polyhedron->components[0].value = 0;
 		state_polyhedron->components[1].value = 0;
 	}
 	if (polyhedron->type == CONE)

@@ -6,7 +6,7 @@
 /*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 23:07:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/20 13:58:52 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:00:42 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	ft_sow_selected_polyedron_ui(t_context *context)
 	t_parallel	*parallel;
 	t_state		*state;
 
-
 	parallel = context->parallel;
 	state = &context->events.state;
-
 	pthread_mutex_lock(&parallel->flow_ctrl->mutex_set_state);
 	if (state->window.height > 300 && state->window.width > 300
 		&& state->scene.polyhedron.selected)
@@ -59,5 +57,4 @@ static void	ft_draw_outside_block(t_state *state, t_mlx *mlx)
 			*mlx->frame_buffer[(int)count.x][(int)count.y] = color;
 		}
 	}
-
 }

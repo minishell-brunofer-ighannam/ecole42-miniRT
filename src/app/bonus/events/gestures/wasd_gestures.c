@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wasd_gestures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:55:20 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:26:37 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:22:12 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	w_handler(t_discrete_gesture *gest, t_context *context, int key,
 
 	(void)position;
 	keys = context->events.state.pressed_keys;
-	;
 	if (key != KEYBOARD_W || keys.left_alt || keys.left_ctrl || keys.left_shift
 		|| keys.right_alt || keys.right_ctrl || keys.right_shift)
 		return ;
@@ -55,7 +54,6 @@ static void	a_handler(t_discrete_gesture *gest, t_context *context, int key,
 
 	(void)position;
 	keys = context->events.state.pressed_keys;
-	;
 	if (key != KEYBOARD_A || keys.left_alt || keys.left_ctrl || keys.left_shift
 		|| keys.right_alt || keys.right_ctrl || keys.right_shift)
 		return ;
@@ -82,7 +80,6 @@ static void	d_handler(t_discrete_gesture *gest, t_context *context, int key,
 
 	(void)position;
 	keys = context->events.state.pressed_keys;
-	;
 	if (key != KEYBOARD_D || keys.left_alt || keys.left_ctrl || keys.left_shift
 		|| keys.right_alt || keys.right_ctrl || keys.right_shift)
 		return ;

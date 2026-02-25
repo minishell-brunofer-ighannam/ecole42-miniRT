@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_gestures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 21:33:43 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/18 21:39:18 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 12:26:14 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	lshift_lmouseclick_handler(
 		|| keys.left_alt || keys.left_ctrl || keys.right_alt || keys.right_ctrl
 		|| keys.right_shift)
 		return ;
-	ft_select_polyhedron(context, position[0], position[1]);
+	ft_select_polyhedron(context, context->scene, position[0], position[1]);
 }
 
 static void	lshift_rmouseclick_handler(

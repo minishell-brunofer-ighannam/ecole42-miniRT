@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flow_control.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 11:29:42 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/08 13:35:43 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:32:28 by brunofer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_flow_ctrl	*ft_new_flow_control(void)
 
 static bool	ft_init_cond(t_flow_ctrl *flow)
 {
-
 	if (pthread_cond_init(&flow->cond_frame_ready, NULL))
 		return (false);
 	if (pthread_cond_init(&flow->cond_window_resize, NULL))
@@ -50,7 +49,6 @@ static bool	ft_init_cond(t_flow_ctrl *flow)
 
 static bool	ft_init_mutext(t_flow_ctrl *flow)
 {
-
 	if (pthread_mutex_init(&flow->mutex_app_run, NULL))
 		return (false);
 	if (pthread_mutex_init(&flow->mutex_set_state, NULL))
