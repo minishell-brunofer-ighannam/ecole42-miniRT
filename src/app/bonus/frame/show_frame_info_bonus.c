@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_frame_info.c                                  :+:      :+:    :+:   */
+/*   show_frame_info_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 08:41:34 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:32:14 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 static void	ft_track_fps(t_context *context);
 static void	ft_track_ms(t_context *context);

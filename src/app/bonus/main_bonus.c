@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 11:11:10 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:13:52 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,12 @@ int	main(int argc, char **argv)
 	t_window_info	window;
 	t_scene			*scene;
 
-	window = ft_new_window_info(500, 500, "brunofer&ighannam:miniRT");
-	if (argc >= 4)
+	if (argc != 2)
 	{
-		window.width = ft_atoi(argv[2]);
-		if (argv[3])
-			window.height = ft_atoi(argv[3]);
+		printf("Error\nError: wrong number of args.\n");
+		return (1);
 	}
+	window = ft_new_window_info(1280, 720, "brunofer&ighannam:miniRT");
 	context = ft_new_context(window, NULL, ft_create_context_callbacks);
 	ft_setup_mlx_events(&context);
 	scene = ft_parser(argv[1], &context);

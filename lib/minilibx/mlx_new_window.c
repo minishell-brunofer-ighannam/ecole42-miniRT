@@ -17,6 +17,7 @@
 */
 
 #include	"mlx_int.h"
+#include <strings.h>
 
 
 void	*mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title)

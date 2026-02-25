@@ -44,7 +44,8 @@ INCLUDES = \
 	-I src/minilibx/includes \
 	-I lib/minilibx
 CC = cc
-CFLAGS := -Wall -Werror -Wextra -O3 -march=native -flto -funroll-loops $(INCLUDES)
+CFLAGS := -Wall -Werror -Wextra -g3 $(INCLUDES)
+# CFLAGS := -Wall -Werror -Wextra -O3 -march=native -flto -funroll-loops $(INCLUDES)
 CFLAGS_DEBUG := -Wall -Werror -Wextra -g $(INCLUDES)
 CFLAGS_USED := $(CFLAGS)
 
@@ -87,32 +88,32 @@ src/data_structures/binary_tree/binary_tree_node.c src/data_structures/binary_tr
 B_EV_DIR= src/app/bonus/events
 BONUS_EVENTS_FILES = $(B_EV_DIR)/events_bonus.c $(B_EV_DIR)/callbacks/keyboard_callbacks_bonus.c \
 $(B_EV_DIR)/callbacks/mouse_callbacks_bonus.c $(B_EV_DIR)/callbacks/window_callbacks_bonus.c \
-$(B_EV_DIR)/callbacks/callbacks.c $(B_EV_DIR)/gestures/gestures.c $(B_EV_DIR)/gestures/mouse_gestures.c \
-$(B_EV_DIR)/gestures/wasd_gestures.c $(B_EV_DIR)/gestures/number_gestures.c $(B_EV_DIR)/gestures/rgb_gestures.c \
-$(B_EV_DIR)/gestures/select_gestures.c  $(B_EV_DIR)/state/camera/set_camera.c $(B_EV_DIR)/state/camera/set_camera_rotation_i.c $(B_EV_DIR)/state/camera/set_camera_rotation_ii.c \
-$(B_EV_DIR)/state/camera/set_camera_translation_i.c $(B_EV_DIR)/state/camera/set_camera_translation_ii.c \
-$(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_i.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_ii.c \
-$(B_EV_DIR)/state/polyhedron/set_polyhedron_select.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_i.c \
-$(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_ii.c $(B_EV_DIR)/state/polyhedron/set_polyhedron.c \
+$(B_EV_DIR)/callbacks/callbacks_bonus.c $(B_EV_DIR)/gestures/gestures_bonus.c $(B_EV_DIR)/gestures/mouse_gestures_bonus.c \
+$(B_EV_DIR)/gestures/wasd_gestures_bonus.c $(B_EV_DIR)/gestures/number_gestures_bonus.c $(B_EV_DIR)/gestures/rgb_gestures_bonus.c \
+$(B_EV_DIR)/gestures/select_gestures_bonus.c  $(B_EV_DIR)/state/camera/set_camera_bonus.c $(B_EV_DIR)/state/camera/set_camera_rotation_i_bonus.c $(B_EV_DIR)/state/camera/set_camera_rotation_ii_bonus.c \
+$(B_EV_DIR)/state/camera/set_camera_translation_i_bonus.c $(B_EV_DIR)/state/camera/set_camera_translation_ii_bonus.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_i_bonus.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_rotation_ii_bonus.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_select_bonus.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_i_bonus.c \
+$(B_EV_DIR)/state/polyhedron/set_polyhedron_translation_ii_bonus.c $(B_EV_DIR)/state/polyhedron/set_polyhedron_bonus.c \
 $(B_EV_DIR)/state/set_state_bonus.c $(B_EV_DIR)/state/state_bonus.c
 
 B_FRAME_DIR = src/app/bonus/frame
-BONUS_FRAME_FILES = $(B_FRAME_DIR)/frame.c $(B_FRAME_DIR)/draw_forms.c \
-$(B_FRAME_DIR)/process_state.c $(B_FRAME_DIR)/show_frame_info.c $(B_FRAME_DIR)/process_camera.c \
-$(B_FRAME_DIR)/process_camera_translation.c $(B_FRAME_DIR)/process_camera_rotation.c $(B_FRAME_DIR)/process_polyhedron.c \
-$(B_FRAME_DIR)/show_selected_polyedron_ui.c
+BONUS_FRAME_FILES = $(B_FRAME_DIR)/frame_bonus.c $(B_FRAME_DIR)/draw_forms_bonus.c \
+$(B_FRAME_DIR)/process_state_bonus.c $(B_FRAME_DIR)/show_frame_info_bonus.c $(B_FRAME_DIR)/process_camera_bonus.c \
+$(B_FRAME_DIR)/process_camera_translation_bonus.c $(B_FRAME_DIR)/process_camera_rotation_bonus.c $(B_FRAME_DIR)/process_polyhedron_bonus.c \
+$(B_FRAME_DIR)/show_selected_polyedron_ui_bonus.c
 
 B_THREAD_DIR = src/app/bonus/threads
-BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i.c $(B_THREAD_DIR)/context_callbacks_ii.c \
-$(B_THREAD_DIR)/flow_control.c $(B_THREAD_DIR)/parallelize.c $(B_THREAD_DIR)/threads_bonus.c $(B_THREAD_DIR)/threads_routine.c
+BONUS_THREAD_FILES = $(B_THREAD_DIR)/context_callbacks_i_bonus.c $(B_THREAD_DIR)/context_callbacks_ii_bonus.c \
+$(B_THREAD_DIR)/flow_control_bonus.c $(B_THREAD_DIR)/parallelize_bonus.c $(B_THREAD_DIR)/threads_bonus.c $(B_THREAD_DIR)/threads_routine_bonus.c
 
-BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context_bonus.c src/app/bonus/ray_tracing.c
+BONUS_FILES = $(BONUS_EVENTS_FILES) $(BONUS_FRAME_FILES) $(BONUS_THREAD_FILES) src/app/bonus/context_bonus.c
 
 SRC_SUPPORT_FILES = $(MLX_FILES) $(PARSER_FILES) $(DATA_STRUCTURES) $(SCENE_FILES) $(RAY_TRACER_FILES) $(MATH_RT_FILES)
 
 SRC_BONUS_FILES = $(SRC_SUPPORT_FILES) $(BONUS_FILES)
 
-SRC_MANDATORY_FILES = $(SRC_SUPPORT_FILES) src/app/mandatory/context_mandatory.c
+SRC_MANDATORY_FILES = $(SRC_SUPPORT_FILES) src/app/mandatory/context_mandatory.c src/app/mandatory/destroy.c
 
 # ============== PROGRAM FILES =================
 MAIN_PROGRAM = src/app/mandatory/main.c

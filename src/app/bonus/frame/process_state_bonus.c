@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_state.c                                    :+:      :+:    :+:   */
+/*   process_state_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 09:02:21 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 13:00:06 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 bool	ft_process_state(t_context *context)
 {

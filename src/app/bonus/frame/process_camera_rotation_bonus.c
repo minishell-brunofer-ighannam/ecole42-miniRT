@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_camera_rotation.c                          :+:      :+:    :+:   */
+/*   process_camera_rotation_bonus.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 18:16:03 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/14 18:34:03 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 static inline void	ft_normalize_cam_base(
 						t_vector_3d *forward,

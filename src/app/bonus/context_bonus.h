@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 13:10:59 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/23 14:06:30 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 14:04:50 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CONTEXT_BONUS_H
 
 # include "events_bonus.h"
-# include "frame.h"
+# include "frame_bonus.h"
 # include "minilibx.h"
 # include "scene.h"
 

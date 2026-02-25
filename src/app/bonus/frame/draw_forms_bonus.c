@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_forms.c                                       :+:      :+:    :+:   */
+/*   draw_forms_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 11:19:03 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 12:32:46 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 void	ft_draw_square(t_context *context, int width, int height)
 {

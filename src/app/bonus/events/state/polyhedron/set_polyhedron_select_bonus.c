@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_polyhedron_select.c                            :+:      :+:    :+:   */
+/*   set_polyhedron_select_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 10:59:44 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 12:29:53 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:53:21 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ void	ft_unselect_polyhedron(t_context *context)
 
 	state = &context->events.state;
 	if (!state->scene.polyhedron.selected)
-	{
-		pthread_mutex_unlock(&state->parallel->flow_ctrl->mutex_set_state);
 		return ;
-	}
 	set_polyhedron_changed_flag(state);
 	polyhedron = &state->scene.polyhedron;
 	polyhedron->selected = NULL;

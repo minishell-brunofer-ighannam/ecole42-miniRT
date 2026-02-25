@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_selected_polyedron_ui.c                       :+:      :+:    :+:   */
+/*   show_selected_polyedron_ui_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 23:07:06 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 13:00:42 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "context.h"
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 static void	ft_draw_outside_block(t_state *state, t_mlx *mlx);
 

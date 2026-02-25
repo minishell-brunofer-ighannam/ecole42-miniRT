@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "context.h"
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 static int	ft_run_frame(t_context *context);
 static void	ft_render_frame(t_context *context);

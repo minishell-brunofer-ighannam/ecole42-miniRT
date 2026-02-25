@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_camera_translation.c                       :+:      :+:    :+:   */
+/*   process_camera_translation_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 18:08:51 by brunofer          #+#    #+#             */
-/*   Updated: 2026/02/25 12:33:03 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:05:43 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/frame_internal.h"
+#include "includes/frame_internal_bonus.h"
 
 static inline bool	ft_is_x_inverse(t_vector_3d cam_forward)
 {

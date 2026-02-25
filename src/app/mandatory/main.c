@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/23 16:54:31 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 16:27:35 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mandatory.h"
 #include "context.h"
+#include "mandatory.h"
 
 static void	*ft_create_context_callbacks(t_context *context)
 {
@@ -63,7 +63,11 @@ int	main(int argc, char **argv)
 	t_window_info	window;
 	t_scene			*scene;
 
-	(void)argc;
+	if (argc != 2)
+	{
+		printf("Error\nError: wrong number of args.\n");
+		return (1);
+	}
 	window = ft_new_window_info(1280, 720, "brunofer&ighannam:miniRT");
 	context = ft_new_context(window, NULL, ft_create_context_callbacks);
 	context.mlx.events.key_press(context.mlx, ft_mlx_key_press, &context);
@@ -71,7 +75,10 @@ int	main(int argc, char **argv)
 	context.mlx.events.loop(context.mlx, ft_loop_app, &context);
 	scene = ft_parser(argv[1], &context);
 	if (!scene)
+	{
+		ft_destroy_app(&context);
 		return (1);
+	}
 	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 	context.mlx.loop(context.mlx);

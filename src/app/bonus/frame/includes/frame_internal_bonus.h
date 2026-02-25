@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frame_internal.h                                  :+:      :+:    :+:   */
+/*   frame_internal_bonus.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/30 07:21:52 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/30 08:47:13 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/25 16:26:19 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/25 16:31:17 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAME_INTERNAL_H
-# define FRAME_INTERNAL_H
+#ifndef FRAME_INTERNAL_BONUS_H
+# define FRAME_INTERNAL_BONUS_H
 
 # include "../../threads/includes/threads_bonus.h"
-# include "frame.h"
+# include "frame_bonus.h"
 # include "libft.h"
 # include "mlx.h"
 

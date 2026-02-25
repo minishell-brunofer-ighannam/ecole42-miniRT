@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:05:15 by ighannam          #+#    #+#             */
-/*   Updated: 2026/01/31 10:07:28 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:42:27 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int		ft_strlen_int(char *str);
 static double	ft_str_int(char *str);
 static double	ft_str_dec(char *str);
-static int	ft_str_exp(char *str);
+static int		ft_str_exp(char *str);
 
 double	ft_atod(char *str)
 {

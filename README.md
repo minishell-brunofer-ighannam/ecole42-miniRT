@@ -64,26 +64,12 @@ make bonus
 
 ### Usage
 
-Run with window size params to choose a window size.
-
 ```bash
-./miniRT scene.rt <window-width> <window-height>
+./miniRT scene.rt
 ```
 
 ```bash
-./miniRT_bonus scene.rt <window-width> <window-height>
-```
-
-Or run with no window size params to create a default 1280X720 window
-
-**Example:**
-
-```bash
-./miniRT scenes/basic/snow_man.rt
-```
-
-```bash
-./miniRT_bonus scenes/bonus/42.rt
+./miniRT_bonus scene.rt
 ```
 
 The program will open a window and render the scene described in the `.rt` file.

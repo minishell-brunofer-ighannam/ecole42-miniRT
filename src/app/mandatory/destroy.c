@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui_select_polyhedron_bonus.h                       :+:      :+:    :+:   */
+/*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/19 14:26:46 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/19 14:27:23 by bruno-valer      ###   ########.fr       */
+/*   Created: 2026/02/25 16:27:26 by ighannam          #+#    #+#             */
+/*   Updated: 2026/02/25 16:31:46 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI_SELECT_POLYHEDRON_BONUS_H
-# define UI_SELECT_POLYHEDRON_BONUS_H
+#include "context.h"
+#include "mandatory.h"
 
-#endif
+void	ft_destroy_app(t_context *context)
+{
+	t_mlx	*mlx;
+	t_scene	*scene;
+
+	mlx = &context->mlx;
+	scene = context->scene;
+	mlx->destroy(*mlx);
+	if (scene)
+		scene->destroy(scene);
+}

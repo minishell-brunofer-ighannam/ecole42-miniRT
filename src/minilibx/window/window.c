@@ -6,11 +6,12 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:15:24 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 10:05:18 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:28:49 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/window_internal.h"
+#include "libft.h"
 
 static void		*ft_mlx_display_image(t_mlx_window self);
 static void		*ft_mlx_window_destroy(t_mlx_window window);
@@ -19,6 +20,7 @@ t_mlx_window	new_mlx_window(int width, int height, const char *name)
 {
 	t_mlx_window	window;
 
+	ft_bzero(&window, sizeof(t_mlx_window));
 	window.width = width;
 	window.height = height;
 	window.ratio = (double)width / (double)height;
