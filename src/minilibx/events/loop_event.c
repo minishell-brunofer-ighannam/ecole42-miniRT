@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   loop_event.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:19:16 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 08:13:03 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/02/25 10:04:50 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/events_internal.h"
 #include "../includes/minilibx.h"
+#include "includes/events_internal.h"
 
 void	on_loop(t_mlx mlx, int (*callback)(void *param), void *param)
 {

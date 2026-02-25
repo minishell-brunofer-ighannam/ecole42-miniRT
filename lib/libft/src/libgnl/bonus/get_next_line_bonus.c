@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunofer <brunofer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 10:40:10 by brunofer          #+#    #+#             */
-/*   Updated: 2025/08/05 09:27:49 by brunofer         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:48:13 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 		return (
 			release_memory((void **) &static_buffer[fd], (void **) &buffer)
 		);
-	if (last_read && !ft_strlen(static_buffer[fd]))
+	if ((last_read && !ft_strlen(static_buffer[fd])) || fd == -1)
 		release_memory((void **) &static_buffer[fd], (void **) NULL);
 	return (buffer);
 }

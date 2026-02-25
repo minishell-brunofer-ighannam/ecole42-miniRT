@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 20:38:24 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/01/26 15:36:00 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/30 10:57:02 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ struct s_mlx
 {
 	t_mlx_window	window;
 	t_mlx_events	events;
+	unsigned int	***frame_buffer;
 	unsigned int	***(*create_pixel_mapper)(t_mlx self);
+	void			(*resize_image)(t_mlx *self, int width, int height);
 	void			*(*display_image)(t_mlx self);
 	void			*(*loop)(t_mlx self);
 	void			*(*destroy)(t_mlx self);

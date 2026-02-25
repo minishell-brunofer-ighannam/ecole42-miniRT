@@ -1,0 +1,54 @@
+# Only one ambient light allowed
+# There must be 1 ambient color
+# A   0.5             255,255,255
+# A   0.5             255,255,255
+
+# Invalid double
+A   0..5            255,255,255
+# A   0.              255,255,255
+# A   .5              255,255,255
+
+# Invalid range
+# A   -1              255,255,255
+# A   1.1             255,255,255
+# A   0.5             255,255,256
+
+# Invalid number of elements
+# A   0.5             255,255,255,255
+# A   0.5             255,255,255                2
+# A   0.5             255,255,255                a
+
+# Unexpected element
+# A1  0.5             255,255,255
+# AA  0.5             255,255,255
+
+# Only one camera allowed
+# There must be 1 camera
+# C   0,2.0,4.0       0,-0.25,-1.0    100
+# C   0,2.0,4.0       0,-0.25,-1.0    100
+
+# Expected non-zero, received 0,0,0
+# C   0,2.0,4.0       0,0,0           100
+
+# Expected value between -1 and 1 (direction)
+# C   0,0,0           -2,0,0          100
+# C   0,0,0           2,1,1           100
+
+# There must be 1 light
+# L   0,4.0,3.0       1               255,255,255
+
+# Expected value between 0 and 1
+# L   0,4.0,3.0       -1              255,255,255
+# L   0,4.0,3.0       1.1             255,255,255
+
+# Expected value above 0
+# sp  0,1.1,0           0.0             216,56,136
+# sp  0,1.1,0           -2.0            216,56,136
+
+pl  0,0,0           0,1.0,0         140,118,206
+
+cy  -2.2,0,1.4  0,1.0,0         0.4             1.4             255,204,0
+cy  0.8,0.3,2.0 1.0,0,0         0.4             1.0             255,204,0
+
+cy  -2.2,0,1.4  0,1.0,0         0.4             1.4           255,204,0
+cy  0.8,0.3,2.0 1.0,0,0         0.4             1.0           255,204,0

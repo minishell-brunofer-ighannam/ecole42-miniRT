@@ -6,7 +6,7 @@
 /*   By: bruno-valero <bruno-valero@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 01:28:37 by valero            #+#    #+#             */
-/*   Updated: 2026/01/25 19:07:19 by bruno-valer      ###   ########.fr       */
+/*   Updated: 2026/01/28 14:18:52 by bruno-valer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef enum e_keyboard_keys
 	KEYBOARD_RIGHT_SIFT = 65506,
 	KEYBOARD_LEFT_CTRL = 65507,
 	KEYBOARD_RIGHT_CTRL = 65508,
+	KEYBOARD_LEFT_ALT = 65513,
+	KEYBOARD_RIGHT_ALT = 65514,
 	KEYBOARD_ARROW_LEFT = 65361,
 	KEYBOARD_ARROW_UP = 65362,
 	KEYBOARD_ARROW_RIGHT = 65363,

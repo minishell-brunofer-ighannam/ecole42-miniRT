@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:37:39 by brunofer          #+#    #+#             */
-/*   Updated: 2025/11/18 09:58:38 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/01/29 09:01:28 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define LIBSTR_H
 
 # include "libstr_utils.h"
+# include <limits.h>
 # include <stdlib.h>
+# include <math.h>
+# include <stdbool.h>
 
 typedef struct s_str
 {
@@ -53,6 +56,7 @@ int			ft_str_isdigit(const char *nbr);
 int			ft_str_ishexa(const char *hex, const char *prefix);
 char		*ft_str_tolower(const char *str);
 void		*ft_destroy_char_matrix(char ***char_matrix_ref);
+void		*ft_destroy_char_tensor(char ****tensor_ref);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -74,5 +78,8 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
+bool		ft_is_int(char *str);
+bool		ft_is_double(char *str);
+double		ft_atod(char *str);
 
 #endif
