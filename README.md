@@ -73,6 +73,7 @@ make bonus
 ```
 
 The program will open a window and render the scene described in the `.rt` file.
+Check Template File in scene/template.rt for .rt instructions.
 
 ---
 

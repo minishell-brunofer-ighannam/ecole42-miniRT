@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 16:27:35 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:47:12 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ int	main(int argc, char **argv)
 	ft_camera_init(&scene->camera, &context);
 	context.scene = scene;
 	context.mlx.loop(context.mlx);
-	context.mlx.destroy(context.mlx);
-	context.scene->destroy(context.scene);
+	ft_destroy_app(&context);
 }

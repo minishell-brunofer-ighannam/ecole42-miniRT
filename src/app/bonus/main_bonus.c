@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 19:26:02 by bruno-valer       #+#    #+#             */
-/*   Updated: 2026/02/25 16:13:52 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:47:05 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	ft_destroy_app(t_context *context)
 	events->state.destroy(context);
 	if (parallel)
 		parallel->destroy(&parallel);
-	mlx->destroy(*mlx);
 	if (scene)
-		scene->destroy(scene);
+		scene->destroy(scene, mlx->window.mlx_ref);
+	mlx->destroy(*mlx);
 }
 
 int	main(int argc, char **argv)

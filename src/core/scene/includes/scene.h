@@ -6,7 +6,7 @@
 /*   By: ighannam <ighannam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:23:55 by ighannam          #+#    #+#             */
-/*   Updated: 2026/02/20 14:02:52 by ighannam         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:24:19 by ighannam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ struct						s_scene
 	t_pattern				*pattern;
 	int						num_pattern;
 	int						count_pattern;
-	void					(*destroy)(t_scene *self);
+	void					(*destroy)(t_scene *self, void *mlx_ptr);
 };
 
-void						ft_destroy_scene(t_scene *scene);
+void	ft_destroy_scene(t_scene *scene, void *mlx_ptr);
 
 #endif
