@@ -5,6 +5,12 @@ LIGHT_RED=\033[91m
 LIGHT_GREEN=\033[92m
 LIGHT_CYAN=\033[96m
 
+HAS_DOCKER := $(if $(shell which docker),1,)
+BUILD :=
+SCENE := scene/bonus/reflective_showcase.rt
+DOCKER_IMAGE_NAME := minirt:1.0
+X11AUTHORITY:=$(if $(XAUTHORITY),$(XAUTHORITY),/tmp/.Xauthority)
+
 # ============== MAIN INFO =================
 NAME = miniRT
 NAME_BONUS = miniRT_bonus
@@ -145,9 +151,23 @@ SLEEP = 0.07
 # ********************************************           ********************************************
 # ***************************************************************************************************
 
-all: $(NAME)
+all: $(if $(HAS_DOCKER),$(if $(BUILD),$(NAME),docker_mandatory),$(NAME))
 bonus: CFLAGS_USED += -DBONUS
-bonus: $(NAME_BONUS)
+bonus: $(if $(HAS_DOCKER),$(if $(BUILD),$(NAME_BONUS),docker_bonus),$(NAME_BONUS))
+
+test:
+	@echo $(if $(HAS_DOCKER),true,false)
+
+docker_destroy:
+	@docker compose down -v --rmi all
+	@docker volume prune -f
+	@docker builder prune -f
+
+docker_mandatory: Dockerfile docker-compose.yml
+	@export X11AUTHORITY=$(X11AUTHORITY) && docker compose run --rm minirt /miniRT /$(SCENE)
+
+docker_bonus: Dockerfile docker-compose.yml
+	@export X11AUTHORITY=$(X11AUTHORITY) && docker compose run --rm minirt /miniRT_bonus /$(SCENE)
 
 debug:
 	@$(MAKE) -s fclean
@@ -225,7 +245,7 @@ clean:
 	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) clean
 
-fclean: clean
+fclean: clean docker_destroy
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(LIBFT_DIR)$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(LIBFT_DIR) fclean
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)

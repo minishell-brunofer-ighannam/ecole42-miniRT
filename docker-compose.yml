@@ -1,0 +1,40 @@
+services:
+  minirt:
+    image: minirt:1.0
+    build: .
+    container_name: minirt
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=${X11AUTHORITY}
+    volumes:
+      - x11_environment:/tmp/.X11-unix
+      - ${X11AUTHORITY}:${X11AUTHORITY}
+      - scene:/scene
+      - texture_map_color:/texture_map_color
+      - texture_map_normal:/texture_map_normal
+
+volumes:
+  x11_environment:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /tmp/.X11-unix
+  scene:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./scene
+  texture_map_color:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./texture_map_color
+  texture_map_normal:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./texture_map_normal
