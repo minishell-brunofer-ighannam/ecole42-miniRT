@@ -48,7 +48,9 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install libx11-dev libxext-dev libbsd-dev -y
 ```
 
-### Compilation
+### Docker environment
+
+By default the project will use docker on its initialization, therefore you can use the commands below. They will create a docker image of the miniRT project and start a docker container to execute the mandatory or bonus version using the created image:
 
 **Mandatory version:**
 
@@ -60,6 +62,40 @@ make
 
 ```bash
 make bonus
+```
+
+### Choose a specific scene
+
+You can also choose to run the docker container with a specific scene. To do so, use one of the following commands:
+
+**Mandatory version (choosing scene):**
+
+```bash
+make SCENE=scene/bonus/myscene.rt
+```
+
+**Bonus version (choosing scene):**
+
+```bash
+make bonus SCENE=scene/bonus/myscene.rt
+```
+
+### How to setup docker and create the image
+
+You can see how to setup docker and how the creation of the miniRT image works **[here](./DOCKER.md)**.
+
+### Compilation Manually
+
+**Mandatory version:**
+
+```bash
+make BUILD=true
+```
+
+**Bonus version:**
+
+```bash
+make bonus BUILD=true
 ```
 
 ### Usage
