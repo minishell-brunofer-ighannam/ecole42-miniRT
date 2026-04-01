@@ -1,6 +1,6 @@
-# MiniRT with Docker
+# MiniRT with Docker Compose
 
-Welcome to MiniRT Docker Documentation! Here we will see how to setup docker and then how the creation of the miniRT docker image works and how to properly run its container.
+Welcome to MiniRT Docker Documentation! Here we will see how to setup docker and then how the creation of the miniRT docker image works and how to properly run its container with docker compose.
 
 ## Setting up Docker
 
