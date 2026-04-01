@@ -8,7 +8,6 @@ LIGHT_CYAN=\033[96m
 HAS_DOCKER := $(if $(shell which docker),1,)
 BUILD :=
 SCENE := scene/bonus/reflective_showcase.rt
-DOCKER_IMAGE_NAME := minirt:1.0
 X11AUTHORITY:=$(if $(XAUTHORITY),$(XAUTHORITY),/tmp/.Xauthority)
 
 # ============== MAIN INFO =================
