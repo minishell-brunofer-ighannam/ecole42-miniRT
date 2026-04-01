@@ -5,6 +5,17 @@ LIGHT_RED=\033[91m
 LIGHT_GREEN=\033[92m
 LIGHT_CYAN=\033[96m
 
+HAS_DOCKER := $(if $(shell which docker),1,)
+BUILD :=
+SCENE := scene/bonus/reflective_showcase.rt
+DOCKER_IMAGE_NAME := minirt:1.0
+X11AUTHORITY:=$(if $(XAUTHORITY),$(XAUTHORITY),/tmp/.Xauthority)
+DOCKER_RUN_CMD := docker run --rm --label project=minirt \
+	-e DISPLAY=$(DISPLAY) -e XAUTHORITY=$(X11AUTHORITY) \
+	-v /tmp/.X11-unix:/tmp/.X11-unix -v $(X11AUTHORITY):$(X11AUTHORITY) \
+	-v ./scene:/scene -v ./texture_map_color:/texture_map_color -v ./texture_map_normal:/texture_map_normal \
+	$(DOCKER_IMAGE_NAME)
+
 # ============== MAIN INFO =================
 NAME = miniRT
 NAME_BONUS = miniRT_bonus
@@ -145,9 +156,29 @@ SLEEP = 0.07
 # ********************************************           ********************************************
 # ***************************************************************************************************
 
-all: $(NAME)
+all: $(if $(HAS_DOCKER),$(if $(BUILD),$(NAME),docker_mandatory),$(NAME))
 bonus: CFLAGS_USED += -DBONUS
-bonus: $(NAME_BONUS)
+bonus: $(if $(HAS_DOCKER),$(if $(BUILD),$(NAME_BONUS),docker_bonus),$(NAME_BONUS))
+
+test:
+	@echo $(if $(HAS_DOCKER),true,false)
+
+docker_build_image: Dockerfile
+	@DOCKER_BUILDKIT=1 docker build --build-arg BUILDKIT_INLINE_CACHE=1 -t $(DOCKER_IMAGE_NAME) --label project=minirt .
+
+docker_destroy:
+	@docker image rm $(DOCKER_IMAGE_NAME) -f
+	@docker builder prune -f
+	@docker container prune --filter "label=project=minirt" -f
+
+print_docker:
+	@echo $(DOCKER_RUN_CMD)
+
+docker_mandatory: docker_build_image
+	@$(DOCKER_RUN_CMD) /miniRT /$(SCENE)
+
+docker_bonus: docker_build_image
+	@$(DOCKER_RUN_CMD) /miniRT_bonus /$(SCENE)
 
 debug:
 	@$(MAKE) -s fclean
@@ -225,7 +256,7 @@ clean:
 	@echo "$(LIGHT_RED)>> $(BOLD)cleanning$(RESET) $(LIGHT_CYAN)./$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(MLX_DIR) clean
 
-fclean: clean
+fclean: clean docker_destroy
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(LIBFT_DIR)$(RESET)..." && sleep $(SLEEP)
 	@make -s -C $(LIBFT_DIR) fclean
 	@echo "$(LIGHT_RED)>> $(BOLD)deletting$(RESET) $(LIGHT_CYAN)$(MLX_DIR)$(RESET)..." && sleep $(SLEEP)
